@@ -11,32 +11,23 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        navy: {
-          950: "#060A12",
-          900: "#0B1120",
-          850: "#10192D",
-          800: "#1E293B",
-          700: "#334155",
+        brand: {
+          50: "#f0f4f9",
+          100: "#e1e9f3",
+          200: "#c7d6e7",
+          300: "#a0bad7",
+          400: "#7298c3",
+          500: "#4f78af",
+          600: "#3b5f93",
+          700: "#304b77",
+          800: "#1e3a5f", // Main Brand Accent
+          900: "#1b3252",
+          950: "#111f35",
         },
-        gold: {
-          400: "#FBBF24",
-          500: "#F59E0B",
-          600: "#D97706",
-        },
-        accent: {
-          lime: "#84CC16",
-          emerald: "#10B981",
-          cyan: "#06B6D4",
-          amber: "#F59E0B",
-        }
       },
       fontFamily: {
         serif: ["var(--font-serif)", "Georgia", "serif"],
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
-      },
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "grid-pattern": "linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px)",
       },
     },
   },

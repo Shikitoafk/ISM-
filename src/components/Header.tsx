@@ -2,68 +2,80 @@
 
 import React, { useState, useEffect } from "react";
 import { Logo } from "./Logo";
-import { Menu, X, ArrowRight, ShieldCheck } from "lucide-react";
+import { Menu, X, Globe, ArrowRight } from "lucide-react";
 
 export const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [currentLang, setCurrentLang] = useState<"RU" | "EN">("RU");
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 20) {
+      if (window.scrollY > 10) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
       }
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const navItems = [
-    { label: "Об олимпиаде", href: "#about" },
+    { label: "О турнире", href: "#about" },
     { label: "Формат", href: "#format" },
-    { label: "Честность и правила", href: "#integrity" },
-    { label: "Награды", href: "#awards" },
-    { label: "Требования", href: "#eligibility" },
-    { label: "FAQ", href: "#faq" },
+    { label: "Кейс", href: "#case" },
+    { label: "Расписание", href: "#schedule" },
+    { label: "Судьи", href: "#judges" },
+    { label: "Регламент", href: "#regulations" },
   ];
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
         isScrolled
-          ? "bg-navy-950/90 backdrop-blur-md border-b border-slate-800/80 shadow-lg shadow-black/20 py-3"
-          : "bg-gradient-to-b from-navy-950/90 via-navy-950/60 to-transparent py-5"
+          ? "bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm py-3"
+          : "bg-white/80 backdrop-blur-sm border-b border-slate-100 py-4"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-        <a href="#" className="flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-amber-400 rounded-md p-1">
+        <a href="#" className="flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-brand-800 rounded-md">
           <Logo size="md" />
         </a>
 
         {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center gap-8" aria-label="Main Navigation">
+        <nav className="hidden lg:flex items-center gap-6" aria-label="Main Navigation">
           {navItems.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="text-sm font-medium text-slate-300 hover:text-amber-400 transition-colors py-1 focus:outline-none focus:ring-1 focus:ring-amber-400 rounded"
+              className="text-xs sm:text-sm font-medium text-slate-600 hover:text-brand-800 transition-colors py-1 focus:outline-none"
             >
               {item.label}
             </a>
           ))}
         </nav>
 
-        {/* Header Right CTA */}
-        <div className="hidden sm:flex items-center gap-4">
+        {/* Header Right Actions */}
+        <div className="hidden sm:flex items-center gap-3">
+          {/* RU / EN Switcher Placeholder */}
+          <button
+            type="button"
+            onClick={() => setCurrentLang(currentLang === "RU" ? "EN" : "RU")}
+            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold text-slate-700 hover:border-slate-300 transition-colors"
+            title="Переключить язык"
+          >
+            <Globe className="w-3.5 h-3.5 text-slate-500" strokeWidth={1.75} />
+            <span>{currentLang}</span>
+          </button>
+
+          {/* Registration CTA */}
           <a
             href="#registration"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-amber-500 hover:bg-amber-400 text-navy-950 font-semibold text-sm transition-all shadow-md shadow-amber-500/20 hover:shadow-amber-500/30 focus:outline-none focus:ring-2 focus:ring-amber-300"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-brand-800 hover:bg-brand-900 text-white font-medium text-xs sm:text-sm transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-800"
           >
             <span>Регистрация</span>
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-3.5 h-3.5" strokeWidth={1.75} />
           </a>
         </div>
 
@@ -71,37 +83,46 @@ export const Header: React.FC = () => {
         <button
           type="button"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="lg:hidden p-2 text-slate-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-amber-400 rounded-md"
+          className="lg:hidden p-2 text-slate-700 hover:text-brand-800 focus:outline-none rounded-md"
           aria-expanded={mobileMenuOpen}
           aria-label="Переключить меню"
         >
-          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          {mobileMenuOpen ? <X className="w-6 h-6" strokeWidth={1.75} /> : <Menu className="w-6 h-6" strokeWidth={1.75} />}
         </button>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Menu Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-navy-950/98 backdrop-blur-xl border-b border-slate-800 px-4 pt-3 pb-6 space-y-3">
+        <div className="lg:hidden bg-white border-b border-slate-200 px-4 pt-3 pb-6 space-y-3">
           <nav className="flex flex-col space-y-2">
             {navItems.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-base font-medium text-slate-200 hover:text-amber-400 py-2 border-b border-slate-800/50"
+                className="text-sm font-medium text-slate-700 hover:text-brand-800 py-2 border-b border-slate-100"
               >
                 {item.label}
               </a>
             ))}
           </nav>
-          <div className="pt-2">
+          <div className="flex items-center justify-between pt-2">
+            <button
+              type="button"
+              onClick={() => setCurrentLang(currentLang === "RU" ? "EN" : "RU")}
+              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-slate-200 text-xs font-semibold text-slate-700"
+            >
+              <Globe className="w-4 h-4 text-slate-500" strokeWidth={1.75} />
+              <span>Язык: {currentLang}</span>
+            </button>
+
             <a
               href="#registration"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-md bg-amber-500 text-navy-950 font-bold text-base shadow-lg"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-brand-800 text-white font-medium text-sm shadow-sm"
             >
-              <span>Зарегистрировать команду</span>
-              <ArrowRight className="w-5 h-5" />
+              <span>Регистрация</span>
+              <ArrowRight className="w-4 h-4" strokeWidth={1.75} />
             </a>
           </div>
         </div>
