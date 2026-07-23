@@ -27,10 +27,11 @@ export const RegistrationBlock: React.FC = () => {
   const [leaderEmail, setLeaderEmail] = useState("");
   const [leaderContact, setLeaderContact] = useState("");
 
-  // Additional members (2 or 3 members for total 3-4 team size including Captain)
+  // Team members: 3 or 4 additional members (total team size: 4 to 5 members including Captain)
   const [members, setMembers] = useState<Member[]>([
     { full_name: "", grade: "Grade 10", role_or_notes: "Member 2" },
     { full_name: "", grade: "Grade 10", role_or_notes: "Member 3" },
+    { full_name: "", grade: "Grade 10", role_or_notes: "Member 4" },
   ]);
 
   const [consent, setConsent] = useState(false);
@@ -38,13 +39,13 @@ export const RegistrationBlock: React.FC = () => {
   const [statusMessage, setStatusMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
   const addMember = () => {
-    if (members.length < 3) {
+    if (members.length < 4) {
       setMembers([...members, { full_name: "", grade: "Grade 10", role_or_notes: `Member ${members.length + 2}` }]);
     }
   };
 
   const removeMember = (index: number) => {
-    if (members.length > 2) {
+    if (members.length > 3) {
       setMembers(members.filter((_, i) => i !== index));
     }
   };
@@ -149,10 +150,10 @@ export const RegistrationBlock: React.FC = () => {
             Application Form
           </div>
           <h2 className="font-serif text-2xl sm:text-4xl font-bold text-slate-900 mb-3">
-            Register Team for ISM
+            Register Team for ISM (4–5 Members)
           </h2>
           <p className="text-slate-600 text-sm sm:text-base max-w-xl mx-auto font-normal">
-            Form to be submitted by the Team Captain. Completing Team Advisor (Teacher) details is mandatory.
+            Form to be submitted by the Team Captain. Teams must consist of 4–5 members plus 1 Team Advisor (Teacher).
           </p>
         </div>
 
@@ -220,7 +221,7 @@ export const RegistrationBlock: React.FC = () => {
                 <input
                   type="text"
                   required
-                  placeholder='e.g., "Oskemen Boys Lyceum"'
+                  placeholder='e.g., "Oskemen Bilim-Innovation Lyceum"'
                   value={school}
                   onChange={(e) => setSchool(e.target.value)}
                   className="w-full px-3.5 py-2 rounded-lg border-2 border-slate-900 text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-brand-800 focus:outline-none text-xs sm:text-sm font-semibold"
@@ -232,7 +233,7 @@ export const RegistrationBlock: React.FC = () => {
           {/* Block 2: Team Captain */}
           <div>
             <h3 className="font-serif text-lg font-bold text-slate-900 pb-2 border-b-2 border-slate-900 mb-4">
-              2. Team Captain Details
+              2. Team Captain Details (Member #1)
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -354,15 +355,15 @@ export const RegistrationBlock: React.FC = () => {
           <div>
             <div className="flex items-center justify-between pb-2 border-b-2 border-slate-900 mb-4">
               <h3 className="font-serif text-lg font-bold text-slate-900">
-                4. Team Members ({members.length + 1} of 4)
+                4. Additional Team Members ({members.length + 1} of 5 total)
               </h3>
-              {members.length < 3 && (
+              {members.length < 4 && (
                 <button
                   type="button"
                   onClick={addMember}
                   className="text-xs font-bold text-brand-800 hover:underline"
                 >
-                  + Add 4th Member
+                  + Add 5th Member
                 </button>
               )}
             </div>
@@ -394,7 +395,7 @@ export const RegistrationBlock: React.FC = () => {
                     <option value="Grade 12">Grade 12</option>
                   </select>
 
-                  {members.length > 2 && (
+                  {members.length > 3 && (
                     <button
                       type="button"
                       onClick={() => removeMember(idx)}
