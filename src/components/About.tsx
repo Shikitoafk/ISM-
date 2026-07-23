@@ -2,11 +2,11 @@
 
 import React from "react";
 import { useLanguage } from "@/context/LanguageContext";
-import { Layers, Target, BookOpen, Users, Shield, Building2 } from "lucide-react";
+import { Layers, Target, BookOpen, Users } from "lucide-react";
 
 export const About: React.FC = () => {
   const { content } = useLanguage();
-  const { aboutCards, organizers } = content;
+  const { aboutCards } = content;
 
   const getIcon = (id: string) => {
     switch (id) {
@@ -32,15 +32,15 @@ export const About: React.FC = () => {
             {content.nav.about}
           </div>
           <h2 className="font-serif text-2xl sm:text-4xl font-bold text-slate-900 mb-3">
-            {content.meta.shortName} — {content.meta.tagline}
+            {content.meta.shortName} — Core Overview
           </h2>
-          <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+          <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-normal">
             {content.hero.description}
           </p>
         </div>
 
-        {/* 4 Cards Grid with Darker Borders */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        {/* 4 Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {aboutCards.map((card) => (
             <div
               key={card.id}
@@ -62,54 +62,6 @@ export const About: React.FC = () => {
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Co-Chairs Summary & Institutional Support */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
-          
-          <div className="lg:col-span-2 p-6 sm:p-8 rounded-xl border-2 border-slate-900 bg-slate-50 flex flex-col justify-between">
-            <div>
-              <h3 className="font-serif text-xl font-bold text-slate-900 mb-2">
-                Co-Chairs of the Organizing Committee
-              </h3>
-              <p className="text-xs sm:text-sm text-slate-600 mb-6">
-                The academic leadership and operational management of the ISM Olympiad are headed by:
-              </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {organizers.coChairs.map((chair, idx) => (
-                  <div key={idx} className="p-4 rounded-lg border-2 border-slate-900 bg-white">
-                    <div className="font-serif font-bold text-slate-900 text-sm">
-                      {chair.name}
-                    </div>
-                    <div className="text-xs text-slate-600 mt-0.5 font-semibold">
-                      {chair.title}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="p-6 sm:p-8 rounded-xl border-2 border-slate-900 bg-slate-50 flex flex-col justify-between">
-            <div>
-              <div className="flex items-center gap-2 text-brand-800 font-bold text-xs uppercase tracking-wider mb-2">
-                <Building2 className="w-4 h-4" strokeWidth={2} />
-                <span>Institutional Support</span>
-              </div>
-              <h3 className="font-serif text-lg font-bold text-slate-900 mb-2">
-                {organizers.institutionalSupport.name}
-              </h3>
-              <p className="text-xs text-slate-600 mb-4 font-normal">
-                {organizers.institutionalSupport.role}
-              </p>
-            </div>
-            
-            <div className="p-3 rounded-lg border border-slate-300 bg-white text-[11px] text-slate-600 leading-relaxed font-normal">
-              <Shield className="w-3.5 h-3.5 text-slate-500 inline mr-1" strokeWidth={2} />
-              {organizers.institutionalSupport.disclaimer}
-            </div>
-          </div>
-
         </div>
 
       </div>

@@ -2,11 +2,27 @@
 
 import React from "react";
 import { useLanguage } from "@/context/LanguageContext";
-import { ShieldAlert, CheckCircle, Presentation, Users, ArrowUpRight } from "lucide-react";
+import { ShieldAlert, CheckCircle, Presentation, Users, ArrowUpRight, Award, ShieldCheck, Scale, FileSpreadsheet, HelpCircle } from "lucide-react";
 
 export const Format: React.FC = () => {
   const { content } = useLanguage();
-  const { formatDetails } = content;
+  const { formatDetails, evaluationCriteria } = content;
+
+  const getCriterionIcon = (id: string) => {
+    switch (id) {
+      case "ethics":
+        return <ShieldCheck className="w-5 h-5 text-brand-800" strokeWidth={2} />;
+      case "presentation":
+        return <Presentation className="w-5 h-5 text-brand-800" strokeWidth={2} />;
+      case "speaker":
+        return <Users className="w-5 h-5 text-brand-800" strokeWidth={2} />;
+      case "experiment":
+        return <FileSpreadsheet className="w-5 h-5 text-brand-800" strokeWidth={2} />;
+      case "questions":
+      default:
+        return <HelpCircle className="w-5 h-5 text-brand-800" strokeWidth={2} />;
+    }
+  };
 
   return (
     <section id="format" className="py-16 md:py-24 bg-slate-50 border-b-2 border-slate-900">
@@ -20,13 +36,13 @@ export const Format: React.FC = () => {
           <h2 className="font-serif text-2xl sm:text-4xl font-bold text-slate-900 mb-3">
             {formatDetails.title}
           </h2>
-          <p className="text-slate-600 text-sm sm:text-base">
+          <p className="text-slate-600 text-sm sm:text-base font-normal">
             {formatDetails.subtitle}
           </p>
         </div>
 
-        {/* Stage Cards Grid with Darker Borders */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+        {/* Stage Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
           {formatDetails.stages.map((stage) => (
             <div
               key={stage.id}
@@ -66,9 +82,45 @@ export const Format: React.FC = () => {
           ))}
         </div>
 
+        {/* General Evaluation Criteria Section (NO Point Rubrics) */}
+        <div className="mb-16">
+          <div className="max-w-3xl mx-auto text-center mb-10">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-50 border border-brand-800 text-brand-800 text-xs font-bold uppercase mb-2">
+              <Scale className="w-3.5 h-3.5" strokeWidth={2} />
+              <span>Assessment Principles</span>
+            </div>
+            <h3 className="font-serif text-2xl font-bold text-slate-900 mb-2">
+              {evaluationCriteria.title}
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-600 font-normal">
+              {evaluationCriteria.subtitle}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {evaluationCriteria.items.map((item) => (
+              <div
+                key={item.id}
+                className="p-6 rounded-xl border-2 border-slate-900 bg-white shadow-sm flex flex-col justify-between"
+              >
+                <div>
+                  <div className="w-10 h-10 rounded-lg bg-slate-100 border border-slate-300 flex items-center justify-center mb-4">
+                    {getCriterionIcon(item.id)}
+                  </div>
+                  <h4 className="font-serif text-base font-bold text-slate-900 mb-2">
+                    {item.title}
+                  </h4>
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+                    {item.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* Role Rules & Presentation Requirements */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-          
           {/* Role Rules Card */}
           <div className="p-6 sm:p-8 rounded-xl border-2 border-slate-900 bg-white shadow-sm">
             <div className="flex items-center gap-2 mb-4">
@@ -92,7 +144,7 @@ export const Format: React.FC = () => {
             <div className="flex items-center gap-2 mb-4">
               <Presentation className="w-5 h-5 text-brand-800" strokeWidth={2} />
               <h3 className="font-serif text-lg font-bold text-slate-900">
-                Presentation & Report Guidelines
+                Presentation & Defense Guidelines
               </h3>
             </div>
             <ul className="space-y-2.5">
@@ -104,7 +156,6 @@ export const Format: React.FC = () => {
               ))}
             </ul>
           </div>
-
         </div>
 
         {/* Dedicated Card: Academic Integrity & GenAI (Article 8) */}

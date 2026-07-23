@@ -3,7 +3,7 @@
 import React from "react";
 import { Logo } from "./Logo";
 import { useLanguage } from "@/context/LanguageContext";
-import { Mail, MapPin, Shield, FileText } from "lucide-react";
+import { Mail, MapPin, FileText } from "lucide-react";
 
 export const Footer: React.FC = () => {
   const { content } = useLanguage();
@@ -22,7 +22,7 @@ export const Footer: React.FC = () => {
               {meta.fullName}
             </p>
             <div className="text-xs text-slate-500 font-normal">
-              Team Interdisciplinary Olympiad in Laboratory Research for High School Students ({meta.targetGrades}).
+              International Interdisciplinary Olympiad in Laboratory Research for High School Students ({meta.targetGrades}).
             </div>
           </div>
 
@@ -38,7 +38,7 @@ export const Footer: React.FC = () => {
                   className="hover:text-brand-800 inline-flex items-center gap-1.5 transition-colors"
                 >
                   <FileText className="w-3.5 h-3.5 text-slate-600" strokeWidth={2} />
-                  <span>ISM Regulations (EN)</span>
+                  <span>IISM Regulations (EN)</span>
                 </a>
               </li>
               <li>
@@ -49,7 +49,7 @@ export const Footer: React.FC = () => {
                   className="hover:text-brand-800 inline-flex items-center gap-1.5 transition-colors"
                 >
                   <FileText className="w-3.5 h-3.5 text-slate-600" strokeWidth={2} />
-                  <span>ISM Regulations (RU)</span>
+                  <span>IISM Regulations (RU)</span>
                 </a>
               </li>
               <li>
@@ -60,13 +60,13 @@ export const Footer: React.FC = () => {
                   className="hover:text-brand-800 inline-flex items-center gap-1.5 transition-colors"
                 >
                   <FileText className="w-3.5 h-3.5 text-slate-600" strokeWidth={2} />
-                  <span>ISM Regulations (KZ)</span>
+                  <span>IISM Regulations (KZ)</span>
                 </a>
               </li>
             </ul>
           </div>
 
-          {/* Col 3: Contacts & Leadership */}
+          {/* Col 3: Contacts */}
           <div className="space-y-2.5">
             <h4 className="font-serif font-bold text-slate-900 text-sm">Contact Info</h4>
             <div className="text-xs space-y-1.5 text-slate-800 font-semibold">
@@ -79,30 +79,14 @@ export const Footer: React.FC = () => {
                 <span>{meta.location}</span>
               </div>
             </div>
-
-            <div className="pt-2 text-[11px] text-slate-600">
-              <span className="font-bold text-slate-900">Co-Chairs:</span>
-              <div className="mt-0.5 space-y-0.5 font-semibold">
-                {organizers.coChairs.map((c, i) => (
-                  <div key={i}>• {c.name}</div>
-                ))}
-              </div>
-            </div>
           </div>
 
         </div>
 
-        {/* Legal Disclaimer Line & Copyright */}
-        <div className="pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-600 font-semibold">
-          <div className="flex items-center gap-2 text-slate-600 max-w-2xl text-[11px]">
-            <Shield className="w-3.5 h-3.5 text-slate-500 shrink-0" strokeWidth={2} />
-            <span>
-              Institutional Support: {organizers.institutionalSupport.name}. {organizers.institutionalSupport.disclaimer}
-            </span>
-          </div>
-
+        {/* Copyright */}
+        <div className="pt-6 flex items-center justify-between gap-4 text-xs text-slate-600 font-semibold">
           <div className="text-[11px] text-slate-600 shrink-0">
-            © {new Date().getFullYear()} {meta.shortName}. All rights reserved.
+            © {new Date().getFullYear()} {meta.fullName}. All rights reserved.
           </div>
         </div>
 

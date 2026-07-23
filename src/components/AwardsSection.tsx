@@ -20,17 +20,17 @@ export const AwardsSection: React.FC = () => {
           <h2 className="font-serif text-2xl sm:text-4xl font-bold text-slate-900 mb-3">
             Tournament Tiers & Official Medals
           </h2>
-          <p className="text-slate-600 text-sm sm:text-base">
-            Official recognition structure for the top-performing teams of the ISM Olympiad.
+          <p className="text-slate-600 text-sm sm:text-base font-normal">
+            Official recognition structure for the top-performing teams of the IISM Olympiad.
           </p>
         </div>
 
-        {/* Real HTML Table for Awards Tiers with Dark Border */}
+        {/* Real HTML Table for Awards Tiers */}
         <div className="max-w-4xl mx-auto bg-white rounded-xl border-2 border-slate-900 shadow-sm overflow-hidden mb-8">
           <div className="p-4 bg-slate-100 border-b-2 border-slate-900 flex items-center gap-2">
             <Trophy className="w-4 h-4 text-brand-800" strokeWidth={2} />
             <span className="font-serif font-bold text-slate-900 text-sm">
-              Official ISM Season Awards Structure
+              Official IISM Season Awards Structure
             </span>
           </div>
 

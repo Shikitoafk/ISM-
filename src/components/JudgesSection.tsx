@@ -20,16 +20,16 @@ export const JudgesSection: React.FC = () => {
           <h2 className="font-serif text-2xl sm:text-4xl font-bold text-slate-900 mb-3">
             {content.nav.judges}
           </h2>
-          <p className="text-slate-600 text-sm sm:text-base">
-            The founding members, executive committee, and scientific jury governing the ISM Olympiad.
+          <p className="text-slate-600 text-sm sm:text-base font-normal">
+            The executive committee and scientific jury governing the IISM Olympiad.
           </p>
         </div>
 
-        {/* 9 Organizing Committee Members */}
+        {/* Executive Organizing Committee Members */}
         <div className="mb-14">
           <h3 className="font-serif text-xl font-bold text-slate-900 mb-6 text-center sm:text-left flex items-center justify-center sm:justify-start gap-2">
             <UserCheck className="w-5 h-5 text-brand-800" strokeWidth={2} />
-            <span>ISM Organizing Committee</span>
+            <span>IISM Executive Board & Organizing Committee</span>
           </h3>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -45,7 +45,7 @@ export const JudgesSection: React.FC = () => {
                     </div>
                     {member.badge && (
                       <span className={`px-2.5 py-0.5 rounded text-[11px] font-bold ${
-                        member.badge === "Co-Chair" || member.badge === "Сопредседатель" || member.badge === "Тең төраға"
+                        member.badge.includes("Chair") || member.badge.includes("председатель") || member.badge.includes("төраға")
                           ? "bg-brand-800 text-white"
                           : "bg-slate-100 border border-slate-300 text-slate-800"
                       }`}>

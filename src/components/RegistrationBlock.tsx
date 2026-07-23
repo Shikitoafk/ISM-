@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { supabase } from "../lib/supabase";
 import { useLanguage } from "@/context/LanguageContext";
-import { Trash2, Send, CheckCircle, AlertCircle, UserCheck } from "lucide-react";
+import { Trash2, Send, CheckCircle, AlertCircle, UserCheck, ShieldAlert, Plus } from "lucide-react";
 
 interface Member {
   full_name: string;
@@ -20,38 +20,34 @@ export const RegistrationBlock: React.FC = () => {
   const [city, setCity] = useState("");
   const [grade, setGrade] = useState("Grade 10");
 
-  // Captain info
+  // Captain info (Member #1 - Required)
   const [captainName, setCaptainName] = useState("");
   const [captainEmail, setCaptainEmail] = useState("");
   const [captainContact, setCaptainContact] = useState("");
 
-  // SEPARATE MANDATORY BLOCK: Team Leader / Advisor info
+  // MANDATORY Team Supervisor / Leader info
   const [leaderName, setLeaderName] = useState("");
   const [leaderEmail, setLeaderEmail] = useState("");
   const [leaderContact, setLeaderContact] = useState("");
 
-  // Team members: 3 or 4 additional members (total team size: 4 to 5 members including Captain)
+  // Required Members 2, 3, 4 (Total 4 core members) + Optional Member 5
   const [members, setMembers] = useState<Member[]>([
-    { full_name: "", grade: "Grade 10", role_or_notes: "Member 2" },
-    { full_name: "", grade: "Grade 10", role_or_notes: "Member 3" },
-    { full_name: "", grade: "Grade 10", role_or_notes: "Member 4" },
+    { full_name: "", grade: "Grade 10", role_or_notes: "Required Member #2" },
+    { full_name: "", grade: "Grade 10", role_or_notes: "Required Member #3" },
+    { full_name: "", grade: "Grade 10", role_or_notes: "Required Member #4" },
   ]);
 
+  const [hasFifthMember, setHasFifthMember] = useState(false);
+  const [fifthMember, setFifthMember] = useState<Member>({
+    full_name: "",
+    grade: "Grade 10",
+    role_or_notes: "Optional Member #5",
+  });
+
   const [consent, setConsent] = useState(false);
+  const [labSafetyConsent, setLabSafetyConsent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [statusMessage, setStatusMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
-
-  const addMember = () => {
-    if (members.length < 4) {
-      setMembers([...members, { full_name: "", grade: "Grade 10", role_or_notes: `Member ${members.length + 2}` }]);
-    }
-  };
-
-  const removeMember = (index: number) => {
-    if (members.length > 3) {
-      setMembers(members.filter((_, i) => i !== index));
-    }
-  };
 
   const updateMember = (index: number, field: keyof Member, value: string) => {
     const updated = [...members];
@@ -71,10 +67,18 @@ export const RegistrationBlock: React.FC = () => {
       return;
     }
 
+    if (!labSafetyConsent) {
+      setStatusMessage({
+        type: "error",
+        text: "Please confirm compliance with Laboratory Safety Regulations (mandatory PPE & personal liability).",
+      });
+      return;
+    }
+
     if (!leaderName.trim() || !leaderEmail.trim() || !leaderContact.trim()) {
       setStatusMessage({
         type: "error",
-        text: "Please complete all fields for the Team Advisor / Teacher.",
+        text: "Please complete all fields for the Team Supervisor / Teacher.",
       });
       return;
     }
@@ -83,10 +87,23 @@ export const RegistrationBlock: React.FC = () => {
       if (!members[i].full_name.trim()) {
         setStatusMessage({
           type: "error",
-          text: `Please enter the Full Name for Team Member ${i + 2}.`,
+          text: `Please enter the Full Name for Required Team Member #${i + 2}.`,
         });
         return;
       }
+    }
+
+    if (hasFifthMember && !fifthMember.full_name.trim()) {
+      setStatusMessage({
+        type: "error",
+        text: "Please enter the Full Name for Optional Team Member #5 or remove the 5th member.",
+      });
+      return;
+    }
+
+    const allMembersPayload = [...members];
+    if (hasFifthMember) {
+      allMembersPayload.push(fifthMember);
     }
 
     setLoading(true);
@@ -104,8 +121,9 @@ export const RegistrationBlock: React.FC = () => {
           school,
           city,
           grade,
-          members,
+          members: allMembersPayload,
           consent_confirmed: consent,
+          lab_safety_confirmed: labSafetyConsent,
         },
       ]);
 
@@ -118,7 +136,7 @@ export const RegistrationBlock: React.FC = () => {
       } else {
         setStatusMessage({
           type: "success",
-          text: "Team registration successfully submitted! Confirmation instructions sent to Captain and Advisor emails.",
+          text: "Team registration successfully submitted! Confirmation instructions sent to Captain and Supervisor emails.",
         });
         // Reset form
         setTeamName("");
@@ -130,7 +148,15 @@ export const RegistrationBlock: React.FC = () => {
         setLeaderContact("");
         setSchool("");
         setCity("");
+        setMembers([
+          { full_name: "", grade: "Grade 10", role_or_notes: "Required Member #2" },
+          { full_name: "", grade: "Grade 10", role_or_notes: "Required Member #3" },
+          { full_name: "", grade: "Grade 10", role_or_notes: "Required Member #4" },
+        ]);
+        setHasFifthMember(false);
+        setFifthMember({ full_name: "", grade: "Grade 10", role_or_notes: "Optional Member #5" });
         setConsent(false);
+        setLabSafetyConsent(false);
       }
     } catch (err: any) {
       console.error(err);
@@ -153,21 +179,21 @@ export const RegistrationBlock: React.FC = () => {
             Application Form
           </div>
           <h2 className="font-serif text-2xl sm:text-4xl font-bold text-slate-900 mb-3">
-            Register Team for {content.meta.shortName} (4–5 Members)
+            Register Team for {content.meta.shortName}
           </h2>
           <p className="text-slate-600 text-sm sm:text-base max-w-xl mx-auto font-normal">
-            Form to be submitted by the Team Captain. Teams must consist of 4–5 members plus 1 Team Advisor (Teacher).
+            Form to be submitted by the Team Captain. Required team structure: <strong>4 Core Members</strong> (Captain + 3 Members) + <strong>1 Optional 5th Member</strong> + <strong>1 Team Supervisor</strong>.
           </p>
         </div>
 
         <form
           onSubmit={handleSubmit}
-          className="p-6 sm:p-10 rounded-xl border-2 border-slate-900 bg-white shadow-sm space-y-8"
+          className="p-6 sm:p-10 rounded-2xl border-2 border-slate-900 bg-white shadow-md space-y-8"
         >
           {/* Status Alert */}
           {statusMessage && (
             <div
-              className={`p-4 rounded-lg border-2 text-xs sm:text-sm font-semibold flex items-start gap-3 ${
+              className={`p-4 rounded-xl border-2 text-xs sm:text-sm font-semibold flex items-start gap-3 ${
                 statusMessage.type === "success"
                   ? "bg-emerald-50 border-emerald-700 text-emerald-900"
                   : "bg-red-50 border-red-700 text-red-900"
@@ -182,10 +208,10 @@ export const RegistrationBlock: React.FC = () => {
             </div>
           )}
 
-          {/* Block 1: Team & School Info */}
-          <div>
-            <h3 className="font-serif text-lg font-bold text-slate-900 pb-2 border-b-2 border-slate-900 mb-4">
-              1. Team & Institution Information
+          {/* Block 1: Team & Institution Info */}
+          <div className="space-y-4">
+            <h3 className="font-serif text-lg font-bold text-slate-900 pb-2 border-b-2 border-slate-900 flex items-center justify-between">
+              <span>1. Team & Institution Information</span>
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -199,7 +225,7 @@ export const RegistrationBlock: React.FC = () => {
                   placeholder='e.g., "Quantum Catalyst"'
                   value={teamName}
                   onChange={(e) => setTeamName(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-lg border-2 border-slate-900 text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-brand-800 focus:outline-none text-xs sm:text-sm font-semibold"
+                  className="w-full px-4 py-2.5 rounded-xl border-2 border-slate-900 text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-brand-800 focus:outline-none text-xs sm:text-sm font-semibold bg-slate-50/50"
                 />
               </div>
 
@@ -210,10 +236,10 @@ export const RegistrationBlock: React.FC = () => {
                 <input
                   type="text"
                   required
-                  placeholder='e.g., "Ust-Kamenogorsk"'
+                  placeholder='e.g., "Almaty"'
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-lg border-2 border-slate-900 text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-brand-800 focus:outline-none text-xs sm:text-sm font-semibold"
+                  className="w-full px-4 py-2.5 rounded-xl border-2 border-slate-900 text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-brand-800 focus:outline-none text-xs sm:text-sm font-semibold bg-slate-50/50"
                 />
               </div>
 
@@ -224,19 +250,20 @@ export const RegistrationBlock: React.FC = () => {
                 <input
                   type="text"
                   required
-                  placeholder='e.g., "Oskemen Bilim-Innovation Lyceum"'
+                  placeholder='e.g., "Specialized Lyceum No. 165"'
                   value={school}
                   onChange={(e) => setSchool(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-lg border-2 border-slate-900 text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-brand-800 focus:outline-none text-xs sm:text-sm font-semibold"
+                  className="w-full px-4 py-2.5 rounded-xl border-2 border-slate-900 text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-brand-800 focus:outline-none text-xs sm:text-sm font-semibold bg-slate-50/50"
                 />
               </div>
             </div>
           </div>
 
-          {/* Block 2: Team Captain */}
-          <div>
-            <h3 className="font-serif text-lg font-bold text-slate-900 pb-2 border-b-2 border-slate-900 mb-4">
-              2. Team Captain Details (Member #1)
+          {/* Block 2: Team Captain (Member #1 Required) */}
+          <div className="space-y-4">
+            <h3 className="font-serif text-lg font-bold text-slate-900 pb-2 border-b-2 border-slate-900 flex items-center justify-between">
+              <span>2. Team Captain (Member #1 - Required)</span>
+              <span className="text-xs font-bold text-brand-800 bg-brand-50 px-2.5 py-0.5 rounded-md border border-brand-200 uppercase">Captain</span>
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -250,7 +277,7 @@ export const RegistrationBlock: React.FC = () => {
                   placeholder="First & Last Name"
                   value={captainName}
                   onChange={(e) => setCaptainName(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-lg border-2 border-slate-900 text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-brand-800 focus:outline-none text-xs sm:text-sm font-semibold"
+                  className="w-full px-4 py-2.5 rounded-xl border-2 border-slate-900 text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-brand-800 focus:outline-none text-xs sm:text-sm font-semibold bg-slate-50/50"
                 />
               </div>
 
@@ -264,13 +291,13 @@ export const RegistrationBlock: React.FC = () => {
                   placeholder="captain@example.com"
                   value={captainEmail}
                   onChange={(e) => setCaptainEmail(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-lg border-2 border-slate-900 text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-brand-800 focus:outline-none text-xs sm:text-sm font-semibold"
+                  className="w-full px-4 py-2.5 rounded-xl border-2 border-slate-900 text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-brand-800 focus:outline-none text-xs sm:text-sm font-semibold bg-slate-50/50"
                 />
               </div>
 
               <div>
                 <label className="block text-xs font-bold text-slate-900 uppercase mb-1">
-                  Captain Phone / Telegram *
+                  Captain Phone / Contact *
                 </label>
                 <input
                   type="text"
@@ -278,7 +305,7 @@ export const RegistrationBlock: React.FC = () => {
                   placeholder="+7 (707) 000-00-00"
                   value={captainContact}
                   onChange={(e) => setCaptainContact(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-lg border-2 border-slate-900 text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-brand-800 focus:outline-none text-xs sm:text-sm font-semibold"
+                  className="w-full px-4 py-2.5 rounded-xl border-2 border-slate-900 text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-brand-800 focus:outline-none text-xs sm:text-sm font-semibold bg-slate-50/50"
                 />
               </div>
 
@@ -289,7 +316,7 @@ export const RegistrationBlock: React.FC = () => {
                 <select
                   value={grade}
                   onChange={(e) => setGrade(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-lg border-2 border-slate-900 text-slate-900 focus:ring-2 focus:ring-brand-800 focus:outline-none text-xs sm:text-sm font-semibold"
+                  className="w-full px-4 py-2.5 rounded-xl border-2 border-slate-900 text-slate-900 focus:ring-2 focus:ring-brand-800 focus:outline-none text-xs sm:text-sm font-semibold bg-slate-50/50"
                 >
                   <option value="Grade 9">Grade 9</option>
                   <option value="Grade 10">Grade 10</option>
@@ -300,19 +327,19 @@ export const RegistrationBlock: React.FC = () => {
             </div>
           </div>
 
-          {/* Block 3: MANDATORY Team Advisor */}
-          <div className="p-5 rounded-xl border-2 border-slate-900 bg-slate-50">
-            <div className="flex items-center gap-2 mb-4 pb-2 border-b-2 border-slate-900">
+          {/* Block 3: Team Supervisor / Leader (Required) */}
+          <div className="p-5 rounded-xl border-2 border-slate-900 bg-slate-50/80 shadow-xs space-y-4">
+            <div className="flex items-center gap-2 pb-2 border-b-2 border-slate-900">
               <UserCheck className="w-5 h-5 text-brand-800" strokeWidth={2} />
               <h3 className="font-serif text-lg font-bold text-slate-900">
-                3. Team Advisor / Teacher (Mandatory)
+                3. Team Supervisor / Advisor (Mandatory Role)
               </h3>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
                 <label className="block text-xs font-bold text-slate-900 uppercase mb-1">
-                  Advisor Full Name *
+                  Supervisor Full Name *
                 </label>
                 <input
                   type="text"
@@ -326,7 +353,7 @@ export const RegistrationBlock: React.FC = () => {
 
               <div>
                 <label className="block text-xs font-bold text-slate-900 uppercase mb-1">
-                  Advisor Email *
+                  Supervisor Email *
                 </label>
                 <input
                   type="email"
@@ -340,7 +367,7 @@ export const RegistrationBlock: React.FC = () => {
 
               <div>
                 <label className="block text-xs font-bold text-slate-900 uppercase mb-1">
-                  Advisor Phone / Contact *
+                  Supervisor Phone / Contact *
                 </label>
                 <input
                   type="text"
@@ -354,29 +381,33 @@ export const RegistrationBlock: React.FC = () => {
             </div>
           </div>
 
-          {/* Block 4: Other Members */}
-          <div>
-            <div className="flex items-center justify-between pb-2 border-b-2 border-slate-900 mb-4">
+          {/* Block 4: Required Core Members (Members #2, #3, #4) & Optional Member #5 */}
+          <div className="space-y-4">
+            <div className="flex items-center justify-between pb-2 border-b-2 border-slate-900">
               <h3 className="font-serif text-lg font-bold text-slate-900">
-                4. Additional Team Members ({members.length + 1} of 5 total)
+                4. Core Team Members (3 Required Members)
               </h3>
-              {members.length < 4 && (
+              {!hasFifthMember && (
                 <button
                   type="button"
-                  onClick={addMember}
-                  className="text-xs font-bold text-brand-800 hover:underline"
+                  onClick={() => setHasFifthMember(true)}
+                  className="inline-flex items-center gap-1 text-xs font-bold text-brand-800 bg-brand-50 hover:bg-brand-100 px-3 py-1 rounded-lg border border-brand-300 transition-colors"
                 >
-                  + Add 5th Member
+                  <Plus className="w-3.5 h-3.5" strokeWidth={2} />
+                  <span>Add Optional 5th Member</span>
                 </button>
               )}
             </div>
 
+            {/* Required Members #2, #3, #4 */}
             <div className="space-y-3">
               {members.map((m, idx) => (
-                <div key={idx} className="p-3.5 rounded-lg border-2 border-slate-900 bg-slate-50 flex flex-col sm:flex-row items-center gap-3">
-                  <span className="text-xs font-bold text-slate-700 shrink-0 w-24">
-                    Member #{idx + 2}
-                  </span>
+                <div key={idx} className="p-4 rounded-xl border-2 border-slate-900 bg-white shadow-xs flex flex-col sm:flex-row items-center gap-3">
+                  <div className="flex items-center justify-between w-full sm:w-auto gap-2">
+                    <span className="text-xs font-bold text-slate-900 shrink-0 sm:w-28">
+                      Member #{idx + 2} <span className="text-brand-800 font-extrabold">(Required)</span>
+                    </span>
+                  </div>
 
                   <input
                     type="text"
@@ -384,13 +415,43 @@ export const RegistrationBlock: React.FC = () => {
                     placeholder="Full Name"
                     value={m.full_name}
                     onChange={(e) => updateMember(idx, "full_name", e.target.value)}
-                    className="flex-grow w-full px-3 py-1.5 rounded border-2 border-slate-900 text-xs sm:text-sm bg-white font-semibold focus:ring-1 focus:ring-brand-800"
+                    className="flex-grow w-full px-3.5 py-2 rounded-lg border-2 border-slate-900 text-xs sm:text-sm bg-slate-50/50 font-semibold focus:ring-1 focus:ring-brand-800"
                   />
 
                   <select
                     value={m.grade}
                     onChange={(e) => updateMember(idx, "grade", e.target.value)}
-                    className="w-full sm:w-36 px-2.5 py-1.5 rounded border-2 border-slate-900 text-xs sm:text-sm bg-white font-semibold focus:ring-1 focus:ring-brand-800"
+                    className="w-full sm:w-36 px-3 py-2 rounded-lg border-2 border-slate-900 text-xs sm:text-sm bg-slate-50/50 font-semibold focus:ring-1 focus:ring-brand-800"
+                  >
+                    <option value="Grade 9">Grade 9</option>
+                    <option value="Grade 10">Grade 10</option>
+                    <option value="Grade 11">Grade 11</option>
+                    <option value="Grade 12">Grade 12</option>
+                  </select>
+                </div>
+              ))}
+
+              {/* Optional Member #5 */}
+              {hasFifthMember && (
+                <div className="p-4 rounded-xl border-2 border-brand-800 bg-brand-50/40 shadow-xs flex flex-col sm:flex-row items-center gap-3">
+                  <div className="flex items-center justify-between w-full sm:w-auto gap-2">
+                    <span className="text-xs font-bold text-brand-900 shrink-0 sm:w-28">
+                      Member #5 <span className="text-slate-600 font-normal">(Optional)</span>
+                    </span>
+                  </div>
+
+                  <input
+                    type="text"
+                    placeholder="Full Name (Optional 5th Member)"
+                    value={fifthMember.full_name}
+                    onChange={(e) => setFifthMember({ ...fifthMember, full_name: e.target.value })}
+                    className="flex-grow w-full px-3.5 py-2 rounded-lg border-2 border-slate-900 text-xs sm:text-sm bg-white font-semibold focus:ring-1 focus:ring-brand-800"
+                  />
+
+                  <select
+                    value={fifthMember.grade}
+                    onChange={(e) => setFifthMember({ ...fifthMember, grade: e.target.value })}
+                    className="w-full sm:w-36 px-3 py-2 rounded-lg border-2 border-slate-900 text-xs sm:text-sm bg-white font-semibold focus:ring-1 focus:ring-brand-800"
                   >
                     <option value="Grade 9">Grade 9</option>
                     <option value="Grade 10">Grade 10</option>
@@ -398,44 +459,61 @@ export const RegistrationBlock: React.FC = () => {
                     <option value="Grade 12">Grade 12</option>
                   </select>
 
-                  {members.length > 3 && (
-                    <button
-                      type="button"
-                      onClick={() => removeMember(idx)}
-                      className="text-slate-500 hover:text-red-600 p-1"
-                      title="Remove member"
-                    >
-                      <Trash2 className="w-4 h-4" strokeWidth={2} />
-                    </button>
-                  )}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setHasFifthMember(false);
+                      setFifthMember({ full_name: "", grade: "Grade 10", role_or_notes: "Optional Member #5" });
+                    }}
+                    className="text-slate-500 hover:text-red-600 p-1.5 shrink-0"
+                    title="Remove optional 5th member"
+                  >
+                    <Trash2 className="w-4 h-4" strokeWidth={2} />
+                  </button>
                 </div>
-              ))}
+              )}
             </div>
           </div>
 
-          {/* Block 5: Consent Checkbox */}
-          <div className="p-4 rounded-lg border-2 border-slate-900 bg-slate-50">
-            <label className="flex items-start gap-3 cursor-pointer select-none">
-              <input
-                type="checkbox"
-                checked={consent}
-                onChange={(e) => setConsent(e.target.checked)}
-                className="mt-0.5 w-4 h-4 text-brand-800 rounded border-slate-900 focus:ring-brand-800"
-              />
-              <span className="text-xs text-slate-700 font-semibold leading-relaxed">
-                I confirm agreement to personal data processing and guarantee compliance with the ISM Regulations, including Article 8 Academic Integrity Rules (strict prohibition of generative AI).
-              </span>
-            </label>
+          {/* Block 5: Consents & Lab Safety Checkboxes */}
+          <div className="space-y-3">
+            <div className="p-4 rounded-xl border-2 border-slate-900 bg-slate-50">
+              <label className="flex items-start gap-3 cursor-pointer select-none">
+                <input
+                  type="checkbox"
+                  checked={consent}
+                  onChange={(e) => setConsent(e.target.checked)}
+                  className="mt-0.5 w-4 h-4 text-brand-800 rounded border-slate-900 focus:ring-brand-800 shrink-0"
+                />
+                <span className="text-xs text-slate-700 font-semibold leading-relaxed">
+                  I confirm agreement to personal data processing and guarantee compliance with IISM Regulations, including Article 8 Academic Integrity Rules (strict prohibition of generative AI).
+                </span>
+              </label>
+            </div>
+
+            <div className="p-4 rounded-xl border-2 border-slate-900 bg-amber-50/60">
+              <label className="flex items-start gap-3 cursor-pointer select-none">
+                <input
+                  type="checkbox"
+                  checked={labSafetyConsent}
+                  onChange={(e) => setLabSafetyConsent(e.target.checked)}
+                  className="mt-0.5 w-4 h-4 text-brand-800 rounded border-slate-900 focus:ring-brand-800 shrink-0"
+                />
+                <span className="text-xs text-slate-800 font-semibold leading-relaxed">
+                  I confirm that all team members will strictly comply with Laboratory Safety Regulations (mandatory PPE, lab coats, safety goggles) and acknowledge personal responsibility for laboratory conduct.
+                </span>
+              </label>
+            </div>
           </div>
 
           {/* Submit Button */}
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-4 rounded-xl bg-brand-800 hover:bg-brand-900 disabled:bg-slate-400 text-white font-bold text-sm transition-all shadow-sm flex items-center justify-center gap-2"
+            className="w-full py-4 rounded-xl bg-brand-800 hover:bg-brand-900 disabled:bg-slate-400 text-white font-bold text-sm transition-all shadow-md flex items-center justify-center gap-2"
           >
             {loading ? (
-              <span>Submitting Application...</span>
+              <span>Submitting Registration...</span>
             ) : (
               <>
                 <Send className="w-4 h-4" strokeWidth={2} />

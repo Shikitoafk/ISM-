@@ -20,12 +20,12 @@ export const CaseSection: React.FC = () => {
           <h2 className="font-serif text-2xl sm:text-4xl font-bold text-slate-900 mb-3">
             {currentCase.title}
           </h2>
-          <p className="text-slate-600 text-sm sm:text-base">
+          <p className="text-slate-600 text-sm sm:text-base font-normal">
             Stage I tasks are published ~10 days prior to the submission deadline. Below is an overview of the case format.
           </p>
         </div>
 
-        {/* Research Case Card with Dark Border */}
+        {/* Research Case Card */}
         <div className="max-w-4xl mx-auto p-6 sm:p-10 rounded-xl border-2 border-slate-900 bg-slate-50 shadow-sm mb-12">
           <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-300 mb-6">
             <div className="flex items-center gap-3">
@@ -68,7 +68,7 @@ export const CaseSection: React.FC = () => {
         {/* Download Regulations in 3 Languages */}
         <div className="max-w-4xl mx-auto p-6 rounded-xl border-2 border-slate-900 bg-white shadow-sm text-center">
           <h4 className="font-serif font-bold text-slate-900 text-base mb-1">
-            Download ISM Regulations & Guidelines (3 Languages)
+            Download IISM Regulations & Guidelines (3 Languages)
           </h4>
           <p className="text-xs text-slate-500 mb-6 font-normal">
             Official tournament documents are available in PDF format

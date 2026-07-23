@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useLanguage } from "@/context/LanguageContext";
-import { Clock, MapPin } from "lucide-react";
+import { Clock, MapPin, Calendar } from "lucide-react";
 
 export const ScheduleSection: React.FC = () => {
   const { content } = useLanguage();
@@ -17,37 +17,38 @@ export const ScheduleSection: React.FC = () => {
         
         {/* Section Header */}
         <div className="max-w-3xl mx-auto text-center mb-12">
-          <div className="text-xs font-bold text-brand-800 uppercase tracking-widest mb-2">
-            {content.nav.schedule}
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-200 border border-slate-400 text-slate-800 text-xs font-bold uppercase mb-2">
+            <Calendar className="w-3.5 h-3.5 text-brand-800" strokeWidth={2} />
+            <span>October 25 – November 1</span>
           </div>
           <h2 className="font-serif text-2xl sm:text-4xl font-bold text-slate-900 mb-3">
-            Stage II Schedule ({content.organizers.finalVenue.name})
+            Tournament Schedule ({content.organizers.finalVenue.name})
           </h2>
-          <p className="text-slate-600 text-sm sm:text-base">
-            Provisional program for the on-site final round in Almaty. Schedule subject to minor adjustments by the committee.
+          <p className="text-slate-600 text-sm sm:text-base font-normal">
+            8-day official program for the on-site final round in Almaty.
           </p>
         </div>
 
-        {/* Day Selector Tabs */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-8">
+        {/* Day Selector Tabs with spacing */}
+        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-8">
           {scheduleDays.map((day, idx) => (
             <button
               key={idx}
               type="button"
               onClick={() => setActiveDayIdx(idx)}
-              className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${
+              className={`px-3.5 py-2 rounded-lg text-xs font-bold transition-all ${
                 safeActiveIdx === idx
-                  ? "bg-brand-800 text-white shadow-sm"
+                  ? "bg-brand-800 text-white shadow-sm font-black"
                   : "bg-white border-2 border-slate-900 text-slate-900 hover:bg-slate-100"
               }`}
             >
               <span>{day.dayNumber}</span>
-              <span className="ml-1.5 opacity-80 font-semibold">({day.date})</span>
+              <span className="ml-1 opacity-90 font-semibold">({day.date})</span>
             </button>
           ))}
         </div>
 
-        {/* Active Day Table with Dark Border */}
+        {/* Active Day Table */}
         <div className="max-w-4xl mx-auto bg-white rounded-xl border-2 border-slate-900 shadow-sm overflow-hidden">
           <div className="p-4 sm:p-6 bg-slate-100 border-b-2 border-slate-900 flex items-center justify-between">
             <div>
@@ -60,7 +61,6 @@ export const ScheduleSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Real HTML Table */}
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
