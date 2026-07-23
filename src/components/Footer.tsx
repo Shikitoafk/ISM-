@@ -1,10 +1,13 @@
+"use client";
+
 import React from "react";
 import { Logo } from "./Logo";
-import { OLYMPIAD_CONTENT } from "../data/content";
+import { useLanguage } from "@/context/LanguageContext";
 import { Mail, MapPin, Shield, FileText } from "lucide-react";
 
 export const Footer: React.FC = () => {
-  const { meta, organizers } = OLYMPIAD_CONTENT;
+  const { content } = useLanguage();
+  const { meta, organizers } = content;
 
   return (
     <footer className="bg-white text-slate-700 border-t-2 border-slate-900 pt-14 pb-10">
@@ -19,7 +22,7 @@ export const Footer: React.FC = () => {
               {meta.fullName}
             </p>
             <div className="text-xs text-slate-500 font-normal">
-              Team Interdisciplinary Olympiad in Laboratory Research for High School Students (Grades 9–11).
+              Team Interdisciplinary Olympiad in Laboratory Research for High School Students ({meta.targetGrades}).
             </div>
           </div>
 
@@ -69,7 +72,7 @@ export const Footer: React.FC = () => {
             <div className="text-xs space-y-1.5 text-slate-800 font-semibold">
               <div className="flex items-center gap-2">
                 <Mail className="w-3.5 h-3.5 text-brand-800 shrink-0" strokeWidth={2} />
-                <span>info@ism-olympiad.org</span>
+                <span>{meta.contactEmail}</span>
               </div>
               <div className="flex items-start gap-2">
                 <MapPin className="w-3.5 h-3.5 text-brand-800 shrink-0 mt-0.5" strokeWidth={2} />
@@ -99,7 +102,7 @@ export const Footer: React.FC = () => {
           </div>
 
           <div className="text-[11px] text-slate-600 shrink-0">
-            © {new Date().getFullYear()} ISM Olympiad. All rights reserved.
+            © {new Date().getFullYear()} {meta.shortName}. All rights reserved.
           </div>
         </div>
 

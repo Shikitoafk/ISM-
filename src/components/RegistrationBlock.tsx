@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { supabase } from "../lib/supabase";
+import { useLanguage } from "@/context/LanguageContext";
 import { Trash2, Send, CheckCircle, AlertCircle, UserCheck } from "lucide-react";
 
 interface Member {
@@ -11,6 +12,8 @@ interface Member {
 }
 
 export const RegistrationBlock: React.FC = () => {
+  const { content } = useLanguage();
+
   // Team info
   const [teamName, setTeamName] = useState("");
   const [school, setSchool] = useState("");
@@ -150,7 +153,7 @@ export const RegistrationBlock: React.FC = () => {
             Application Form
           </div>
           <h2 className="font-serif text-2xl sm:text-4xl font-bold text-slate-900 mb-3">
-            Register Team for ISM (4–5 Members)
+            Register Team for {content.meta.shortName} (4–5 Members)
           </h2>
           <p className="text-slate-600 text-sm sm:text-base max-w-xl mx-auto font-normal">
             Form to be submitted by the Team Captain. Teams must consist of 4–5 members plus 1 Team Advisor (Teacher).
@@ -436,7 +439,7 @@ export const RegistrationBlock: React.FC = () => {
             ) : (
               <>
                 <Send className="w-4 h-4" strokeWidth={2} />
-                <span>Submit Team Registration</span>
+                <span>{content.nav.registerBtn}</span>
               </>
             )}
           </button>

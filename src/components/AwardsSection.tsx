@@ -1,9 +1,12 @@
+"use client";
+
 import React from "react";
-import { OLYMPIAD_CONTENT } from "../data/content";
+import { useLanguage } from "@/context/LanguageContext";
 import { Trophy, Info } from "lucide-react";
 
 export const AwardsSection: React.FC = () => {
-  const { awardsTiers } = OLYMPIAD_CONTENT;
+  const { content } = useLanguage();
+  const { awardsTiers } = content;
 
   return (
     <section id="awards" className="py-16 md:py-24 bg-slate-50 border-b-2 border-slate-900">

@@ -1,9 +1,12 @@
+"use client";
+
 import React from "react";
-import { OLYMPIAD_CONTENT } from "../data/content";
+import { useLanguage } from "@/context/LanguageContext";
 import { FileText, Download } from "lucide-react";
 
 export const RegulationsSection: React.FC = () => {
-  const { regulationsSection } = OLYMPIAD_CONTENT;
+  const { content } = useLanguage();
+  const { regulationsSection } = content;
 
   return (
     <section id="regulations" className="py-16 md:py-24 bg-white border-b-2 border-slate-900">

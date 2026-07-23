@@ -1,9 +1,12 @@
+"use client";
+
 import React from "react";
-import { OLYMPIAD_CONTENT } from "../data/content";
+import { useLanguage } from "@/context/LanguageContext";
 import { Layers, Target, BookOpen, Users, Shield, Building2 } from "lucide-react";
 
 export const About: React.FC = () => {
-  const { aboutCards, organizers } = OLYMPIAD_CONTENT;
+  const { content } = useLanguage();
+  const { aboutCards, organizers } = content;
 
   const getIcon = (id: string) => {
     switch (id) {
@@ -26,13 +29,13 @@ export const About: React.FC = () => {
         {/* Section Header */}
         <div className="max-w-3xl mx-auto text-center mb-14">
           <div className="text-xs font-bold text-brand-800 uppercase tracking-widest mb-2">
-            About the Tournament
+            {content.nav.about}
           </div>
           <h2 className="font-serif text-2xl sm:text-4xl font-bold text-slate-900 mb-3">
-            Core ISM Overview
+            {content.meta.shortName} — {content.meta.tagline}
           </h2>
           <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-            A premier team science competition integrating theoretical research, experimental laboratory synthesis, and interdisciplinary problem solving.
+            {content.hero.description}
           </p>
         </div>
 

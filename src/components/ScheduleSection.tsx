@@ -1,12 +1,15 @@
 "use client";
 
 import React, { useState } from "react";
-import { OLYMPIAD_CONTENT } from "../data/content";
+import { useLanguage } from "@/context/LanguageContext";
 import { Clock, MapPin } from "lucide-react";
 
 export const ScheduleSection: React.FC = () => {
-  const { scheduleDays } = OLYMPIAD_CONTENT;
+  const { content } = useLanguage();
+  const { scheduleDays } = content;
   const [activeDayIdx, setActiveDayIdx] = useState(0);
+
+  const safeActiveIdx = activeDayIdx < scheduleDays.length ? activeDayIdx : 0;
 
   return (
     <section id="schedule" className="py-16 md:py-24 bg-slate-50 border-b-2 border-slate-900">
@@ -15,13 +18,13 @@ export const ScheduleSection: React.FC = () => {
         {/* Section Header */}
         <div className="max-w-3xl mx-auto text-center mb-12">
           <div className="text-xs font-bold text-brand-800 uppercase tracking-widest mb-2">
-            Final Round Program
+            {content.nav.schedule}
           </div>
           <h2 className="font-serif text-2xl sm:text-4xl font-bold text-slate-900 mb-3">
-            Stage II Schedule (Satbayev University)
+            Stage II Schedule ({content.organizers.finalVenue.name})
           </h2>
           <p className="text-slate-600 text-sm sm:text-base">
-            Provisional 6-day program for the on-site final round in Almaty. Schedule subject to minor adjustments by the committee.
+            Provisional program for the on-site final round in Almaty. Schedule subject to minor adjustments by the committee.
           </p>
         </div>
 
@@ -33,7 +36,7 @@ export const ScheduleSection: React.FC = () => {
               type="button"
               onClick={() => setActiveDayIdx(idx)}
               className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${
-                activeDayIdx === idx
+                safeActiveIdx === idx
                   ? "bg-brand-800 text-white shadow-sm"
                   : "bg-white border-2 border-slate-900 text-slate-900 hover:bg-slate-100"
               }`}
@@ -49,10 +52,10 @@ export const ScheduleSection: React.FC = () => {
           <div className="p-4 sm:p-6 bg-slate-100 border-b-2 border-slate-900 flex items-center justify-between">
             <div>
               <span className="text-xs font-bold text-brand-800 uppercase tracking-wide">
-                {scheduleDays[activeDayIdx].dayNumber} • {scheduleDays[activeDayIdx].date}
+                {scheduleDays[safeActiveIdx].dayNumber} • {scheduleDays[safeActiveIdx].date}
               </span>
               <h3 className="font-serif text-lg font-bold text-slate-900 mt-0.5">
-                {scheduleDays[activeDayIdx].title}
+                {scheduleDays[safeActiveIdx].title}
               </h3>
             </div>
           </div>
@@ -68,7 +71,7 @@ export const ScheduleSection: React.FC = () => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-200 text-xs sm:text-sm text-slate-800">
-                {scheduleDays[activeDayIdx].rows.map((row, rIdx) => (
+                {scheduleDays[safeActiveIdx].rows.map((row, rIdx) => (
                   <tr key={rIdx} className="hover:bg-slate-50 transition-colors">
                     <td className="py-3.5 px-4 sm:px-6 font-mono font-bold text-slate-900 whitespace-nowrap">
                       <div className="flex items-center gap-1.5">

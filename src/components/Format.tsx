@@ -1,9 +1,12 @@
+"use client";
+
 import React from "react";
-import { OLYMPIAD_CONTENT } from "../data/content";
+import { useLanguage } from "@/context/LanguageContext";
 import { ShieldAlert, CheckCircle, Presentation, Users, ArrowUpRight } from "lucide-react";
 
 export const Format: React.FC = () => {
-  const { formatDetails } = OLYMPIAD_CONTENT;
+  const { content } = useLanguage();
+  const { formatDetails } = content;
 
   return (
     <section id="format" className="py-16 md:py-24 bg-slate-50 border-b-2 border-slate-900">
@@ -12,7 +15,7 @@ export const Format: React.FC = () => {
         {/* Section Header */}
         <div className="max-w-3xl mx-auto text-center mb-14">
           <div className="text-xs font-bold text-brand-800 uppercase tracking-widest mb-2">
-            Tournament Structure
+            {content.nav.format}
           </div>
           <h2 className="font-serif text-2xl sm:text-4xl font-bold text-slate-900 mb-3">
             {formatDetails.title}

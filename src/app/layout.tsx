@@ -25,6 +25,8 @@ export const metadata: Metadata = {
   },
 };
 
+import { LanguageProvider } from "@/context/LanguageContext";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -33,7 +35,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${cinzelFont.variable} ${sansFont.variable} scroll-smooth`}>
       <body className="bg-slate-50 text-slate-900 font-sans antialiased selection:bg-brand-800 selection:text-white">
-        {children}
+        <LanguageProvider>
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );

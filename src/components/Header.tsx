@@ -3,11 +3,13 @@
 import React, { useState, useEffect } from "react";
 import { Logo } from "./Logo";
 import { Menu, X, Globe, ArrowRight } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
+import { Language } from "@/data/translations";
 
 export const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [currentLang, setCurrentLang] = useState<"EN" | "RU" | "KZ">("EN");
+  const { lang, setLang, content } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,19 +24,15 @@ export const Header: React.FC = () => {
   }, []);
 
   const navItems = [
-    { label: "About", href: "#about" },
-    { label: "Format", href: "#format" },
-    { label: "Case", href: "#case" },
-    { label: "Schedule", href: "#schedule" },
-    { label: "Committee & Jury", href: "#judges" },
-    { label: "Regulations", href: "#regulations" },
+    { label: content.nav.about, href: "#about" },
+    { label: content.nav.format, href: "#format" },
+    { label: content.nav.caseSection, href: "#case" },
+    { label: content.nav.schedule, href: "#schedule" },
+    { label: content.nav.judges, href: "#judges" },
+    { label: content.nav.regulations, href: "#regulations" },
   ];
 
-  const cycleLang = () => {
-    if (currentLang === "EN") setCurrentLang("RU");
-    else if (currentLang === "RU") setCurrentLang("KZ");
-    else setCurrentLang("EN");
-  };
+  const languages: Language[] = ["EN", "RU", "KZ"];
 
   return (
     <header
@@ -64,23 +62,30 @@ export const Header: React.FC = () => {
 
         {/* Header Right Actions */}
         <div className="hidden sm:flex items-center gap-3">
-          {/* Language Switcher */}
-          <button
-            type="button"
-            onClick={cycleLang}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border-2 border-slate-900 text-xs font-bold text-slate-900 hover:bg-slate-100 transition-colors"
-            title="Switch Language"
-          >
-            <Globe className="w-3.5 h-3.5 text-slate-900" strokeWidth={2} />
-            <span>{currentLang}</span>
-          </button>
+          {/* Language Selector Pills */}
+          <div className="inline-flex items-center rounded-lg border-2 border-slate-900 p-0.5 bg-slate-100 text-xs font-bold">
+            {languages.map((l) => (
+              <button
+                key={l}
+                type="button"
+                onClick={() => setLang(l)}
+                className={`px-2.5 py-1 rounded-md transition-all ${
+                  lang === l
+                    ? "bg-brand-800 text-white shadow-sm font-black"
+                    : "text-slate-700 hover:text-slate-900 hover:bg-slate-200"
+                }`}
+              >
+                {l}
+              </button>
+            ))}
+          </div>
 
           {/* Registration CTA */}
           <a
             href="#registration"
             className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-brand-800 hover:bg-brand-900 text-white font-bold text-xs sm:text-sm transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-800"
           >
-            <span>Register Team</span>
+            <span>{content.nav.registerBtn}</span>
             <ArrowRight className="w-3.5 h-3.5" strokeWidth={2} />
           </a>
         </div>
@@ -113,21 +118,28 @@ export const Header: React.FC = () => {
             ))}
           </nav>
           <div className="flex items-center justify-between pt-2">
-            <button
-              type="button"
-              onClick={cycleLang}
-              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border-2 border-slate-900 text-xs font-bold text-slate-900"
-            >
+            <div className="inline-flex items-center gap-1.5 px-2 py-1 rounded-lg border-2 border-slate-900 text-xs font-bold text-slate-900 bg-slate-100">
               <Globe className="w-4 h-4 text-slate-900" strokeWidth={2} />
-              <span>Language: {currentLang}</span>
-            </button>
+              {languages.map((l) => (
+                <button
+                  key={l}
+                  type="button"
+                  onClick={() => setLang(l)}
+                  className={`px-2 py-0.5 rounded transition-all ${
+                    lang === l ? "bg-brand-800 text-white font-bold" : "text-slate-700"
+                  }`}
+                >
+                  {l}
+                </button>
+              ))}
+            </div>
 
             <a
               href="#registration"
               onClick={() => setMobileMenuOpen(false)}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-brand-800 text-white font-bold text-sm shadow-sm"
             >
-              <span>Register Team</span>
+              <span>{content.nav.registerBtn}</span>
               <ArrowRight className="w-4 h-4" strokeWidth={2} />
             </a>
           </div>

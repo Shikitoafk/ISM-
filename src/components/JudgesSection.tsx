@@ -1,9 +1,12 @@
+"use client";
+
 import React from "react";
-import { OLYMPIAD_CONTENT } from "../data/content";
-import { UserCheck, ShieldCheck, GraduationCap } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
+import { UserCheck, GraduationCap } from "lucide-react";
 
 export const JudgesSection: React.FC = () => {
-  const { organizers } = OLYMPIAD_CONTENT;
+  const { content } = useLanguage();
+  const { organizers } = content;
 
   return (
     <section id="judges" className="py-16 md:py-24 bg-white border-b-2 border-slate-900">
@@ -15,7 +18,7 @@ export const JudgesSection: React.FC = () => {
             Leadership & Governance
           </div>
           <h2 className="font-serif text-2xl sm:text-4xl font-bold text-slate-900 mb-3">
-            Organizing Committee & Jury
+            {content.nav.judges}
           </h2>
           <p className="text-slate-600 text-sm sm:text-base">
             The founding members, executive committee, and scientific jury governing the ISM Olympiad.
@@ -42,7 +45,7 @@ export const JudgesSection: React.FC = () => {
                     </div>
                     {member.badge && (
                       <span className={`px-2.5 py-0.5 rounded text-[11px] font-bold ${
-                        member.badge === "Co-Chair"
+                        member.badge === "Co-Chair" || member.badge === "Сопредседатель" || member.badge === "Тең төраға"
                           ? "bg-brand-800 text-white"
                           : "bg-slate-100 border border-slate-300 text-slate-800"
                       }`}>
