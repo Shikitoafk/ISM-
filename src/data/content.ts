@@ -12,7 +12,7 @@ export interface ScheduleDay {
   rows: ScheduleRow[];
 }
 
-export interface Judge {
+export interface CommitteeMember {
   name: string;
   role: string;
   organization: string;
@@ -30,79 +30,94 @@ export const OLYMPIAD_CONTENT = {
   meta: {
     shortName: "ISM",
     fullName: 'Team Interdisciplinary Olympiad in Laboratory Research and Case-Based Science "ISM" (International Science Movement)',
-    tagline: "Командная интердисциплинарная олимпиада по лабораторным исследованиям и научным кейсам",
-    targetGrades: "9–11 классы",
-    teamSize: "3–4 человека + руководитель",
+    tagline: "Team Interdisciplinary Olympiad in Laboratory Research & Case-Based Science",
+    targetGrades: "Grades 9–11 (12)",
+    teamSize: "3–4 members + Team Advisor",
     location: "Almaty, Satbayev University",
-    prizeFundNotice: "Призовой фонд и гранты от партнеров олимпиады",
+    awardsNotice: "Official Cups, Medals & Certificates",
     regulationsPdfRu: "/docs/ism-regulations-ru.pdf",
     regulationsPdfKz: "/docs/ism-regulations-kz.pdf",
     regulationsPdfEn: "/docs/ism-regulations-en.pdf",
-    dateAnnouncementNote: "Точные даты будут объявлены дополнительно",
+    dateAnnouncementNote: "Exact tournament dates will be announced soon",
   },
   
   organizers: {
     coChairs: [
-      { name: "Nurislam Sailaubek", title: "Сопредседатель оргкомитета ISM" },
-      { name: "Nurmukhammed Kydyrmollauly", title: "Сопредседатель оргкомитета ISM" },
+      { name: "Nurislam Sailaubek", title: "Co-Chair of the Organizing Committee" },
+      { name: "Nurmukhammed Kydyrmollauly", title: "Co-Chair of the Organizing Committee" },
     ],
+    committeeMembers: [
+      { name: "Nurislam Sailaubek", role: "Co-Chair of Organizing Committee", organization: "ISM Executive Board", badge: "Co-Chair" },
+      { name: "Nurmukhammed Kydyrmollauly", role: "Co-Chair of Organizing Committee", organization: "ISM Executive Board", badge: "Co-Chair" },
+      { name: "Khassen Khassan", role: "Project Manager", organization: "ISM Executive Board", badge: "Project Manager" },
+      { name: "Elarys Erezhepuly", role: "Financial Manager", organization: "ISM Executive Board", badge: "Finance" },
+      { name: "Mansur Tleubekov", role: "SMM Manager", organization: "ISM Executive Board", badge: "SMM & Media" },
+      { name: "Rinat Kadylbekov", role: "Technical Manager", organization: "ISM Executive Board", badge: "Tech Manager" },
+      { name: "Zhanbolat Omar", role: "Marketing Manager", organization: "ISM Executive Board", badge: "Marketing" },
+      { name: "Nurmukhammed Marat", role: "Security Manager", organization: "ISM Executive Board", badge: "Security" },
+      { name: "Zangar Seilkhanov", role: "HR Manager", organization: "ISM Executive Board", badge: "HR Manager" },
+    ] as CommitteeMember[],
+    juryInfo: {
+      title: "Scientific Committee & Jury",
+      description: "Panel of academic experts, professors, and laboratory researchers from Satbayev University and partner scientific institutions. Full jury roster to be announced prior to Stage I."
+    },
     institutionalSupport: {
       name: "Oskemen Boys' Lyceum (Өскемен ұлдарға арналған лицейі)",
-      role: "Организационная и институциональная поддержка",
-      disclaimer: "Упоминание институциональной поддержки не создает финансовых обязательств лицея.",
+      role: "Organizational & Institutional Support",
+      disclaimer: "Mention of institutional support does not create financial obligations for the lyceum.",
     },
     finalVenue: {
       name: "Satbayev University",
-      city: "г. Алматы",
-      address: "ул. Сатпаева 22, кампус Satbayev University",
+      city: "Almaty, Kazakhstan",
+      address: "22 Satpaev Street, Satbayev University Campus",
     }
   },
 
   aboutCards: [
     {
       id: "format",
-      title: "Формат заданий",
-      subtitle: "Кейс + Тайминговый раунд",
-      description: "Отборочный этап сочетает 10-дневное открытое научное исследование (с использованием научной литературы и баз данных) и экспресс-раунд решения задач в фиксированном окне."
+      title: "Task Format",
+      subtitle: "Research Case + Timed Round",
+      description: "Stage I combines a 10-day open scientific research round (utilizing scientific databases & literature) with a timed interdisciplinary problem-solving round."
     },
     {
       id: "goals",
-      title: "Цели олимпиады",
-      subtitle: "Практика и научная этика",
-      description: "Развитие лабораторных навыков, научного мышления и командного взаимодействия. Подготовка школьников к международным соревнованиям и работе в исследовательских лабораториях."
+      title: "Olympiad Goals",
+      subtitle: "Laboratory & Integrity",
+      description: "Developing experimental laboratory skills, rigorous evidence-based thinking, and scientific communication to prepare students for international competitions."
     },
     {
       id: "disciplines",
-      title: "Дисциплины",
-      subtitle: "Интердисциплинарный синтез",
-      description: "Биология, химия и физика в интеграции с прикладной математикой, статистикой, материаловедением и инженерно-вычислительными методами."
+      title: "Disciplines",
+      subtitle: "Interdisciplinary Synthesis",
+      description: "Biology, Chemistry, and Physics integrated with applied mathematics, statistics, materials science, and engineering computational methods."
     },
     {
       id: "team-structure",
-      title: "Возраст и состав команды",
-      subtitle: "3–4 участника + Наставник",
-      description: "Учащиеся 9–11 классов (8 класс по заявке). Команда включает 3–4 участника, Капитана и Руководителя (учителя). Один участник может состоять только в одной команде за сезон."
+      title: "Age & Team Structure",
+      subtitle: "3–4 Members + Advisor",
+      description: "High school students in Grades 9–11 (12). Each team consists of 3–4 members, 1 Team Captain, and 1 Advisor (Teacher). One team per student per season."
     }
   ],
 
   formatDetails: {
-    title: "Этапы и регламент проведения",
-    subtitle: "Подробный регламент двух этапов олимпиады ISM",
+    title: "Tournament Format & Guidelines",
+    subtitle: "Comprehensive structure of the two stages of the ISM Olympiad",
     stages: [
       {
         id: "stage-1",
         number: "Stage I",
         name: "Online Selection Round",
-        timeframe: "Середина сентября (онлайн)",
-        description: "Отборочный этап на 100 баллов, проводимый дистанционно.",
+        timeframe: "Mid-September (Online)",
+        description: "Selection round scored out of 100 points, conducted remotely.",
         parts: [
           {
-            name: "Часть (a): Research Case (50 баллов)",
-            desc: "Публикуется за 10 дней до дедлайна. Разрешены научная литература и базы данных (PubMed, SciDirect, Scopus). Все источники должны содержать строгие научные ссылки."
+            name: "Part (a): Research Case (50 points)",
+            desc: "Published ~10 days prior to submission deadline. Scientific literature and databases (PubMed, SciDirect, Scopus) are allowed. Full academic citations required."
           },
           {
-            name: "Часть (b): Timed Round (50 баллов)",
-            desc: "Синхронное решение междисциплинарных задач в фиксированном временном окне (обычно в субботу). Только внутрикомандное взаимодействие."
+            name: "Part (b): Timed Round (50 points)",
+            desc: "Synchronous interdisciplinary problem-solving in a fixed time window (typically Saturday). Strictly team-internal collaboration."
           }
         ]
       },
@@ -110,161 +125,122 @@ export const OLYMPIAD_CONTENT = {
         id: "stage-2",
         number: "Stage II",
         name: "On-Site Final Round",
-        timeframe: "Конец октября (~6 дней, Алматы)",
-        description: "Очный финал на базе Satbayev University.",
+        timeframe: "Late October (~6 days, Almaty)",
+        description: "On-site final round hosted at Satbayev University campus.",
         parts: [
           {
             name: "Round 1: Battle Rounds",
-            desc: "Научные бои и публичная защита отборочных решений. По итогам ораторских дебатов отбираются ~10 лучших команд."
+            desc: "Scientific debates and public defense of research case solutions. Top ~10 teams advance to the practical laboratory round."
           },
           {
             name: "Round 2: Practical Research Round",
-            desc: "2 дня работы в лабораториях Satbayev University: физико-химический синтез, приборные измерения, обработка данных и защита научного отчета."
+            desc: "2 days of hands-on work in Satbayev University laboratories: chemical synthesis, physical measurement, data processing, and report defense."
           }
         ]
       }
     ],
     roleRules: [
-      { role: "Team Captain", rule: "Отвечает за регистрацию, координацию команды и своевременную загрузку всех официальных отчетов." },
-      { role: "Speaker (Докладчик)", rule: "Презентует научно-исследовательское решение команды во время Battle Rounds." },
-      { role: "Opponent (Оппонент)", rule: "Анализирует решение команды-соперника, задает критические научные вопросы и ведет полемику." }
+      { role: "Team Captain", rule: "Responsible for team registration, official communication, and timely submission of all reports." },
+      { role: "Speaker", rule: "Presents the team's research solution during the Battle Rounds debates." },
+      { role: "Opponent", rule: "Analyzes the opposing team's solution, asks critical scientific questions, and leads debate." }
     ],
     presentationRequirements: [
-      "Формат презентаций: PDF / PPTX, строгий академический стиль",
-      "Обязательное включение схемы эксперимента, графиков погрешностей и списка цитируемой литературы",
-      "Ограничение времени доклада: 10–12 минут на выступление + 8 минут ответы на вопросы"
+      "Presentation Format: PDF / PPTX, strict academic formatting style",
+      "Mandatory inclusion of experimental schemes, error graphs, and cited reference list",
+      "Speech Time Limit: 10–12 minutes presentation + 8 minutes Q&A discussion"
     ],
     integrityArticle8: {
-      title: "Академическая честность и ИИ (Article 8)",
-      text: "Согласно Статье 8 Положения ISM, использование любых генеративных ИИ-инструментов (ChatGPT, Claude, Gemini, Copilot и др.) для решения задач, написания кода, перевода или расчетов строго ЗАПРЕЩЕНО на всех этапах, за исключением случаев, когда это явно разрешено в тексте конкретного задания. Плагиат и внешняя помощь ведут к немедленной дисквалификации."
+      title: "Academic Integrity & Generative AI Policy (Article 8)",
+      text: "According to Article 8 of the ISM Regulations, the use of any generative AI tools (ChatGPT, Claude, Gemini, Copilot, etc.) for solving tasks, writing code, translation, or calculations is strictly PROHIBITED across all stages, unless explicitly permitted in the text of a specific problem statement. Plagiarism and external assistance lead to immediate team disqualification."
     }
   },
 
   currentCase: {
-    title: "Научно-исследовательский кейс ISM 2024–2025",
+    title: "ISM 2024–2025 Research Case",
     code: "CASE-ISM-2024-01",
-    status: "Анонс / Публикация в сентябре",
-    description: "Комплексная междисциплинарная задача на стыке физической химии, молекулярной биологии и функционального материаловедения. Требует теоретического моделирования, вычисления термодинамических параметров и разработки схемы лабораторного эксперимента.",
+    status: "Announcement / Release in September",
+    description: "Complex interdisciplinary task combining physical chemistry, molecular biology, and functional materials science. Requires theoretical modeling, thermodynamic calculations, and experimental protocol design.",
     requirements: [
-      "Полный научный отчет в формате PDF (не более 15 страниц)",
-      "Оформление списка литературы по стандарту ГОСТ/APA",
-      "Приложение с исходными расчетами и скриптами обработки данных"
+      "Full research report in PDF format (max 15 pages)",
+      "Standard academic citation formatting (APA/IEEE/GOST)",
+      "Appendix containing raw calculations and data processing scripts"
     ]
   },
 
   scheduleDays: [
     {
-      dayNumber: "День 1",
-      date: "24 Октября",
-      title: "Регистрация и открытие",
+      dayNumber: "Day 1",
+      date: "October 24",
+      title: "Arrival, Registration & Opening Ceremony",
       rows: [
-        { time: "09:00 - 11:00", event: "Заезд участников, регистрация и выдача бейджей", location: "Главный корпус Satbayev University" },
-        { time: "11:30 - 13:00", event: "Торжественное открытие олимпиады ISM", location: "Актовый зал" },
-        { time: "14:30 - 16:30", event: "Жеребьевка Battle Rounds и технический брифинг капитанов", location: "Конференц-зал №2" }
+        { time: "09:00 - 11:00", event: "Arrival of teams, registration & badge distribution", location: "Satbayev University Main Building" },
+        { time: "11:30 - 13:00", event: "Grand Opening Ceremony of ISM Olympiad", location: "Main Assembly Hall" },
+        { time: "14:30 - 16:30", event: "Battle Rounds draw & Captains' technical briefing", location: "Conference Hall #2" }
       ]
     },
     {
-      dayNumber: "День 2",
-      date: "25 Октября",
-      title: "Stage II: Battle Rounds (Отборочные бои)",
+      dayNumber: "Day 2",
+      date: "October 25",
+      title: "Stage II: Battle Rounds (Preliminary Debates)",
       rows: [
-        { time: "09:30 - 13:00", event: "Сессия 1: Научные дебаты (Биология и Биохимия)", location: "Аудитории 301-305" },
-        { time: "14:00 - 17:30", event: "Сессия 2: Научные дебаты (Физика и Материаловедение)", location: "Аудитории 301-305" }
+        { time: "09:30 - 13:00", event: "Session 1: Scientific Debates (Biology & Biochemistry)", location: "Rooms 301-305" },
+        { time: "14:00 - 17:30", event: "Session 2: Scientific Debates (Physics & Materials Science)", location: "Rooms 301-305" }
       ]
     },
     {
-      dayNumber: "День 3",
-      date: "26 Октября",
-      title: "Stage II: Battle Rounds (Финал дебатов)",
+      dayNumber: "Day 3",
+      date: "October 26",
+      title: "Stage II: Battle Rounds (Final Debates)",
       rows: [
-        { time: "09:30 - 13:00", event: "Финальные бои дебатного раунда", location: "Малый зал" },
-        { time: "14:30 - 16:00", event: "Объявление 10 команд-финалистов практического раунда", location: "Актовый зал" },
-        { time: "16:30 - 18:00", event: "Инструктаж по технике безопасности в лабораториях", location: "Лабораторный комплекс" }
+        { time: "09:30 - 13:00", event: "Final Debate Rounds", location: "Small Hall" },
+        { time: "14:30 - 16:00", event: "Announcement of 10 Finalist Teams for Practical Round", location: "Main Assembly Hall" },
+        { time: "16:30 - 18:00", event: "Laboratory Safety & Equipment Orientation", location: "Laboratory Complex" }
       ]
     },
     {
-      dayNumber: "День 4",
-      date: "27 Октября",
-      title: "Practical Research Round (День 1)",
+      dayNumber: "Day 4",
+      date: "October 27",
+      title: "Practical Research Round (Day 1)",
       rows: [
-        { time: "09:00 - 13:00", event: "Лабораторный синтез и измерение физико-химических свойств", location: "Лаборатория синтетической химии" },
-        { time: "14:00 - 18:00", event: "Приборный анализ и спектрометрия", location: "Центр коллективного пользования" }
+        { time: "09:00 - 13:00", event: "Laboratory synthesis & physical-chemical measurements", location: "Synthetic Chemistry Lab" },
+        { time: "14:00 - 18:00", event: "Instrumental analysis & spectrometry", location: "Advanced Research Center" }
       ]
     },
     {
-      dayNumber: "День 5",
-      date: "28 Октября",
-      title: "Practical Research Round (День 2)",
+      dayNumber: "Day 5",
+      date: "October 28",
+      title: "Practical Research Round (Day 2)",
       rows: [
-        { time: "09:00 - 13:00", event: "Обработка данных, метрология и написание финального отчета", location: "Коворкинг Satbayev Univ." },
-        { time: "14:00 - 18:00", event: "Защита практических отчетов перед Жюри", location: "Зал ученого совета" }
+        { time: "09:00 - 13:00", event: "Data processing, error analysis & final report preparation", location: "Coworking Space" },
+        { time: "14:00 - 18:00", event: "Defense of practical reports before the Jury", location: "Academic Boardroom" }
       ]
     },
     {
-      dayNumber: "День 6",
-      date: "29 Октября",
-      title: "Закрытие и Награждение",
+      dayNumber: "Day 6",
+      date: "October 29",
+      title: "Closing Ceremony & Awards Presentation",
       rows: [
-        { time: "11:00 - 13:30", event: "Церемония закрытия, вручение дипломов, медалей и Grand Prix", location: "Главный актовый зал" },
-        { time: "14:00 - 15:30", event: "Праздничный фуршет и отъезд участников", location: "Кампус" }
+        { time: "11:00 - 13:30", event: "Closing Ceremony, Diplomas, Medals & Grand Prix Trophy", location: "Main Assembly Hall" },
+        { time: "14:00 - 15:30", event: "Farewell reception & team departures", location: "Campus Grounds" }
       ]
     }
   ] as ScheduleDay[],
 
-  judges: [
-    {
-      name: "Nurislam Sailaubek",
-      role: "Сопредседатель оргкомитета",
-      organization: "International Science Movement",
-      badge: "Оргкомитет"
-    },
-    {
-      name: "Nurmukhammed Kydyrmollauly",
-      role: "Сопредседатель оргкомитета",
-      organization: "International Science Movement",
-      badge: "Оргкомитет"
-    },
-    {
-      name: "Д-р хим. наук Алматов А.К.",
-      role: "Председатель методической комиссии",
-      organization: "Satbayev University",
-      badge: "Методический совет"
-    },
-    {
-      name: "PhD Сейткалиева Б.Р.",
-      role: "Эксперт по биологии и биохимии",
-      organization: "Институт молекулярной биологии",
-      badge: "Жюри"
-    },
-    {
-      name: "PhD Жумаканов Е.М.",
-      role: "Эксперт по экспериментальной физике",
-      organization: "Satbayev University",
-      badge: "Жюри"
-    },
-    {
-      name: "Представитель Oskemen Lyceum",
-      role: "Координатор институциональной поддержки",
-      organization: "Oskemen Boys' Lyceum",
-      badge: "Партнеры"
-    }
-  ] as Judge[],
-
   awardsTiers: [
-    { tier: "Grand Prix", teamsCount: "1 команда", reward: "Кубок Абсолютного Победителя + Грант" },
-    { tier: "Gold Award (I степень)", teamsCount: "1 команда", reward: "Диплом I степени + Золотые медали" },
-    { tier: "Silver Awards (II степень)", teamsCount: "2 команды", reward: "Дипломы II степени + Серебряные медали" },
-    { tier: "Bronze Awards (III степень)", teamsCount: "3 команды", reward: "Дипломы III степени + Бронзовые медали" },
-    { tier: "Финалисты Stage II", teamsCount: "Все команды-финалисты", reward: "Официальные сертификаты участников ISM" }
+    { tier: "Grand Prix", teamsCount: "1 Team", reward: "Grand Prix Trophy & Absolute Winner Cup" },
+    { tier: "Gold Award (I Degree)", teamsCount: "1 Team", reward: "Diploma I Degree + Gold Medals" },
+    { tier: "Silver Awards (II Degree)", teamsCount: "2 Teams", reward: "Diplomas II Degree + Silver Medals" },
+    { tier: "Bronze Awards (III Degree)", teamsCount: "3 Teams", reward: "Diplomas III Degree + Bronze Medals" },
+    { tier: "Stage II Finalists", teamsCount: "All Finalist Teams", reward: "Official ISM Finalist Certificates" }
   ] as AwardTier[],
 
   regulationsSection: {
-    title: "Официальный регламент олимпиады",
-    description: "Полный текст Положения о проведении олимпиады ISM содержит юридические правила, порядок формирования жюри, критерии оценивания кейсов и правила подач апелляций.",
+    title: "Official Olympiad Regulations",
+    description: "The full text of the ISM Regulations contains rules, jury composition protocols, case evaluation criteria, and appeal procedures.",
     downloads: [
-      { lang: "На русском языке (RU)", url: "/docs/ism-regulations-ru.pdf" },
-      { lang: "На казахском языке (KZ)", url: "/docs/ism-regulations-kz.pdf" },
-      { lang: "На английском языке (EN)", url: "/docs/ism-regulations-en.pdf" }
+      { lang: "English Version (EN)", url: "/docs/ism-regulations-en.pdf" },
+      { lang: "Russian Version (RU)", url: "/docs/ism-regulations-ru.pdf" },
+      { lang: "Kazakh Version (KZ)", url: "/docs/ism-regulations-kz.pdf" }
     ]
   }
 };
