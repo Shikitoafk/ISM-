@@ -32,18 +32,18 @@ export const OLYMPIAD_CONTENT = {
     fullName: 'Team Interdisciplinary Olympiad in Laboratory Research and Case-Based Science "ISM" (International Science Movement)',
     tagline: "Team Interdisciplinary Olympiad in Laboratory Research & Case-Based Science",
     targetGrades: "Grades 9–11 (12)",
-    teamSize: "4–5 members + Team Advisor",
+    teamSize: "3–4 members + Team Advisor",
     location: "Almaty, Satbayev University",
     contactEmail: "info.ism.olympiad@gmail.com",
     contactPhone: "+7 702 861 8611",
-    contactAddress: "Oskemen, Bilim-Innovation Lyceum, Likhareva 5",
+    contactAddress: "Oskemen, Bilim Innovation Lyceum, Likhareva 5",
     awardsNotice: "Official Cups, Medals & Certificates",
     regulationsPdfRu: "/docs/ism-regulations-ru.pdf",
     regulationsPdfKz: "/docs/ism-regulations-kz.pdf",
     regulationsPdfEn: "/docs/ism-regulations-en.pdf",
     dateAnnouncementNote: "Exact tournament dates will be announced soon",
   },
-  
+
   organizers: {
     coChairs: [
       { name: "Nurislam Sailaubek", title: "Co-Chair of the Organizing Committee" },
@@ -53,19 +53,19 @@ export const OLYMPIAD_CONTENT = {
       { name: "Nurislam Sailaubek", role: "Co-Chair of Organizing Committee", organization: "ISM Executive Board", badge: "Co-Chair" },
       { name: "Nurmukhammed Kydyrmollauly", role: "Co-Chair of Organizing Committee", organization: "ISM Executive Board", badge: "Co-Chair" },
       { name: "Khassen Khassan", role: "Project Manager", organization: "ISM Executive Board", badge: "Project Manager" },
-      { name: "Elarys Yerezhepuly", role: "Financial Manager", organization: "ISM Executive Board", badge: "Finance" },
+      { name: "Elarys Erezhepuly", role: "Financial Manager", organization: "ISM Executive Board", badge: "Finance" },
       { name: "Mansur Tleubekov", role: "SMM Manager", organization: "ISM Executive Board", badge: "SMM & Media" },
       { name: "Rinat Kadylbekov", role: "Technical Manager", organization: "ISM Executive Board", badge: "Tech Manager" },
       { name: "Zhanbolat Omar", role: "Marketing Manager", organization: "ISM Executive Board", badge: "Marketing" },
       { name: "Nurmukhammed Marat", role: "Security Manager", organization: "ISM Executive Board", badge: "Security" },
-      { name: "Zangar Seiilkhanov", role: "HR Manager", organization: "ISM Executive Board", badge: "HR Manager" },
+      { name: "Zangar Seilkhanov", role: "HR Manager", organization: "ISM Executive Board", badge: "HR Manager" },
     ] as CommitteeMember[],
     juryInfo: {
       title: "Scientific Committee & Jury",
       description: "Panel of academic experts, professors, and laboratory researchers from Satbayev University and partner scientific institutions. Full jury roster to be announced prior to Stage I."
     },
     institutionalSupport: {
-      name: 'Oskemen "Bilim-Innovation" Lyceum',
+      name: "Oskemen Boys' Lyceum (Өскемен ұлдарға арналған лицейі)",
       role: "Organizational & Institutional Support",
       disclaimer: "Mention of institutional support does not create financial obligations for the lyceum.",
     },
@@ -98,8 +98,8 @@ export const OLYMPIAD_CONTENT = {
     {
       id: "team-structure",
       title: "Age & Team Structure",
-      subtitle: "4–5 Members + Advisor",
-      description: "High school students in Grades 9–11 (12). Each team consists of 4–5 members, 1 Team Captain, and 1 Advisor (Teacher). One team per student per season."
+      subtitle: "3–4 Members + Advisor",
+      description: "High school students in Grades 9–11 (12). Each team consists of 3–4 members, 1 Team Captain, and 1 Advisor (Teacher). One team per student per season."
     }
   ],
 
