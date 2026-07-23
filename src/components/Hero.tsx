@@ -18,7 +18,7 @@ export const Hero: React.FC = () => {
           {/* Title with prestigious typography */}
           <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900 leading-tight mb-6">
             Team Interdisciplinary Olympiad in Laboratory Research & Case-Based Science{" "}
-            <span className="text-brand-800">"ISM"</span>
+            <span className="text-brand-800">&quot;ISM&quot;</span>
           </h1>
 
           {/* Description */}
