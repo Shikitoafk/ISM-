@@ -21,7 +21,7 @@ export const AwardsSection: React.FC = () => {
             Tournament Tiers & Official Medals
           </h2>
           <p className="text-slate-600 text-sm sm:text-base font-normal">
-            Official recognition structure for the top-performing teams of the IISM Olympiad.
+            Official recognition structure for the top-performing teams of the ISM Olympiad.
           </p>
         </div>
 
@@ -30,7 +30,7 @@ export const AwardsSection: React.FC = () => {
           <div className="p-4 bg-slate-100 border-b-2 border-slate-900 flex items-center gap-2">
             <Trophy className="w-4 h-4 text-brand-800" strokeWidth={2} />
             <span className="font-serif font-bold text-slate-900 text-sm">
-              Official IISM Season Awards Structure
+              Official ISM Season Awards Structure
             </span>
           </div>
 

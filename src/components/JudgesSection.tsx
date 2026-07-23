@@ -21,7 +21,7 @@ export const JudgesSection: React.FC = () => {
             {content.nav.judges}
           </h2>
           <p className="text-slate-600 text-sm sm:text-base font-normal">
-            The executive committee and scientific jury governing the IISM Olympiad.
+            The executive committee and scientific jury governing the ISM Olympiad.
           </p>
         </div>
 
@@ -29,7 +29,7 @@ export const JudgesSection: React.FC = () => {
         <div className="mb-14">
           <h3 className="font-serif text-xl font-bold text-slate-900 mb-6 text-center sm:text-left flex items-center justify-center sm:justify-start gap-2">
             <UserCheck className="w-5 h-5 text-brand-800" strokeWidth={2} />
-            <span>IISM Executive Board & Organizing Committee</span>
+            <span>ISM Executive Board & Organizing Committee</span>
           </h3>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">

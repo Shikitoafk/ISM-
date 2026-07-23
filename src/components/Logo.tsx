@@ -14,14 +14,14 @@ export const Logo: React.FC<LogoProps> = ({ className = "", size = "md" }) => {
 
   return (
     <div className={`inline-flex items-center gap-2.5 select-none ${className}`}>
-      {/* Sleek Monogram Badge */}
+      {/* Monogram Badge */}
       <div className={`flex items-center justify-center font-serif tracking-widest rounded-lg border-2 border-slate-900 bg-brand-800 text-white shadow-sm ${sizeClasses[size]}`}>
-        <span>IISM</span>
+        <span>ISM</span>
       </div>
       
       <div className="flex flex-col">
         <span className="font-serif font-bold text-slate-900 tracking-tight text-sm sm:text-base leading-tight">
-          IISM OLYMPIAD
+          ISM OLYMPIAD
         </span>
         <span className="text-[10px] uppercase tracking-widest text-slate-500 font-semibold leading-tight">
           International Science Movement

@@ -68,7 +68,7 @@ export const CaseSection: React.FC = () => {
         {/* Download Regulations in 3 Languages */}
         <div className="max-w-4xl mx-auto p-6 rounded-xl border-2 border-slate-900 bg-white shadow-sm text-center">
           <h4 className="font-serif font-bold text-slate-900 text-base mb-1">
-            Download IISM Regulations & Guidelines (3 Languages)
+            Download ISM Regulations & Guidelines (3 Languages)
           </h4>
           <p className="text-xs text-slate-500 mb-6 font-normal">
             Official tournament documents are available in PDF format

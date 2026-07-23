@@ -3,11 +3,11 @@
 import React from "react";
 import { Logo } from "./Logo";
 import { useLanguage } from "@/context/LanguageContext";
-import { Mail, MapPin, FileText } from "lucide-react";
+import { Mail, MapPin, Phone, FileText } from "lucide-react";
 
 export const Footer: React.FC = () => {
   const { content } = useLanguage();
-  const { meta, organizers } = content;
+  const { meta } = content;
 
   return (
     <footer className="bg-white text-slate-700 border-t-2 border-slate-900 pt-14 pb-10">
@@ -38,7 +38,7 @@ export const Footer: React.FC = () => {
                   className="hover:text-brand-800 inline-flex items-center gap-1.5 transition-colors"
                 >
                   <FileText className="w-3.5 h-3.5 text-slate-600" strokeWidth={2} />
-                  <span>IISM Regulations (EN)</span>
+                  <span>ISM Regulations (EN)</span>
                 </a>
               </li>
               <li>
@@ -49,7 +49,7 @@ export const Footer: React.FC = () => {
                   className="hover:text-brand-800 inline-flex items-center gap-1.5 transition-colors"
                 >
                   <FileText className="w-3.5 h-3.5 text-slate-600" strokeWidth={2} />
-                  <span>IISM Regulations (RU)</span>
+                  <span>ISM Regulations (RU)</span>
                 </a>
               </li>
               <li>
@@ -60,7 +60,7 @@ export const Footer: React.FC = () => {
                   className="hover:text-brand-800 inline-flex items-center gap-1.5 transition-colors"
                 >
                   <FileText className="w-3.5 h-3.5 text-slate-600" strokeWidth={2} />
-                  <span>IISM Regulations (KZ)</span>
+                  <span>ISM Regulations (KZ)</span>
                 </a>
               </li>
             </ul>
@@ -69,7 +69,11 @@ export const Footer: React.FC = () => {
           {/* Col 3: Contacts */}
           <div className="space-y-2.5">
             <h4 className="font-serif font-bold text-slate-900 text-sm">Contact Info</h4>
-            <div className="text-xs space-y-1.5 text-slate-800 font-semibold">
+            <div className="text-xs space-y-2 text-slate-800 font-semibold">
+              <div className="flex items-center gap-2">
+                <Phone className="w-3.5 h-3.5 text-brand-800 shrink-0" strokeWidth={2} />
+                <span>{meta.contactPhone}</span>
+              </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-3.5 h-3.5 text-brand-800 shrink-0" strokeWidth={2} />
                 <span>{meta.contactEmail}</span>

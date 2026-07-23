@@ -19,7 +19,7 @@ export const Hero: React.FC = () => {
             <span>{hero.badge}</span>
           </div>
 
-          {/* Main Title: IISM - International Science Movement */}
+          {/* Main Title: ISM - International Science Movement */}
           <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-tight mb-4">
             {hero.title}
           </h1>

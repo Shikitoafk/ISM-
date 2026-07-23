@@ -486,7 +486,7 @@ export const RegistrationBlock: React.FC = () => {
                   className="mt-0.5 w-4 h-4 text-brand-800 rounded border-slate-900 focus:ring-brand-800 shrink-0"
                 />
                 <span className="text-xs text-slate-700 font-semibold leading-relaxed">
-                  I confirm agreement to personal data processing and guarantee compliance with IISM Regulations, including Article 8 Academic Integrity Rules (strict prohibition of generative AI).
+                  I confirm agreement to personal data processing and guarantee compliance with ISM Regulations, including Article 8 Academic Integrity Rules (strict prohibition of generative AI).
                 </span>
               </label>
             </div>
