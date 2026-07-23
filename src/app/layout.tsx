@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Cinzel, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+import { LanguageProvider } from "@/context/LanguageContext";
+import { Analytics } from "@vercel/analytics/react";
 
 const cinzelFont = Cinzel({
   subsets: ["latin"],
@@ -16,16 +18,14 @@ const sansFont = Plus_Jakarta_Sans({
 
 export const metadata: Metadata = {
   title: "ISM Olympiad — International Science Movement",
-  description: "Team Interdisciplinary Olympiad in Laboratory Research & Case-Based Science (Biology, Chemistry, Physics) for High School Students.",
-  keywords: ["ISM", "Olympiad", "Chemistry", "Physics", "Biology", "Laboratory Research", "Satbayev University", "Science Competition"],
+  description: "Team Interdisciplinary Olympiad in Laboratory Research & Case-Based Science (Biology, Chemistry, Physics, Math, CS) for High School Students.",
+  keywords: ["ISM", "Olympiad", "Chemistry", "Physics", "Biology", "Mathematics", "Computer Science", "Laboratory Research", "Science Competition"],
   openGraph: {
     title: "ISM Olympiad — International Science Movement",
     description: "Team Interdisciplinary Olympiad in Laboratory Research & Case-Based Science.",
     type: "website",
   },
 };
-
-import { LanguageProvider } from "@/context/LanguageContext";
 
 export default function RootLayout({
   children,
@@ -38,6 +38,7 @@ export default function RootLayout({
         <LanguageProvider>
           {children}
         </LanguageProvider>
+        <Analytics />
       </body>
     </html>
   );
