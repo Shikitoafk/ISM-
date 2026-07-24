@@ -61,13 +61,72 @@ export interface ContentStructure {
     dateAnnouncementNote: string;
   };
   nav: {
+    home: string;
     about: string;
     format: string;
     caseSection: string;
     schedule: string;
     judges: string;
     regulations: string;
+    team: string;
+    rules: string;
     registerBtn: string;
+  };
+  statsBar: {
+    disciplinesCount: string;
+    disciplinesLabel: string;
+    teamSizeCount: string;
+    teamSizeLabel: string;
+    stagesCount: string;
+    stagesLabel: string;
+    targetCount: string;
+    targetLabel: string;
+    venueCount: string;
+    venueLabel: string;
+  };
+  partners: {
+    title: string;
+    subtitle: string;
+    list: string[];
+  };
+  cta: {
+    title: string;
+    description: string;
+    registerBtn: string;
+    rulesBtn: string;
+  };
+  rulesPage: {
+    badge: string;
+    title: string;
+    subtitle: string;
+    teamTitle: string;
+    teamRequirements: string[];
+    stage1Title: string;
+    stage1Desc: string;
+    stage2Title: string;
+    stage2Desc: string;
+    integrityTitle: string;
+    integrityDesc: string;
+    downloadsTitle: string;
+    fullRulesLink: string;
+  };
+  teamPage: {
+    badge: string;
+    title: string;
+    subtitle: string;
+    organizersTitle: string;
+    organizersSubtitle: string;
+    partnersTitle: string;
+  };
+  registrationPage: {
+    badge: string;
+    title: string;
+    subtitle: string;
+    closedTitle: string;
+    closedDesc: string;
+    contactNotice: string;
+    statusOpen: string;
+    statusClosed: string;
   };
   hero: {
     badge: string;
@@ -173,13 +232,84 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       dateAnnouncementNote: "Tournament Period: October 25 – November 1",
     },
     nav: {
+      home: "Home",
       about: "About",
-      format: "Format & Criteria",
+      format: "Format",
       caseSection: "Case",
       schedule: "Schedule",
       judges: "Committee & Jury",
-      regulations: "Regulations & Waivers",
-      registerBtn: "Register Team",
+      regulations: "Regulations",
+      team: "Team",
+      rules: "Rules",
+      registerBtn: "Registration",
+    },
+    statsBar: {
+      disciplinesCount: "5",
+      disciplinesLabel: "Scientific Disciplines",
+      teamSizeCount: "4–5",
+      teamSizeLabel: "Members per Team",
+      stagesCount: "2",
+      stagesLabel: "Tournament Stages",
+      targetCount: "9–11",
+      targetLabel: "High School Grades",
+      venueCount: "Oskemen",
+      venueLabel: "Host City & Campus",
+    },
+    partners: {
+      title: "Partners & Sponsors",
+      subtitle: "Supported by leading educational and scientific organizations",
+      list: [
+        "Bilim Innovation Lyceum",
+        "International Science Movement",
+        "Daryn National Center",
+        "Al-Farabi Kazakh National University",
+        "Ministry of Education & Science",
+        "Oskemen Science Hub",
+      ],
+    },
+    cta: {
+      title: "Ready to Test Your Scientific Potential?",
+      description: "Assemble a team of 4-5 high school students and represent your school at the international stage of ISM.",
+      registerBtn: "Register Team Now",
+      rulesBtn: "View Official Rules →",
+    },
+    rulesPage: {
+      badge: "Official Regulations",
+      title: "Rules & Tournament Requirements",
+      subtitle: "Everything you need to know about team structure, evaluation criteria, and academic integrity.",
+      teamTitle: "1. Team Requirements & Composition",
+      teamRequirements: [
+        "Team must consist of 4 core members (Grade 9–11) + 1 optional member.",
+        "Each team must appoint a Captain and have an official Team Supervisor/Leader.",
+        "All team members must represent the same school or educational lyceum.",
+        "Interdisciplinary balance (Biology, Chemistry, Physics, Math, CS) is strongly recommended."
+      ],
+      stage1Title: "2. Stage I — Qualification & Case Defence",
+      stage1Desc: "Online research stage requiring teams to solve a real-world interdisciplinary scientific case and submit a comprehensive technical report.",
+      stage2Title: "3. Stage II — Final Laboratory Research",
+      stage2Desc: "On-site practical laboratory tournament hosted in Oskemen, featuring hands-on experiments, data analysis, and oral defense.",
+      integrityTitle: "4. Academic Integrity & Safety",
+      integrityDesc: "Strict adherence to scientific honesty, lab safety procedures, and ethical standards. Plagiarism results in disqualification.",
+      downloadsTitle: "Official Regulations (PDF Downloads)",
+      fullRulesLink: "Full Rules →",
+    },
+    teamPage: {
+      badge: "Organizers & Steering Committee",
+      title: "Meet the ISM Team",
+      subtitle: "Dedicated scientific mentors, project managers, and committee chairs driving the movement.",
+      organizersTitle: "Organizing Committee",
+      organizersSubtitle: "Co-chairs, managers, and scientific leaders of the International Science Movement.",
+      partnersTitle: "Our Partners & Supporters",
+    },
+    registrationPage: {
+      badge: "Team Registration",
+      title: "ISM Olympiad Team Application",
+      subtitle: "Register your team of 4-5 students for the ISM International Science Olympiad.",
+      closedTitle: "Registration is Currently Closed",
+      closedDesc: "Team registration for the current stage of ISM is closed or has not opened yet. Please check back later or contact the organizing committee.",
+      contactNotice: "For inquiries regarding registration or late submissions, contact:",
+      statusOpen: "Registration Open",
+      statusClosed: "Registration Closed",
     },
     hero: {
       badge: "ISM 2025–2026",
@@ -477,13 +607,84 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       dateAnnouncementNote: "Период турнира: 25 октября – 1 ноября",
     },
     nav: {
+      home: "Главная",
       about: "Об олимпиаде",
-      format: "Формат и Критерии",
+      format: "Формат",
       caseSection: "Кейс",
       schedule: "Расписание",
       judges: "Комитет и Жюри",
-      regulations: "Регламент и Формы",
+      regulations: "Регламент",
+      team: "Команда",
+      rules: "Правила",
+      registerBtn: "Регистрация",
+    },
+    statsBar: {
+      disciplinesCount: "5",
+      disciplinesLabel: "Научных дисциплин",
+      teamSizeCount: "4–5",
+      teamSizeLabel: "Участников в команде",
+      stagesCount: "2",
+      stagesLabel: "Этапа турнира",
+      targetCount: "9–11",
+      targetLabel: "Классы обучения",
+      venueCount: "Усть-Каменогорск",
+      venueLabel: "Город проведения",
+    },
+    partners: {
+      title: "Партнёры и Спонсоры",
+      subtitle: "При поддержке ведущих образовательных и научных организаций",
+      list: [
+        "Bilim Innovation Lyceum",
+        "International Science Movement",
+        "Республиканский центр Дарын",
+        "КазНУ им. аль-Фараби",
+        "Министерство просвещения РК",
+        "Oskemen Science Hub",
+      ],
+    },
+    cta: {
+      title: "Готовы проверить свой научный потенциал?",
+      description: "Соберите команду из 4-5 школьников и представьте свою школу на международной олимпиаде ISM.",
       registerBtn: "Зарегистрировать команду",
+      rulesBtn: "Читать правила →",
+    },
+    rulesPage: {
+      badge: "Официальный регламент",
+      title: "Правила и требования турнира",
+      subtitle: "Всё, что вам нужно знать о составе команд, критериях оценивания и академической честности.",
+      teamTitle: "1. Требования к команде",
+      teamRequirements: [
+        "Команда состоит из 4 основных участников (9–11 классы) + 1 опционального участника.",
+        "В каждой команде назначается Капитан и Руководитель (наставник).",
+        "Все участники должны представлять одно учебное заведение.",
+        "Рекомендуется междисциплинарный баланс (Биология, Химия, Физика, Математика, Информатика)."
+      ],
+      stage1Title: "2. Stage I — Отборочный этап и кейс",
+      stage1Desc: "Онлайн-этап решения междисциплинарного кейса с подготовкой детального исследовательского отчёта.",
+      stage2Title: "3. Stage II — Финальные лабораторные работы",
+      stage2Desc: "Очный практический тур в г. Усть-Каменогорск: лабораторные эксперименты, обработка данных и защита перед жюри.",
+      integrityTitle: "4. Академическая честность и безопасность",
+      integrityDesc: "Строгое соблюдение научной честности и техники безопасности в лабораториях. Плагиат влечёт дисквалификацию.",
+      downloadsTitle: "Официальный регламент (PDF)",
+      fullRulesLink: "Полные правила →",
+    },
+    teamPage: {
+      badge: "Оргкомитет и жюри",
+      title: "Организаторы ISM",
+      subtitle: "Научные менторы, менеджеры проектов и сопредседатели, создающие международное движение.",
+      organizersTitle: "Организационный комитет",
+      organizersSubtitle: "Руководители, менеджеры и научные эксперты International Science Movement.",
+      partnersTitle: "Наши партнёры",
+    },
+    registrationPage: {
+      badge: "Регистрация команды",
+      title: "Заявка на участие в ISM",
+      subtitle: "Зарегистрируйте свою команду из 4-5 участников для участия в международной олимпиаде.",
+      closedTitle: "Регистрация в настоящее время закрыта",
+      closedDesc: "Приём заявок на текущий этап олимпиады ISM завершён либо ещё не открылся. Следите за обновлениями или свяжитесь с оргкомитетом.",
+      contactNotice: "По вопросам регистрации и индивидуальным обращениям:",
+      statusOpen: "Регистрация открыта",
+      statusClosed: "Регистрация закрыта",
     },
     hero: {
       badge: "ISM 2025–2026",
@@ -781,13 +982,84 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       dateAnnouncementNote: "Турнир мерзімі: 25 қазан – 1 қараша",
     },
     nav: {
+      home: "Басты бет",
       about: "Олимпиада туралы",
-      format: "Формат пен Бағалау",
+      format: "Формат",
       caseSection: "Кейс",
       schedule: "Кесте",
-      judges: "Комитет пен Қазылар",
-      regulations: "Ережелер мен Бланктер",
+      judges: "Комитет мен Қазылар",
+      regulations: "Ережелер",
+      team: "Команда",
+      rules: "Ережелер",
+      registerBtn: "Тіркелу",
+    },
+    statsBar: {
+      disciplinesCount: "5",
+      disciplinesLabel: "Ғылыми пән",
+      teamSizeCount: "4–5",
+      teamSizeLabel: "Топтағы қатысушы",
+      stagesCount: "2",
+      stagesLabel: "Турнир кезеңі",
+      targetCount: "9–11",
+      targetLabel: "Оқу сыныптары",
+      venueCount: "Өскемен",
+      venueLabel: "Өтетін қала мен кампус",
+    },
+    partners: {
+      title: "Серіктестер мен Демеушілер",
+      subtitle: "Үздік білім беру және ғылыми ұйымдардың қолдауымен",
+      list: [
+        "Bilim Innovation Lyceum",
+        "International Science Movement",
+        "Дарын Республикалық Орталығы",
+        "Әл-Фараби атындағы ҚазҰУ",
+        "ҚР Оқу-ағарту министрлігі",
+        "Oskemen Science Hub",
+      ],
+    },
+    cta: {
+      title: "Ғылыми әлеуетіңізді тексеруге дайынсыз ба?",
+      description: "4-5 оқушыдан тұратын топ жинап, мектебіңізді ISM халықаралық олимпиадасында таныстырыңыз.",
       registerBtn: "Топты тіркеу",
+      rulesBtn: "Ережелерді оқу →",
+    },
+    rulesPage: {
+      badge: "Ресми ережелер",
+      title: "Турнир ережелері мен талаптары",
+      subtitle: "Топ құрамы, бағалау критерийлері және академиялық адалдық туралы толық ақпарат.",
+      teamTitle: "1. Топқа қойылатын талаптар",
+      teamRequirements: [
+        "Топ 4 негізгі қатысушыдан (9–11 сыныптар) + 1 қосымша қатысушыдан тұрады.",
+        "Әр топта капитан мен жетекші (мұғалім) тағайындалады.",
+        "Барлық қатысушылар бір білім беру ұйымының оқушылары болуы тиіс.",
+        "Пәнаралық тепе-теңдік (Биология, Химия, Физика, Математика, Информатика) ұсынылады."
+      ],
+      stage1Title: "2. Stage I — Сұрыптау кезеңі және кейс",
+      stage1Desc: "Пәнаралық кейсті шешу және егжей-тегжейлі зерттеу есебін дайындау онлайн кезеңі.",
+      stage2Title: "3. Stage II — Финалдық зертханалық жұмыстар",
+      stage2Desc: "Өскемен қаласындағы практикалық тур: зертханалық эксперименттер, деректерді өңдеу және қорғау.",
+      integrityTitle: "4. Академиялық адалдық және қауіпсіздік",
+      integrityDesc: "Ғылыми адалдық пен зертханалық қауіпсіздік ережелерін қатаң сақтау. Плагиат дисквалификацияға әкеледі.",
+      downloadsTitle: "Ресми ережелер (PDF)",
+      fullRulesLink: "Толық ережелер →",
+    },
+    teamPage: {
+      badge: "Ұйымдастыру комитеті",
+      title: "ISM Ұйымдастырушылары",
+      subtitle: "Халықаралық қозғалысты дамытушы ғылыми менторлар, жоба менеджерлері мен төрағалар.",
+      organizersTitle: "Ұйымдастыру комитеті",
+      organizersSubtitle: "International Science Movement басшылары мен ғылыми сарапшылары.",
+      partnersTitle: "Біздің серіктестер",
+    },
+    registrationPage: {
+      badge: "Топты тіркеу",
+      title: "ISM Олимпиадасына өтінім",
+      subtitle: "Халықаралық олимпиадаға қатысу үшін 4-5 оқушыдан тұратын топты тіркеңіз.",
+      closedTitle: "Тіркелу қазіргі уақытта жабық",
+      closedDesc: "ISM олимпиадасының ағымдағы кезеңіне өтінім қабылдау аяқталды немесе әлі ашылған жоқ. Жаңалықтарды бақылаңыз.",
+      contactNotice: "Тіркелу бойынша сұрақтар мен жеке өтініштер үшін:",
+      statusOpen: "Тіркелу ашық",
+      statusClosed: "Тіркелу жабық",
     },
     hero: {
       badge: "ISM 2025–2026",

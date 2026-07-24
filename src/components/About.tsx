@@ -2,68 +2,67 @@
 
 import React from "react";
 import { useLanguage } from "@/context/LanguageContext";
-import { Layers, Target, BookOpen, Users } from "lucide-react";
 
 export const About: React.FC = () => {
   const { content } = useLanguage();
-  const { aboutCards } = content;
-
-  const getIcon = (id: string) => {
-    switch (id) {
-      case "format":
-        return <Layers className="w-5 h-5 text-brand-800" strokeWidth={2} />;
-      case "goals":
-        return <Target className="w-5 h-5 text-brand-800" strokeWidth={2} />;
-      case "disciplines":
-        return <BookOpen className="w-5 h-5 text-brand-800" strokeWidth={2} />;
-      case "team-structure":
-      default:
-        return <Users className="w-5 h-5 text-brand-800" strokeWidth={2} />;
-    }
-  };
+  const { aboutCards, meta, nav, hero } = content;
 
   return (
-    <section id="about" className="py-16 md:py-24 bg-white border-b-2 border-slate-900">
+    <section id="about" className="py-20 md:py-28 bg-white border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Section Header */}
-        <div className="max-w-3xl mx-auto text-center mb-14">
-          <div className="text-xs font-bold text-brand-800 uppercase tracking-widest mb-2">
-            {content.nav.about}
-          </div>
-          <h2 className="font-serif text-2xl sm:text-4xl font-bold text-slate-900 mb-3">
-            {content.meta.shortName} — Core Overview
-          </h2>
-          <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-normal">
-            {content.hero.description}
-          </p>
-        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          
+          {/* Left Column: Mission Text (Eyebrow + Header + Paragraphs) */}
+          <div className="lg:col-span-5 space-y-6">
+            <div className="inline-block px-3 py-1 rounded-md bg-brand-50 border border-brand-200 text-brand-800 text-xs font-bold uppercase tracking-widest">
+              {nav.about}
+            </div>
 
-        {/* 4 Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {aboutCards.map((card) => (
-            <div
-              key={card.id}
-              className="p-6 rounded-xl border-2 border-slate-900 bg-white shadow-sm hover:border-brand-800 transition-all flex flex-col justify-between"
-            >
-              <div>
-                <div className="w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center mb-4 border border-slate-300">
-                  {getIcon(card.id)}
-                </div>
-                <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">
-                  {card.subtitle}
-                </div>
-                <h3 className="font-serif text-lg font-bold text-slate-900 mb-2">
-                  {card.title}
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                  {card.description}
-                </p>
+            <h2 className="font-serif text-3xl sm:text-4xl font-extrabold text-slate-900 leading-tight">
+              {meta.shortName} — {meta.tagline}
+            </h2>
+
+            <p className="text-slate-600 text-base leading-relaxed font-normal">
+              {hero.description}
+            </p>
+
+            <p className="text-slate-600 text-sm leading-relaxed font-normal">
+              The International Science Movement (ISM) brings together high school students across Biology, Chemistry, Physics, Mathematics, and Computer Science to solve complex real-world scientific problems in laboratory and case settings.
+            </p>
+
+            <div className="pt-2">
+              <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">
+                Target Audience
+              </div>
+              <div className="text-sm font-semibold text-slate-900">
+                {meta.targetGrades} ({meta.teamSize})
               </div>
             </div>
-          ))}
-        </div>
+          </div>
 
+          {/* Right Column: 2x2 Grid of Feature Cards (Without Icons) */}
+          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {aboutCards.map((card, index) => (
+              <div
+                key={card.id || index}
+                className="p-6 rounded-2xl border border-slate-200 bg-slate-50/70 hover:bg-white hover:border-brand-300 hover:shadow-md transition-all duration-200 flex flex-col justify-between"
+              >
+                <div>
+                  <div className="text-xs font-bold text-brand-800 uppercase tracking-widest mb-2">
+                    {card.subtitle}
+                  </div>
+                  <h3 className="font-serif text-lg font-bold text-slate-900 mb-3">
+                    {card.title}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+                    {card.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </div>
       </div>
     </section>
   );
