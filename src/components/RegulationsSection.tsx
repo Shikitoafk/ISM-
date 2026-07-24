@@ -6,7 +6,7 @@ import { FileText, Download, ShieldAlert, FileCheck, ExternalLink } from "lucide
 
 export const RegulationsSection: React.FC = () => {
   const { content } = useLanguage();
-  const { regulationsSection, waivers, labSafety } = content;
+  const { regulationsSection, waivers, labSafety, regulationsSectionUI } = content;
 
   return (
     <section id="regulations" className="py-16 md:py-24 bg-white border-b-2 border-slate-900">
@@ -78,7 +78,7 @@ export const RegulationsSection: React.FC = () => {
                   className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-brand-800 hover:bg-brand-900 text-white font-bold text-xs transition-colors shadow-xs"
                 >
                   <Download className="w-3.5 h-3.5" strokeWidth={2} />
-                  <span>Download Form (PDF)</span>
+                  <span>{regulationsSectionUI.downloadFormBtn}</span>
                 </a>
               </div>
             ))}
@@ -111,7 +111,7 @@ export const RegulationsSection: React.FC = () => {
           </ul>
 
           <div className="p-4 rounded-lg bg-white border border-amber-300 text-xs text-slate-700 font-semibold leading-relaxed">
-            <span className="font-bold text-brand-800">Important Disclaimer: </span>
+            <span className="font-bold text-brand-800">{regulationsSectionUI.disclaimerLabel}</span>
             {labSafety.disclaimer}
           </div>
         </div>

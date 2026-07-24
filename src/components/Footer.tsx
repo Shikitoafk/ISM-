@@ -8,7 +8,7 @@ import { Mail, MapPin, Phone, FileText } from "lucide-react";
 
 export const Footer: React.FC = () => {
   const { content } = useLanguage();
-  const { meta, nav } = content;
+  const { meta, nav, footer: footerContent } = content;
 
   return (
     <footer className="bg-slate-900 text-slate-300 border-t border-slate-800 pt-16 pb-12">
@@ -32,7 +32,7 @@ export const Footer: React.FC = () => {
           {/* Right Column 1: Navigation Links */}
           <div className="md:col-span-3 space-y-3">
             <h4 className="font-serif font-bold text-white text-sm uppercase tracking-wider">
-              Navigation
+              {footerContent.navTitle}
             </h4>
             <ul className="space-y-2 text-xs font-semibold text-slate-300">
               <li>
@@ -71,7 +71,7 @@ export const Footer: React.FC = () => {
           {/* Right Column 2: Contacts & Regulations */}
           <div className="md:col-span-3 space-y-3">
             <h4 className="font-serif font-bold text-white text-sm uppercase tracking-wider">
-              Contacts & Info
+              {footerContent.contactsTitle}
             </h4>
             <div className="text-xs space-y-2.5 text-slate-300 font-medium">
               <div className="flex items-center gap-2">
@@ -96,7 +96,7 @@ export const Footer: React.FC = () => {
                 className="inline-flex items-center gap-1.5 text-xs text-brand-300 hover:text-white font-semibold transition-colors"
               >
                 <FileText className="w-3.5 h-3.5" strokeWidth={2} />
-                <span>Download Regulations (PDF)</span>
+                <span>{footerContent.downloadRegulations}</span>
               </a>
             </div>
           </div>
@@ -106,10 +106,10 @@ export const Footer: React.FC = () => {
         {/* Copyright Bottom Row */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
           <div>
-            © {new Date().getFullYear()} {meta.shortName} — International Science Movement. All rights reserved.
+            © {new Date().getFullYear()} {meta.shortName} — {footerContent.brandName}. {footerContent.copyright}
           </div>
           <div className="text-slate-500">
-            Bilim Innovation Lyceum • Oskemen, Kazakhstan
+            {footerContent.locationNote}
           </div>
         </div>
 

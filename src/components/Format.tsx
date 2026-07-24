@@ -3,11 +3,10 @@
 import React from "react";
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
 
 export const Format: React.FC = () => {
   const { content } = useLanguage();
-  const { formatDetails, nav } = content;
+  const { formatDetails, nav, formatSection } = content;
 
   const stage1 = formatDetails.stages[0];
   const stage2 = formatDetails.stages[1];
@@ -15,26 +14,26 @@ export const Format: React.FC = () => {
   const cards = [
     {
       num: "01",
-      badge: "ONLINE STAGE",
-      title: stage1?.name || "Stage I — Qualification",
-      subtitle: stage1?.timeframe || "SEPTEMBER - OCTOBER",
-      description: stage1?.description || "Online research stage requiring teams to solve an interdisciplinary scientific case.",
+      badge: formatSection.badge1,
+      title: stage1?.name || formatSection.stage1Fallback,
+      subtitle: stage1?.timeframe || "",
+      description: stage1?.description || "",
       highlight: false,
     },
     {
       num: "02",
-      badge: "MAIN EVENT • OSKEMEN",
-      title: stage2?.name || "Stage II — Lab Research",
-      subtitle: stage2?.timeframe || "OCTOBER 25 - NOVEMBER 1",
-      description: stage2?.description || "Practical laboratory tournament: experiments, data modeling, and defense before expert jury.",
+      badge: formatSection.badge2,
+      title: stage2?.name || formatSection.stage2Fallback,
+      subtitle: stage2?.timeframe || "",
+      description: stage2?.description || "",
       highlight: true,
     },
     {
       num: "03",
-      badge: "ETHICS & STANDARDS",
-      title: formatDetails.integrityArticle8?.title || "Academic Integrity",
-      subtitle: "SCIENTIFIC HONESTY",
-      description: formatDetails.integrityArticle8?.text || "Strict adherence to scientific honesty, safety regulations, and original research.",
+      badge: formatSection.badge3,
+      title: formatDetails.integrityArticle8?.title || "",
+      subtitle: formatSection.subtitle3,
+      description: formatDetails.integrityArticle8?.text || "",
       highlight: false,
     },
   ];
@@ -106,7 +105,7 @@ export const Format: React.FC = () => {
                 </p>
               </div>
 
-              {/* Action Link: "Full Rules →" */}
+              {/* Action Link */}
               <div className="pt-4 border-t border-slate-200/20">
                 <Link
                   href="/rules"
@@ -116,7 +115,7 @@ export const Format: React.FC = () => {
                       : "text-brand-800 hover:text-brand-900"
                   }`}
                 >
-                  <span>Full Rules →</span>
+                  <span>{formatSection.fullRulesLink}</span>
                 </Link>
               </div>
             </div>

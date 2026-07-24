@@ -8,50 +8,35 @@ import { FileText, ShieldCheck, Users, Layers, Sparkles, CheckCircle2, Download 
 
 export default function RulesPage() {
   const { content } = useLanguage();
-  const { rulesPage, meta, formatDetails } = content;
+  const { rulesPage, meta, formatDetails, rulesPageItems } = content;
 
   const sections = [
     {
       icon: Users,
-      badge: "COMPOSITION & ROLES",
+      badge: rulesPage.teamTitle,
       title: rulesPage.teamTitle,
       items: rulesPage.teamRequirements,
     },
     {
       icon: Layers,
-      badge: "ONLINE STAGE",
+      badge: rulesPage.stage1Title,
       title: rulesPage.stage1Title,
       description: rulesPage.stage1Desc,
-      items: [
-        "Timeframe: September - October 2025",
-        "Format: Online interdisciplinary case research",
-        "Submission: Comprehensive PDF report + source code/calculations",
-        "Evaluation: Peer & Jury review based on methodology and rigor",
-      ],
+      items: rulesPageItems.stage1Items,
     },
     {
       icon: Sparkles,
-      badge: "LAB TOURNAMENT",
+      badge: rulesPage.stage2Title,
       title: rulesPage.stage2Title,
       description: rulesPage.stage2Desc,
-      items: [
-        "Timeframe: October 25 - November 1, 2025",
-        "Venue: Bilim Innovation Lyceum, Oskemen",
-        "Format: On-site laboratory experiments & physical measurements",
-        "Defense: Oral presentation before the Academic Board",
-      ],
+      items: rulesPageItems.stage2Items,
     },
     {
       icon: ShieldCheck,
-      badge: "ETHICS & SAFETY",
+      badge: rulesPage.integrityTitle,
       title: rulesPage.integrityTitle,
       description: rulesPage.integrityDesc,
-      items: [
-        "Zero tolerance for plagiarism or AI-generated unauthorized fabrication",
-        "Mandatory lab safety equipment and protocol adherence during Stage II",
-        "Strict adherence to anti-cheating and peer-collusion rules",
-        "Disqualification upon violation of Article 8 Academic Integrity Code",
-      ],
+      items: rulesPageItems.integrityItems,
     },
   ];
 
@@ -93,9 +78,6 @@ export default function RulesPage() {
                         <div className="p-2 rounded-lg bg-brand-50 text-brand-800 border border-brand-200">
                           <Icon className="w-5 h-5" strokeWidth={2} />
                         </div>
-                        <span className="text-xs font-bold uppercase tracking-wider text-brand-800 bg-brand-50 px-2.5 py-1 rounded-md border border-brand-200">
-                          {sec.badge}
-                        </span>
                       </div>
                       <span className="font-serif text-2xl font-black text-slate-300">
                         0{idx + 1}
@@ -131,39 +113,22 @@ export default function RulesPage() {
               {rulesPage.downloadsTitle}
             </h3>
             <p className="text-slate-600 text-sm mb-6">
-              Download the official tournament regulations document in your preferred language.
+              {rulesPageItems.downloadSubtitle}
             </p>
 
             <div className="flex flex-wrap items-center justify-center gap-4">
-              <a
-                href={meta.regulationsPdfRu}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl border border-slate-300 bg-slate-50 hover:bg-white text-slate-800 font-bold text-xs sm:text-sm transition-all shadow-xs"
-              >
-                <Download className="w-4 h-4 text-slate-600" strokeWidth={2} />
-                <span>Регламент (RU PDF)</span>
-              </a>
-
-              <a
-                href={meta.regulationsPdfKz}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl border border-slate-300 bg-slate-50 hover:bg-white text-slate-800 font-bold text-xs sm:text-sm transition-all shadow-xs"
-              >
-                <Download className="w-4 h-4 text-slate-600" strokeWidth={2} />
-                <span>Ережелер (KZ PDF)</span>
-              </a>
-
-              <a
-                href={meta.regulationsPdfEn}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl border border-slate-300 bg-slate-50 hover:bg-white text-slate-800 font-bold text-xs sm:text-sm transition-all shadow-xs"
-              >
-                <Download className="w-4 h-4 text-slate-600" strokeWidth={2} />
-                <span>Regulations (EN PDF)</span>
-              </a>
+              {content.regulationsSection.downloads.map((dl, idx) => (
+                <a
+                  key={idx}
+                  href={dl.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl border border-slate-300 bg-slate-50 hover:bg-white text-slate-800 font-bold text-xs sm:text-sm transition-all shadow-xs"
+                >
+                  <Download className="w-4 h-4 text-slate-600" strokeWidth={2} />
+                  <span>{dl.lang}</span>
+                </a>
+              ))}
             </div>
           </div>
         </section>

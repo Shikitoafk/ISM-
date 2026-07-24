@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
-import { supabase } from "../lib/supabase";
+import React, { useMemo, useState } from "react";
+import { supabase, isSupabaseConfigured } from "../lib/supabase";
 import { useLanguage } from "@/context/LanguageContext";
-import { Trash2, Send, CheckCircle, AlertCircle, UserCheck, ShieldAlert, Plus } from "lucide-react";
+import { Trash2, Send, CheckCircle, AlertCircle, UserCheck, Plus } from "lucide-react";
 
 interface Member {
   full_name: string;
@@ -11,37 +11,50 @@ interface Member {
   role_or_notes: string;
 }
 
+function createDefaultMembers(
+  grades: string[],
+  roles: { required2: string; required3: string; required4: string }
+): Member[] {
+  const defaultGrade = grades[1] ?? grades[0] ?? "";
+  return [
+    { full_name: "", grade: defaultGrade, role_or_notes: roles.required2 },
+    { full_name: "", grade: defaultGrade, role_or_notes: roles.required3 },
+    { full_name: "", grade: defaultGrade, role_or_notes: roles.required4 },
+  ];
+}
+
 export const RegistrationBlock: React.FC = () => {
   const { content } = useLanguage();
+  const { nav, registrationFormUI: form } = content;
+  const { grades, memberRoles, errors } = form;
 
-  // Team info
+  const defaultGrade = grades[1] ?? grades[0] ?? "";
+
+  const initialMembers = useMemo(
+    () => createDefaultMembers(grades, memberRoles),
+    [grades, memberRoles]
+  );
+
   const [teamName, setTeamName] = useState("");
   const [school, setSchool] = useState("");
   const [city, setCity] = useState("");
-  const [grade, setGrade] = useState("Grade 10");
+  const [grade, setGrade] = useState(defaultGrade);
 
-  // Captain info (Member #1 - Required)
   const [captainName, setCaptainName] = useState("");
   const [captainEmail, setCaptainEmail] = useState("");
   const [captainContact, setCaptainContact] = useState("");
 
-  // MANDATORY Team Supervisor / Leader info
   const [leaderName, setLeaderName] = useState("");
   const [leaderEmail, setLeaderEmail] = useState("");
   const [leaderContact, setLeaderContact] = useState("");
 
-  // Required Members 2, 3, 4 (Total 4 core members) + Optional Member 5
-  const [members, setMembers] = useState<Member[]>([
-    { full_name: "", grade: "Grade 10", role_or_notes: "Required Member #2" },
-    { full_name: "", grade: "Grade 10", role_or_notes: "Required Member #3" },
-    { full_name: "", grade: "Grade 10", role_or_notes: "Required Member #4" },
-  ]);
+  const [members, setMembers] = useState<Member[]>(initialMembers);
 
   const [hasFifthMember, setHasFifthMember] = useState(false);
   const [fifthMember, setFifthMember] = useState<Member>({
     full_name: "",
-    grade: "Grade 10",
-    role_or_notes: "Optional Member #5",
+    grade: defaultGrade,
+    role_or_notes: memberRoles.optional5,
   });
 
   const [consent, setConsent] = useState(false);
@@ -55,31 +68,49 @@ export const RegistrationBlock: React.FC = () => {
     setMembers(updated);
   };
 
+  const resetForm = () => {
+    setTeamName("");
+    setCaptainName("");
+    setCaptainEmail("");
+    setCaptainContact("");
+    setLeaderName("");
+    setLeaderEmail("");
+    setLeaderContact("");
+    setSchool("");
+    setCity("");
+    setGrade(defaultGrade);
+    setMembers(createDefaultMembers(grades, memberRoles));
+    setHasFifthMember(false);
+    setFifthMember({
+      full_name: "",
+      grade: defaultGrade,
+      role_or_notes: memberRoles.optional5,
+    });
+    setConsent(false);
+    setLabSafetyConsent(false);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatusMessage(null);
 
+    if (!isSupabaseConfigured()) {
+      setStatusMessage({ type: "error", text: errors.dbError });
+      return;
+    }
+
     if (!consent) {
-      setStatusMessage({
-        type: "error",
-        text: "Please confirm your agreement to personal data processing and Article 8 Academic Integrity Rules.",
-      });
+      setStatusMessage({ type: "error", text: errors.consentRequired });
       return;
     }
 
     if (!labSafetyConsent) {
-      setStatusMessage({
-        type: "error",
-        text: "Please confirm compliance with Laboratory Safety Regulations (mandatory PPE & personal liability).",
-      });
+      setStatusMessage({ type: "error", text: errors.labSafetyRequired });
       return;
     }
 
     if (!leaderName.trim() || !leaderEmail.trim() || !leaderContact.trim()) {
-      setStatusMessage({
-        type: "error",
-        text: "Please complete all fields for the Team Supervisor / Teacher.",
-      });
+      setStatusMessage({ type: "error", text: errors.supervisorRequired });
       return;
     }
 
@@ -87,17 +118,14 @@ export const RegistrationBlock: React.FC = () => {
       if (!members[i].full_name.trim()) {
         setStatusMessage({
           type: "error",
-          text: `Please enter the Full Name for Required Team Member #${i + 2}.`,
+          text: `${errors.memberRequired}${i + 2}.`,
         });
         return;
       }
     }
 
     if (hasFifthMember && !fifthMember.full_name.trim()) {
-      setStatusMessage({
-        type: "error",
-        text: "Please enter the Full Name for Optional Team Member #5 or remove the 5th member.",
-      });
+      setStatusMessage({ type: "error", text: errors.fifthMemberRequired });
       return;
     }
 
@@ -131,58 +159,34 @@ export const RegistrationBlock: React.FC = () => {
         console.error("Supabase insert error:", error);
         setStatusMessage({
           type: "error",
-          text: `Registration error: ${error.message}.`,
+          text: `${errors.submitError} ${error.message}.`,
         });
       } else {
-        setStatusMessage({
-          type: "success",
-          text: "Team registration successfully submitted! Confirmation instructions sent to Captain and Supervisor emails.",
-        });
-        // Reset form
-        setTeamName("");
-        setCaptainName("");
-        setCaptainEmail("");
-        setCaptainContact("");
-        setLeaderName("");
-        setLeaderEmail("");
-        setLeaderContact("");
-        setSchool("");
-        setCity("");
-        setMembers([
-          { full_name: "", grade: "Grade 10", role_or_notes: "Required Member #2" },
-          { full_name: "", grade: "Grade 10", role_or_notes: "Required Member #3" },
-          { full_name: "", grade: "Grade 10", role_or_notes: "Required Member #4" },
-        ]);
-        setHasFifthMember(false);
-        setFifthMember({ full_name: "", grade: "Grade 10", role_or_notes: "Optional Member #5" });
-        setConsent(false);
-        setLabSafetyConsent(false);
+        setStatusMessage({ type: "success", text: errors.submitSuccess });
+        resetForm();
       }
-    } catch (err: any) {
+    } catch (err) {
       console.error(err);
-      setStatusMessage({
-        type: "error",
-        text: "Database connection error. Please check Supabase credentials.",
-      });
+      setStatusMessage({ type: "error", text: errors.dbError });
     } finally {
       setLoading(false);
     }
   };
 
+  const requiredMemberLabels = [memberRoles.required2, memberRoles.required3, memberRoles.required4];
+
   return (
     <section id="registration" className="py-16 md:py-24 bg-slate-50 border-b-2 border-slate-900">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Section Title */}
         <div className="text-center mb-12">
           <div className="text-xs font-bold text-brand-800 uppercase tracking-widest mb-2">
-            Application Form
+            {form.eyebrow}
           </div>
           <h2 className="font-serif text-2xl sm:text-4xl font-bold text-slate-900 mb-3">
-            Register Team for {content.meta.shortName}
+            {form.title}
           </h2>
           <p className="text-slate-600 text-sm sm:text-base max-w-xl mx-auto font-normal">
-            Form to be submitted by the Team Captain. Required team structure: <strong>4 Core Members</strong> (Captain + 3 Members) + <strong>1 Optional 5th Member</strong> + <strong>1 Team Supervisor</strong>.
+            {form.subtitle}
           </p>
         </div>
 
@@ -190,7 +194,6 @@ export const RegistrationBlock: React.FC = () => {
           onSubmit={handleSubmit}
           className="p-6 sm:p-10 rounded-2xl border-2 border-slate-900 bg-white shadow-md space-y-8"
         >
-          {/* Status Alert */}
           {statusMessage && (
             <div
               className={`p-4 rounded-xl border-2 text-xs sm:text-sm font-semibold flex items-start gap-3 ${
@@ -208,21 +211,20 @@ export const RegistrationBlock: React.FC = () => {
             </div>
           )}
 
-          {/* Block 1: Team & Institution Info */}
           <div className="space-y-4">
-            <h3 className="font-serif text-lg font-bold text-slate-900 pb-2 border-b-2 border-slate-900 flex items-center justify-between">
-              <span>1. Team & Institution Information</span>
+            <h3 className="font-serif text-lg font-bold text-slate-900 pb-2 border-b-2 border-slate-900">
+              {form.section1Title}
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-bold text-slate-900 uppercase mb-1">
-                  Team Name *
+                  {form.teamNameLabel}
                 </label>
                 <input
                   type="text"
                   required
-                  placeholder='e.g., "Quantum Catalyst"'
+                  placeholder={form.teamNamePlaceholder}
                   value={teamName}
                   onChange={(e) => setTeamName(e.target.value)}
                   className="w-full px-4 py-2.5 rounded-xl border-2 border-slate-900 text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-brand-800 focus:outline-none text-xs sm:text-sm font-semibold bg-slate-50/50"
@@ -231,12 +233,12 @@ export const RegistrationBlock: React.FC = () => {
 
               <div>
                 <label className="block text-xs font-bold text-slate-900 uppercase mb-1">
-                  City / Location *
+                  {form.cityLabel}
                 </label>
                 <input
                   type="text"
                   required
-                  placeholder='e.g., "Almaty"'
+                  placeholder={form.cityPlaceholder}
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
                   className="w-full px-4 py-2.5 rounded-xl border-2 border-slate-900 text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-brand-800 focus:outline-none text-xs sm:text-sm font-semibold bg-slate-50/50"
@@ -245,12 +247,12 @@ export const RegistrationBlock: React.FC = () => {
 
               <div className="sm:col-span-2">
                 <label className="block text-xs font-bold text-slate-900 uppercase mb-1">
-                  Full School / Institution Name *
+                  {form.schoolLabel}
                 </label>
                 <input
                   type="text"
                   required
-                  placeholder='e.g., "Specialized Lyceum No. 165"'
+                  placeholder={form.schoolPlaceholder}
                   value={school}
                   onChange={(e) => setSchool(e.target.value)}
                   className="w-full px-4 py-2.5 rounded-xl border-2 border-slate-900 text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-brand-800 focus:outline-none text-xs sm:text-sm font-semibold bg-slate-50/50"
@@ -259,22 +261,23 @@ export const RegistrationBlock: React.FC = () => {
             </div>
           </div>
 
-          {/* Block 2: Team Captain (Member #1 Required) */}
           <div className="space-y-4">
             <h3 className="font-serif text-lg font-bold text-slate-900 pb-2 border-b-2 border-slate-900 flex items-center justify-between">
-              <span>2. Team Captain (Member #1 - Required)</span>
-              <span className="text-xs font-bold text-brand-800 bg-brand-50 px-2.5 py-0.5 rounded-md border border-brand-200 uppercase">Captain</span>
+              <span>{form.section2Title}</span>
+              <span className="text-xs font-bold text-brand-800 bg-brand-50 px-2.5 py-0.5 rounded-md border border-brand-200 uppercase">
+                {form.captainBadge}
+              </span>
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-bold text-slate-900 uppercase mb-1">
-                  Captain Full Name *
+                  {form.captainNameLabel}
                 </label>
                 <input
                   type="text"
                   required
-                  placeholder="First & Last Name"
+                  placeholder={form.captainNamePlaceholder}
                   value={captainName}
                   onChange={(e) => setCaptainName(e.target.value)}
                   className="w-full px-4 py-2.5 rounded-xl border-2 border-slate-900 text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-brand-800 focus:outline-none text-xs sm:text-sm font-semibold bg-slate-50/50"
@@ -283,12 +286,12 @@ export const RegistrationBlock: React.FC = () => {
 
               <div>
                 <label className="block text-xs font-bold text-slate-900 uppercase mb-1">
-                  Captain Email *
+                  {form.captainEmailLabel}
                 </label>
                 <input
                   type="email"
                   required
-                  placeholder="captain@example.com"
+                  placeholder={form.captainEmailPlaceholder}
                   value={captainEmail}
                   onChange={(e) => setCaptainEmail(e.target.value)}
                   className="w-full px-4 py-2.5 rounded-xl border-2 border-slate-900 text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-brand-800 focus:outline-none text-xs sm:text-sm font-semibold bg-slate-50/50"
@@ -297,12 +300,12 @@ export const RegistrationBlock: React.FC = () => {
 
               <div>
                 <label className="block text-xs font-bold text-slate-900 uppercase mb-1">
-                  Captain Phone / Contact *
+                  {form.captainPhoneLabel}
                 </label>
                 <input
                   type="text"
                   required
-                  placeholder="+7 (707) 000-00-00"
+                  placeholder={form.captainPhonePlaceholder}
                   value={captainContact}
                   onChange={(e) => setCaptainContact(e.target.value)}
                   className="w-full px-4 py-2.5 rounded-xl border-2 border-slate-900 text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-brand-800 focus:outline-none text-xs sm:text-sm font-semibold bg-slate-50/50"
@@ -311,40 +314,40 @@ export const RegistrationBlock: React.FC = () => {
 
               <div>
                 <label className="block text-xs font-bold text-slate-900 uppercase mb-1">
-                  Grade Level *
+                  {form.gradeLabel}
                 </label>
                 <select
                   value={grade}
                   onChange={(e) => setGrade(e.target.value)}
                   className="w-full px-4 py-2.5 rounded-xl border-2 border-slate-900 text-slate-900 focus:ring-2 focus:ring-brand-800 focus:outline-none text-xs sm:text-sm font-semibold bg-slate-50/50"
                 >
-                  <option value="Grade 9">Grade 9</option>
-                  <option value="Grade 10">Grade 10</option>
-                  <option value="Grade 11">Grade 11</option>
-                  <option value="Grade 12">Grade 12</option>
+                  {grades.map((g) => (
+                    <option key={g} value={g}>
+                      {g}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
           </div>
 
-          {/* Block 3: Team Supervisor / Leader (Required) */}
           <div className="p-5 rounded-xl border-2 border-slate-900 bg-slate-50/80 shadow-xs space-y-4">
             <div className="flex items-center gap-2 pb-2 border-b-2 border-slate-900">
               <UserCheck className="w-5 h-5 text-brand-800" strokeWidth={2} />
               <h3 className="font-serif text-lg font-bold text-slate-900">
-                3. Team Supervisor / Advisor (Mandatory Role)
+                {form.section3Title}
               </h3>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
                 <label className="block text-xs font-bold text-slate-900 uppercase mb-1">
-                  Supervisor Full Name *
+                  {form.supervisorNameLabel}
                 </label>
                 <input
                   type="text"
                   required
-                  placeholder="Teacher Full Name"
+                  placeholder={form.supervisorNamePlaceholder}
                   value={leaderName}
                   onChange={(e) => setLeaderName(e.target.value)}
                   className="w-full px-3.5 py-2 rounded-lg border-2 border-slate-900 bg-white text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-brand-800 focus:outline-none text-xs sm:text-sm font-semibold"
@@ -353,12 +356,12 @@ export const RegistrationBlock: React.FC = () => {
 
               <div>
                 <label className="block text-xs font-bold text-slate-900 uppercase mb-1">
-                  Supervisor Email *
+                  {form.supervisorEmailLabel}
                 </label>
                 <input
                   type="email"
                   required
-                  placeholder="teacher@school.edu"
+                  placeholder={form.supervisorEmailPlaceholder}
                   value={leaderEmail}
                   onChange={(e) => setLeaderEmail(e.target.value)}
                   className="w-full px-3.5 py-2 rounded-lg border-2 border-slate-900 bg-white text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-brand-800 focus:outline-none text-xs sm:text-sm font-semibold"
@@ -367,12 +370,12 @@ export const RegistrationBlock: React.FC = () => {
 
               <div>
                 <label className="block text-xs font-bold text-slate-900 uppercase mb-1">
-                  Supervisor Phone / Contact *
+                  {form.supervisorPhoneLabel}
                 </label>
                 <input
                   type="text"
                   required
-                  placeholder="+7 (777) 000-00-00"
+                  placeholder={form.supervisorPhonePlaceholder}
                   value={leaderContact}
                   onChange={(e) => setLeaderContact(e.target.value)}
                   className="w-full px-3.5 py-2 rounded-lg border-2 border-slate-900 bg-white text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-brand-800 focus:outline-none text-xs sm:text-sm font-semibold"
@@ -381,11 +384,10 @@ export const RegistrationBlock: React.FC = () => {
             </div>
           </div>
 
-          {/* Block 4: Required Core Members (Members #2, #3, #4) & Optional Member #5 */}
           <div className="space-y-4">
             <div className="flex items-center justify-between pb-2 border-b-2 border-slate-900">
               <h3 className="font-serif text-lg font-bold text-slate-900">
-                4. Core Team Members (3 Required Members)
+                {form.section4Title}
               </h3>
               {!hasFifthMember && (
                 <button
@@ -394,25 +396,27 @@ export const RegistrationBlock: React.FC = () => {
                   className="inline-flex items-center gap-1 text-xs font-bold text-brand-800 bg-brand-50 hover:bg-brand-100 px-3 py-1 rounded-lg border border-brand-300 transition-colors"
                 >
                   <Plus className="w-3.5 h-3.5" strokeWidth={2} />
-                  <span>Add Optional 5th Member</span>
+                  <span>{form.addFifthMember}</span>
                 </button>
               )}
             </div>
 
-            {/* Required Members #2, #3, #4 */}
             <div className="space-y-3">
               {members.map((m, idx) => (
-                <div key={idx} className="p-4 rounded-xl border-2 border-slate-900 bg-white shadow-xs flex flex-col sm:flex-row items-center gap-3">
+                <div
+                  key={idx}
+                  className="p-4 rounded-xl border-2 border-slate-900 bg-white shadow-xs flex flex-col sm:flex-row items-center gap-3"
+                >
                   <div className="flex items-center justify-between w-full sm:w-auto gap-2">
                     <span className="text-xs font-bold text-slate-900 shrink-0 sm:w-28">
-                      Member #{idx + 2} <span className="text-brand-800 font-extrabold">(Required)</span>
+                      {requiredMemberLabels[idx]}
                     </span>
                   </div>
 
                   <input
                     type="text"
                     required
-                    placeholder="Full Name"
+                    placeholder={form.fullNamePlaceholder}
                     value={m.full_name}
                     onChange={(e) => updateMember(idx, "full_name", e.target.value)}
                     className="flex-grow w-full px-3.5 py-2 rounded-lg border-2 border-slate-900 text-xs sm:text-sm bg-slate-50/50 font-semibold focus:ring-1 focus:ring-brand-800"
@@ -423,26 +427,26 @@ export const RegistrationBlock: React.FC = () => {
                     onChange={(e) => updateMember(idx, "grade", e.target.value)}
                     className="w-full sm:w-36 px-3 py-2 rounded-lg border-2 border-slate-900 text-xs sm:text-sm bg-slate-50/50 font-semibold focus:ring-1 focus:ring-brand-800"
                   >
-                    <option value="Grade 9">Grade 9</option>
-                    <option value="Grade 10">Grade 10</option>
-                    <option value="Grade 11">Grade 11</option>
-                    <option value="Grade 12">Grade 12</option>
+                    {grades.map((g) => (
+                      <option key={g} value={g}>
+                        {g}
+                      </option>
+                    ))}
                   </select>
                 </div>
               ))}
 
-              {/* Optional Member #5 */}
               {hasFifthMember && (
                 <div className="p-4 rounded-xl border-2 border-brand-800 bg-brand-50/40 shadow-xs flex flex-col sm:flex-row items-center gap-3">
                   <div className="flex items-center justify-between w-full sm:w-auto gap-2">
                     <span className="text-xs font-bold text-brand-900 shrink-0 sm:w-28">
-                      Member #5 <span className="text-slate-600 font-normal">(Optional)</span>
+                      {memberRoles.optional5}
                     </span>
                   </div>
 
                   <input
                     type="text"
-                    placeholder="Full Name (Optional 5th Member)"
+                    placeholder={form.fifthMemberPlaceholder}
                     value={fifthMember.full_name}
                     onChange={(e) => setFifthMember({ ...fifthMember, full_name: e.target.value })}
                     className="flex-grow w-full px-3.5 py-2 rounded-lg border-2 border-slate-900 text-xs sm:text-sm bg-white font-semibold focus:ring-1 focus:ring-brand-800"
@@ -453,20 +457,25 @@ export const RegistrationBlock: React.FC = () => {
                     onChange={(e) => setFifthMember({ ...fifthMember, grade: e.target.value })}
                     className="w-full sm:w-36 px-3 py-2 rounded-lg border-2 border-slate-900 text-xs sm:text-sm bg-white font-semibold focus:ring-1 focus:ring-brand-800"
                   >
-                    <option value="Grade 9">Grade 9</option>
-                    <option value="Grade 10">Grade 10</option>
-                    <option value="Grade 11">Grade 11</option>
-                    <option value="Grade 12">Grade 12</option>
+                    {grades.map((g) => (
+                      <option key={g} value={g}>
+                        {g}
+                      </option>
+                    ))}
                   </select>
 
                   <button
                     type="button"
                     onClick={() => {
                       setHasFifthMember(false);
-                      setFifthMember({ full_name: "", grade: "Grade 10", role_or_notes: "Optional Member #5" });
+                      setFifthMember({
+                        full_name: "",
+                        grade: defaultGrade,
+                        role_or_notes: memberRoles.optional5,
+                      });
                     }}
                     className="text-slate-500 hover:text-red-600 p-1.5 shrink-0"
-                    title="Remove optional 5th member"
+                    title={form.removeFifthMemberTitle}
                   >
                     <Trash2 className="w-4 h-4" strokeWidth={2} />
                   </button>
@@ -475,7 +484,6 @@ export const RegistrationBlock: React.FC = () => {
             </div>
           </div>
 
-          {/* Block 5: Consents & Lab Safety Checkboxes */}
           <div className="space-y-3">
             <div className="p-4 rounded-xl border-2 border-slate-900 bg-slate-50">
               <label className="flex items-start gap-3 cursor-pointer select-none">
@@ -486,7 +494,7 @@ export const RegistrationBlock: React.FC = () => {
                   className="mt-0.5 w-4 h-4 text-brand-800 rounded border-slate-900 focus:ring-brand-800 shrink-0"
                 />
                 <span className="text-xs text-slate-700 font-semibold leading-relaxed">
-                  I confirm agreement to personal data processing and guarantee compliance with ISM Regulations, including Article 8 Academic Integrity Rules (strict prohibition of generative AI).
+                  {form.consentData}
                 </span>
               </label>
             </div>
@@ -500,29 +508,27 @@ export const RegistrationBlock: React.FC = () => {
                   className="mt-0.5 w-4 h-4 text-brand-800 rounded border-slate-900 focus:ring-brand-800 shrink-0"
                 />
                 <span className="text-xs text-slate-800 font-semibold leading-relaxed">
-                  I confirm that all team members will strictly comply with Laboratory Safety Regulations (mandatory PPE, lab coats, safety goggles) and acknowledge personal responsibility for laboratory conduct.
+                  {form.consentLabSafety}
                 </span>
               </label>
             </div>
           </div>
 
-          {/* Submit Button */}
           <button
             type="submit"
             disabled={loading}
             className="w-full py-4 rounded-xl bg-brand-800 hover:bg-brand-900 disabled:bg-slate-400 text-white font-bold text-sm transition-all shadow-md flex items-center justify-center gap-2"
           >
             {loading ? (
-              <span>Submitting Registration...</span>
+              <span>{form.submitting}</span>
             ) : (
               <>
                 <Send className="w-4 h-4" strokeWidth={2} />
-                <span>{content.nav.registerBtn}</span>
+                <span>{nav.registerBtn}</span>
               </>
             )}
           </button>
         </form>
-
       </div>
     </section>
   );

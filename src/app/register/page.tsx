@@ -5,8 +5,31 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { RegistrationBlock } from "@/components/RegistrationBlock";
 import { useLanguage } from "@/context/LanguageContext";
-import { supabase } from "@/lib/supabase";
+import { supabase, isSupabaseConfigured } from "@/lib/supabase";
 import { Lock, Mail, Phone, Calendar, AlertCircle } from "lucide-react";
+
+const STATUS_CHECK_TIMEOUT_MS = 5000;
+
+async function fetchRegistrationStatus(): Promise<boolean> {
+  if (!isSupabaseConfigured()) {
+    return true;
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from("site_settings")
+      .select("registration_open")
+      .single();
+
+    if (error || !data) {
+      return true;
+    }
+
+    return data.registration_open !== false;
+  } catch {
+    return true;
+  }
+}
 
 export default function RegisterPage() {
   const { content } = useLanguage();
@@ -15,27 +38,29 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function checkRegistrationStatus() {
-      try {
-        const { data, error } = await supabase
-          .from("site_settings")
-          .select("registration_open")
-          .single();
+    let isMounted = true;
 
-        if (error || !data) {
-          // Default to open if site_settings table does not exist or errors out
-          setIsRegistrationOpen(true);
-        } else {
-          setIsRegistrationOpen(data.registration_open !== false);
+    const timeoutPromise = new Promise<boolean>((resolve) => {
+      setTimeout(() => resolve(true), STATUS_CHECK_TIMEOUT_MS);
+    });
+
+    Promise.race([fetchRegistrationStatus(), timeoutPromise])
+      .then((isOpen) => {
+        if (isMounted) {
+          setIsRegistrationOpen(isOpen);
+          setLoading(false);
         }
-      } catch {
-        setIsRegistrationOpen(true);
-      } finally {
-        setLoading(false);
-      }
-    }
+      })
+      .catch(() => {
+        if (isMounted) {
+          setIsRegistrationOpen(true);
+          setLoading(false);
+        }
+      });
 
-    checkRegistrationStatus();
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return (
@@ -43,7 +68,6 @@ export default function RegisterPage() {
       <Header />
 
       <main className="flex-grow pt-24">
-        {/* Compact Hero Banner */}
         <section className="bg-slate-900 text-white py-12 md:py-16 border-b border-slate-800">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-900 border border-brand-500/40 text-brand-300 text-xs font-semibold uppercase tracking-wider mb-3">
@@ -58,33 +82,28 @@ export default function RegisterPage() {
           </div>
         </section>
 
-        {/* Content Area: Form or Closed State */}
         <div className="py-12 md:py-20">
           {loading ? (
-            <div className="max-w-xl mx-auto text-center py-16 text-slate-500 font-medium">
-              Checking registration status...
+            <div className="max-w-xl mx-auto text-center py-16 text-slate-500 font-medium flex flex-col items-center justify-center gap-3">
+              <div className="w-8 h-8 border-3 border-brand-800 border-t-transparent rounded-full animate-spin"></div>
+              <span>{registrationPage.checkingStatus}</span>
             </div>
           ) : isRegistrationOpen ? (
-            /* Open Registration Form */
             <RegistrationBlock />
           ) : (
-            /* Centered Closed State Card */
             <div className="max-w-2xl mx-auto px-4">
               <div className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-8 sm:p-12 text-center shadow-lg">
                 <div className="absolute inset-0 opacity-5 pointer-events-none bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:12px_12px]" />
 
                 <div className="relative z-10 space-y-6">
-                  {/* Icon */}
                   <div className="w-16 h-16 rounded-full bg-amber-50 border-2 border-amber-200 flex items-center justify-center text-amber-700 mx-auto shadow-xs">
                     <Lock className="w-8 h-8" strokeWidth={2} />
                   </div>
 
-                  {/* Status Badge */}
                   <div className="inline-block px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-bold uppercase tracking-wider">
                     {registrationPage.statusClosed}
                   </div>
 
-                  {/* Title & Description */}
                   <h2 className="font-serif text-2xl sm:text-3xl font-extrabold text-slate-900">
                     {registrationPage.closedTitle}
                   </h2>
@@ -93,7 +112,6 @@ export default function RegisterPage() {
                     {registrationPage.closedDesc}
                   </p>
 
-                  {/* Contact Info Notice */}
                   <div className="pt-6 border-t border-slate-100 text-left bg-slate-50 p-6 rounded-2xl border border-slate-200/80">
                     <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3 flex items-center gap-1.5">
                       <AlertCircle className="w-4 h-4 text-brand-800" strokeWidth={2} />
@@ -116,7 +134,6 @@ export default function RegisterPage() {
                     </div>
                   </div>
                 </div>
-
               </div>
             </div>
           )}

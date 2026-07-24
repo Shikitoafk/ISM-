@@ -7,7 +7,7 @@ import { ArrowRight, Sparkles } from "lucide-react";
 
 export const CtaBlock: React.FC = () => {
   const { content } = useLanguage();
-  const { cta } = content;
+  const { cta, meta } = content;
 
   return (
     <section className="py-20 bg-slate-50 border-b border-slate-200">
@@ -20,7 +20,7 @@ export const CtaBlock: React.FC = () => {
           <div className="relative z-10 max-w-3xl mx-auto space-y-6">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-900/80 border border-brand-500/40 text-brand-300 text-xs font-semibold uppercase tracking-wider">
               <Sparkles className="w-4 h-4 text-brand-300" strokeWidth={2} />
-              <span>International Science Movement</span>
+              <span>{meta.fullName}</span>
             </div>
 
             <h2 className="font-serif text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">

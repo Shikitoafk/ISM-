@@ -9,7 +9,7 @@ import { Users, User, Award, Building2 } from "lucide-react";
 
 export default function TeamPage() {
   const { content } = useLanguage();
-  const { teamPage, organizers } = content;
+  const { teamPage, organizers, teamJury } = content;
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 selection:bg-brand-800 selection:text-white">
@@ -88,7 +88,7 @@ export default function TeamPage() {
           {/* Section: Jury Information Note */}
           <div className="max-w-4xl mx-auto p-8 rounded-2xl border border-slate-200 bg-white shadow-sm text-center">
             <h3 className="font-serif text-xl font-bold text-slate-900 mb-2">
-              Academic Jury & Panel of Experts
+              {teamJury.juryTitle}
             </h3>
             <p className="text-slate-600 text-sm leading-relaxed max-w-2xl mx-auto">
               {organizers.juryInfo.description}

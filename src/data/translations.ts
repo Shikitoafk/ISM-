@@ -87,6 +87,7 @@ export interface ContentStructure {
   partners: {
     title: string;
     subtitle: string;
+    emptySlot: string;
     list: string[];
   };
   cta: {
@@ -127,6 +128,7 @@ export interface ContentStructure {
     contactNotice: string;
     statusOpen: string;
     statusClosed: string;
+    checkingStatus: string;
   };
   hero: {
     badge: string;
@@ -208,6 +210,127 @@ export interface ContentStructure {
     description: string;
     downloads: { lang: string; url: string }[];
   };
+  aboutSection: {
+    missionParagraph: string;
+    targetAudienceLabel: string;
+  };
+  footer: {
+    navTitle: string;
+    contactsTitle: string;
+    downloadRegulations: string;
+    copyright: string;
+    locationNote: string;
+    brandName: string;
+  };
+  formatSection: {
+    badge1: string;
+    badge2: string;
+    badge3: string;
+    subtitle3: string;
+    fullRulesLink: string;
+    stage1Fallback: string;
+    stage2Fallback: string;
+  };
+  scheduleSectionUI: {
+    title: string;
+    subtitle: string;
+    colTime: string;
+    colEvent: string;
+    colVenue: string;
+  };
+  judgesSectionUI: {
+    eyebrow: string;
+    subtitle: string;
+    committeeTitle: string;
+  };
+  rulesPageItems: {
+    stage1Items: string[];
+    stage2Items: string[];
+    integrityItems: string[];
+    downloadSubtitle: string;
+  };
+  teamJury: {
+    juryTitle: string;
+  };
+  caseSectionUI: {
+    stageNotice: string;
+    submissionTitle: string;
+    releaseNotice: string;
+    downloadTitle: string;
+    downloadSubtitle: string;
+  };
+  awardsSectionUI: {
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    tableTitle: string;
+    colTier: string;
+    colTeams: string;
+    colDiploma: string;
+    colWinner: string;
+    tbd: string;
+    resultsNote: string;
+  };
+  regulationsSectionUI: {
+    downloadFormBtn: string;
+    disclaimerLabel: string;
+  };
+  registrationFormUI: {
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    section1Title: string;
+    teamNameLabel: string;
+    teamNamePlaceholder: string;
+    cityLabel: string;
+    cityPlaceholder: string;
+    schoolLabel: string;
+    schoolPlaceholder: string;
+    section2Title: string;
+    captainBadge: string;
+    captainNameLabel: string;
+    captainNamePlaceholder: string;
+    captainEmailLabel: string;
+    captainEmailPlaceholder: string;
+    captainPhoneLabel: string;
+    captainPhonePlaceholder: string;
+    gradeLabel: string;
+    grades: string[];
+    section3Title: string;
+    supervisorNameLabel: string;
+    supervisorNamePlaceholder: string;
+    supervisorEmailLabel: string;
+    supervisorEmailPlaceholder: string;
+    supervisorPhoneLabel: string;
+    supervisorPhonePlaceholder: string;
+    section4Title: string;
+    addFifthMember: string;
+    memberRequiredLabel: string;
+    memberOptionalLabel: string;
+    memberNumberLabel: string;
+    fullNamePlaceholder: string;
+    fifthMemberPlaceholder: string;
+    removeFifthMemberTitle: string;
+    consentData: string;
+    consentLabSafety: string;
+    submitting: string;
+    errors: {
+      consentRequired: string;
+      labSafetyRequired: string;
+      supervisorRequired: string;
+      memberRequired: string;
+      fifthMemberRequired: string;
+      submitSuccess: string;
+      submitError: string;
+      dbError: string;
+    };
+    memberRoles: {
+      required2: string;
+      required3: string;
+      required4: string;
+      optional5: string;
+    };
+  };
 }
 
 export const TRANSLATIONS: Record<Language, ContentStructure> = {
@@ -244,8 +367,8 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       registerBtn: "Registration",
     },
     statsBar: {
-      disciplinesCount: "5",
-      disciplinesLabel: "Scientific Disciplines",
+      disciplinesCount: "STEM",
+      disciplinesLabel: "STEM",
       teamSizeCount: "4–5",
       teamSizeLabel: "Members per Team",
       stagesCount: "2",
@@ -258,14 +381,8 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
     partners: {
       title: "Partners & Sponsors",
       subtitle: "Supported by leading educational and scientific organizations",
-      list: [
-        "Bilim Innovation Lyceum",
-        "International Science Movement",
-        "Daryn National Center",
-        "Al-Farabi Kazakh National University",
-        "Ministry of Education & Science",
-        "Oskemen Science Hub",
-      ],
+      emptySlot: "Partner logos will appear here",
+      list: [],
     },
     cta: {
       title: "Ready to Test Your Scientific Potential?",
@@ -310,6 +427,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       contactNotice: "For inquiries regarding registration or late submissions, contact:",
       statusOpen: "Registration Open",
       statusClosed: "Registration Closed",
+      checkingStatus: "Checking registration status...",
     },
     hero: {
       badge: "ISM 2025–2026",
@@ -583,14 +701,150 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
         { lang: "Russian Version (RU)", url: "/docs/ism-regulations-ru.pdf" },
         { lang: "Kazakh Version (KZ)", url: "/docs/ism-regulations-kz.pdf" }
       ]
+    },
+    aboutSection: {
+      missionParagraph: "The International Science Movement (ISM) brings together high school students across Biology, Chemistry, Physics, Mathematics, and Computer Science to solve complex real-world scientific problems in laboratory and case settings.",
+      targetAudienceLabel: "Target Audience",
+    },
+    footer: {
+      navTitle: "Navigation",
+      contactsTitle: "Contacts & Info",
+      downloadRegulations: "Download Regulations (PDF)",
+      copyright: "All rights reserved.",
+      locationNote: "Bilim Innovation Lyceum • Oskemen, Kazakhstan",
+      brandName: "International Science Movement",
+    },
+    formatSection: {
+      badge1: "ONLINE STAGE",
+      badge2: "MAIN EVENT • OSKEMEN",
+      badge3: "ETHICS & STANDARDS",
+      subtitle3: "SCIENTIFIC HONESTY",
+      fullRulesLink: "Full Rules \u2192",
+      stage1Fallback: "Stage I",
+      stage2Fallback: "Stage II",
+    },
+    scheduleSectionUI: {
+      title: "Tournament Schedule",
+      subtitle: "8-day official program for the on-site final round in Oskemen.",
+      colTime: "Time",
+      colEvent: "Event / Activity",
+      colVenue: "Venue",
+    },
+    judgesSectionUI: {
+      eyebrow: "Leadership & Governance",
+      subtitle: "The executive committee and scientific jury governing the ISM Olympiad.",
+      committeeTitle: "ISM Executive Board & Organizing Committee",
+    },
+    rulesPageItems: {
+      stage1Items: [
+        "Timeframe: September \u2013 October 2025",
+        "Format: Online interdisciplinary case research",
+        "Submission: Comprehensive PDF report + source code/calculations",
+        "Evaluation: Peer & Jury review based on methodology and rigor"
+      ],
+      stage2Items: [
+        "Timeframe: October 25 \u2013 November 1, 2025",
+        "Venue: Bilim Innovation Lyceum, Oskemen",
+        "Format: On-site laboratory experiments & physical measurements",
+        "Defense: Oral presentation before the Academic Board"
+      ],
+      integrityItems: [
+        "Zero tolerance for plagiarism or AI-generated unauthorized fabrication",
+        "Mandatory lab safety equipment and protocol adherence during Stage II",
+        "Strict adherence to anti-cheating and peer-collusion rules",
+        "Disqualification upon violation of Article 8 Academic Integrity Code"
+      ],
+      downloadSubtitle: "Download the official tournament regulations document in your preferred language.",
+    },
+    teamJury: {
+      juryTitle: "Academic Jury & Panel of Experts",
+    },
+    caseSectionUI: {
+      stageNotice: "Stage I tasks are published ~10 days prior to the submission deadline. Below is an overview of the case format.",
+      submissionTitle: "Submission Guidelines & Formatting:",
+      releaseNotice: "The exact release date for the Stage I Research Case will be announced on the website.",
+      downloadTitle: "Download ISM Regulations & Guidelines (3 Languages)",
+      downloadSubtitle: "Official tournament documents are available in PDF format",
+    },
+    awardsSectionUI: {
+      eyebrow: "Awards & Results",
+      title: "Tournament Tiers & Official Medals",
+      subtitle: "Official recognition structure for the top-performing teams of the ISM Olympiad.",
+      tableTitle: "Official ISM Season Awards Structure",
+      colTier: "Tier / Category",
+      colTeams: "Teams Count",
+      colDiploma: "Diploma & Medals",
+      colWinner: "Winning Team",
+      tbd: "TBD (To Be Announced)",
+      resultsNote: "Official tournament results will be published after the completion of the final round.",
+    },
+    regulationsSectionUI: {
+      downloadFormBtn: "Download Form (PDF)",
+      disclaimerLabel: "Important Disclaimer: ",
+    },
+    registrationFormUI: {
+      eyebrow: "Application Form",
+      title: "Register Team for ISM",
+      subtitle: "Form to be submitted by the Team Captain. Required team structure: 4 Core Members (Captain + 3 Members) + 1 Optional 5th Member + 1 Team Supervisor.",
+      section1Title: "1. Team & Institution Information",
+      teamNameLabel: "Team Name *",
+      teamNamePlaceholder: 'e.g., "Quantum Catalyst"',
+      cityLabel: "City / Location *",
+      cityPlaceholder: 'e.g., "Almaty"',
+      schoolLabel: "Full School / Institution Name *",
+      schoolPlaceholder: 'e.g., "Specialized Lyceum No. 165"',
+      section2Title: "2. Team Captain (Member #1 - Required)",
+      captainBadge: "Captain",
+      captainNameLabel: "Captain Full Name *",
+      captainNamePlaceholder: "First & Last Name",
+      captainEmailLabel: "Captain Email *",
+      captainEmailPlaceholder: "captain@example.com",
+      captainPhoneLabel: "Captain Phone / Contact *",
+      captainPhonePlaceholder: "+7 (707) 000-00-00",
+      gradeLabel: "Grade Level *",
+      grades: ["Grade 9", "Grade 10", "Grade 11", "Grade 12"],
+      section3Title: "3. Team Supervisor / Advisor (Mandatory Role)",
+      supervisorNameLabel: "Supervisor Full Name *",
+      supervisorNamePlaceholder: "Teacher Full Name",
+      supervisorEmailLabel: "Supervisor Email *",
+      supervisorEmailPlaceholder: "teacher@school.edu",
+      supervisorPhoneLabel: "Supervisor Phone / Contact *",
+      supervisorPhonePlaceholder: "+7 (777) 000-00-00",
+      section4Title: "4. Core Team Members (3 Required Members)",
+      addFifthMember: "Add Optional 5th Member",
+      memberRequiredLabel: "(Required)",
+      memberOptionalLabel: "(Optional)",
+      memberNumberLabel: "Member #",
+      fullNamePlaceholder: "Full Name",
+      fifthMemberPlaceholder: "Full Name (Optional 5th Member)",
+      removeFifthMemberTitle: "Remove optional 5th member",
+      consentData: "I confirm agreement to personal data processing and guarantee compliance with ISM Regulations, including Article 8 Academic Integrity Rules (strict prohibition of generative AI).",
+      consentLabSafety: "I confirm that all team members will strictly comply with Laboratory Safety Regulations (mandatory PPE, lab coats, safety goggles) and acknowledge personal responsibility for laboratory conduct.",
+      submitting: "Submitting Registration...",
+      errors: {
+        consentRequired: "Please confirm your agreement to personal data processing and Article 8 Academic Integrity Rules.",
+        labSafetyRequired: "Please confirm compliance with Laboratory Safety Regulations (mandatory PPE & personal liability).",
+        supervisorRequired: "Please complete all fields for the Team Supervisor / Teacher.",
+        memberRequired: "Please enter the Full Name for Required Team Member #",
+        fifthMemberRequired: "Please enter the Full Name for Optional Team Member #5 or remove the 5th member.",
+        submitSuccess: "Team registration successfully submitted! Confirmation instructions sent to Captain and Supervisor emails.",
+        submitError: "Registration error:",
+        dbError: "Database connection error. Please check Supabase credentials.",
+      },
+      memberRoles: {
+        required2: "Required Member #2",
+        required3: "Required Member #3",
+        required4: "Required Member #4",
+        optional5: "Optional Member #5",
+      },
     }
   },
 
   RU: {
     meta: {
       shortName: "ISM",
-      fullName: "ISM - International Science Movement",
-      tagline: "International Interdisciplinary Olympiad in Laboratory Research and Case-based Science",
+      fullName: "ISM — International Science Movement",
+      tagline: "Международная междисциплинарная олимпиада по лабораторным исследованиям и кейс-науке",
       targetGrades: "9–11 (12) классы",
       teamSize: "4 Обязательных + 1 Опциональный участник + Руководитель",
       disciplines: "Биология, Химия, Физика, Математика и Информатика",
@@ -619,8 +873,8 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       registerBtn: "Регистрация",
     },
     statsBar: {
-      disciplinesCount: "5",
-      disciplinesLabel: "Научных дисциплин",
+      disciplinesCount: "STEM",
+      disciplinesLabel: "STEM",
       teamSizeCount: "4–5",
       teamSizeLabel: "Участников в команде",
       stagesCount: "2",
@@ -633,14 +887,8 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
     partners: {
       title: "Партнёры и Спонсоры",
       subtitle: "При поддержке ведущих образовательных и научных организаций",
-      list: [
-        "Bilim Innovation Lyceum",
-        "International Science Movement",
-        "Республиканский центр Дарын",
-        "КазНУ им. аль-Фараби",
-        "Министерство просвещения РК",
-        "Oskemen Science Hub",
-      ],
+      emptySlot: "Здесь появятся логотипы партнёров",
+      list: [],
     },
     cta: {
       title: "Готовы проверить свой научный потенциал?",
@@ -685,11 +933,12 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       contactNotice: "По вопросам регистрации и индивидуальным обращениям:",
       statusOpen: "Регистрация открыта",
       statusClosed: "Регистрация закрыта",
+      checkingStatus: "Проверка статуса регистрации...",
     },
     hero: {
       badge: "ISM 2025–2026",
-      title: "ISM - International Science Movement",
-      subtitle: "International Interdisciplinary Olympiad in Laboratory Research and Case-based Science",
+      title: "ISM — International Science Movement",
+      subtitle: "Международная междисциплинарная олимпиада по лабораторным исследованиям и кейс-науке",
       description: "Престижная международная командная олимпиада, объединяющая Биологию, Химию, Физику, Математику и Информатику.",
       targetLabel: "Участники",
       teamSizeLabel: "Состав команды",
@@ -958,14 +1207,150 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
         { lang: "Русская версия (RU)", url: "/docs/ism-regulations-ru.pdf" },
         { lang: "Казахская версия (KZ)", url: "/docs/ism-regulations-kz.pdf" }
       ]
+    },
+    aboutSection: {
+      missionParagraph: "International Science Movement (ISM) объединяет старшеклассников в области Биологии, Химии, Физики, Математики и Информатики для решения сложных научных задач в лабораторных и кейсовых форматах.",
+      targetAudienceLabel: "Целевая аудитория",
+    },
+    footer: {
+      navTitle: "Навигация",
+      contactsTitle: "Контакты",
+      downloadRegulations: "Скачать регламент (PDF)",
+      copyright: "Все права защищены.",
+      locationNote: "Bilim Innovation Lyceum • Усть-Каменогорск, Казахстан",
+      brandName: "International Science Movement",
+    },
+    formatSection: {
+      badge1: "ОНЛАЙН ЭТАП",
+      badge2: "ОСНОВНОЙ ТУРНИР • УСТЬ-КАМЕНОГОРСК",
+      badge3: "ЭТИКА И СТАНДАРТЫ",
+      subtitle3: "НАУЧНАЯ ЧЕСТНОСТЬ",
+      fullRulesLink: "Полные правила \u2192",
+      stage1Fallback: "Этап I",
+      stage2Fallback: "Этап II",
+    },
+    scheduleSectionUI: {
+      title: "Расписание турнира",
+      subtitle: "8-дневная официальная программа очного финала в Усть-Каменогорске.",
+      colTime: "Время",
+      colEvent: "Событие / Активность",
+      colVenue: "Место",
+    },
+    judgesSectionUI: {
+      eyebrow: "Руководство и управление",
+      subtitle: "Исполнительный комитет и научное жюри олимпиады ISM.",
+      committeeTitle: "Исполнительный совет ISM и Оргкомитет",
+    },
+    rulesPageItems: {
+      stage1Items: [
+        "Сроки: сентябрь \u2013 октябрь 2025",
+        "Формат: онлайн-исследование междисциплинарного кейса",
+        "Подача: PDF-отчёт + исходный код/вычисления",
+        "Оценка: рецензирование жюри по методологии и строгости"
+      ],
+      stage2Items: [
+        "Сроки: 25 октября \u2013 1 ноября 2025",
+        "Место: Bilim Innovation Lyceum, Усть-Каменогорск",
+        "Формат: очные лабораторные эксперименты и измерения",
+        "Защита: устная презентация перед учёным советом"
+      ],
+      integrityItems: [
+        "Нулевая терпимость к плагиату и несанкционированному использованию ИИ",
+        "Обязательное соблюдение ТБ и использование защитного оборудования",
+        "Строгое соблюдение правил против сговора и мошенничества",
+        "Дисквалификация за нарушение Статьи 8 Кодекса академической честности"
+      ],
+      downloadSubtitle: "Скачайте официальный регламент турнира на предпочтительном языке.",
+    },
+    teamJury: {
+      juryTitle: "Академическое жюри и экспертная комиссия",
+    },
+    caseSectionUI: {
+      stageNotice: "Задания I этапа публикуются примерно за 10 дней до дедлайна. Ниже — обзор формата кейса.",
+      submissionTitle: "Требования к оформлению и подаче:",
+      releaseNotice: "Точная дата публикации кейса I этапа будет объявлена на сайте.",
+      downloadTitle: "Скачать Регламент ISM (3 языка)",
+      downloadSubtitle: "Официальные документы турнира доступны в формате PDF",
+    },
+    awardsSectionUI: {
+      eyebrow: "Награды и результаты",
+      title: "Категории наград и медали",
+      subtitle: "Структура официальных наград для лучших команд олимпиады ISM.",
+      tableTitle: "Официальная структура наград сезона ISM",
+      colTier: "Категория",
+      colTeams: "Кол-во команд",
+      colDiploma: "Дипломы и медали",
+      colWinner: "Команда-победитель",
+      tbd: "Будет объявлено",
+      resultsNote: "Официальные результаты турнира будут опубликованы после завершения финального тура.",
+    },
+    regulationsSectionUI: {
+      downloadFormBtn: "Скачать бланк (PDF)",
+      disclaimerLabel: "Важное уведомление: ",
+    },
+    registrationFormUI: {
+      eyebrow: "Форма заявки",
+      title: "Регистрация команды на ISM",
+      subtitle: "Форму заполняет капитан команды. Состав: 4 основных участника (капитан + 3) + 1 опциональный 5-й + 1 руководитель команды.",
+      section1Title: "1. Информация о команде и учреждении",
+      teamNameLabel: "Название команды *",
+      teamNamePlaceholder: 'напр., "Quantum Catalyst"',
+      cityLabel: "Город / Местоположение *",
+      cityPlaceholder: 'напр., "Алматы"',
+      schoolLabel: "Полное название школы / учреждения *",
+      schoolPlaceholder: 'напр., "Специализированный лицей №165"',
+      section2Title: "2. Капитан команды (Участник №1 — обязательно)",
+      captainBadge: "Капитан",
+      captainNameLabel: "ФИО капитана *",
+      captainNamePlaceholder: "Имя и фамилия",
+      captainEmailLabel: "Email капитана *",
+      captainEmailPlaceholder: "captain@example.com",
+      captainPhoneLabel: "Телефон / контакт капитана *",
+      captainPhonePlaceholder: "+7 (707) 000-00-00",
+      gradeLabel: "Класс *",
+      grades: ["9 класс", "10 класс", "11 класс", "12 класс"],
+      section3Title: "3. Руководитель команды / наставник (обязательно)",
+      supervisorNameLabel: "ФИО руководителя *",
+      supervisorNamePlaceholder: "ФИО учителя",
+      supervisorEmailLabel: "Email руководителя *",
+      supervisorEmailPlaceholder: "teacher@school.edu",
+      supervisorPhoneLabel: "Телефон / контакт руководителя *",
+      supervisorPhonePlaceholder: "+7 (777) 000-00-00",
+      section4Title: "4. Основные участники команды (3 обязательных)",
+      addFifthMember: "Добавить 5-го участника (опц.)",
+      memberRequiredLabel: "(Обязательно)",
+      memberOptionalLabel: "(Опционально)",
+      memberNumberLabel: "Участник №",
+      fullNamePlaceholder: "ФИО",
+      fifthMemberPlaceholder: "ФИО (5-й участник, опционально)",
+      removeFifthMemberTitle: "Удалить 5-го участника",
+      consentData: "Подтверждаю согласие на обработку персональных данных и гарантирую соблюдение Регламента ISM, включая Статью 8 об академической честности (строгий запрет генеративного ИИ).",
+      consentLabSafety: "Подтверждаю, что все участники команды будут строго соблюдать правила лабораторной безопасности (СИЗ, халаты, защитные очки) и несут личную ответственность за поведение в лаборатории.",
+      submitting: "Отправка регистрации...",
+      errors: {
+        consentRequired: "Подтвердите согласие на обработку персональных данных и Статью 8 об академической честности.",
+        labSafetyRequired: "Подтвердите соблюдение правил лабораторной безопасности (СИЗ и личная ответственность).",
+        supervisorRequired: "Заполните все поля для руководителя команды / учителя.",
+        memberRequired: "Введите ФИО обязательного участника команды №",
+        fifthMemberRequired: "Введите ФИО 5-го участника или удалите его из заявки.",
+        submitSuccess: "Регистрация команды успешно отправлена! Инструкции отправлены на email капитана и руководителя.",
+        submitError: "Ошибка регистрации:",
+        dbError: "Ошибка подключения к базе данных. Проверьте настройки Supabase.",
+      },
+      memberRoles: {
+        required2: "Обязательный участник №2",
+        required3: "Обязательный участник №3",
+        required4: "Обязательный участник №4",
+        optional5: "Опциональный участник №5",
+      },
     }
   },
 
   KZ: {
     meta: {
       shortName: "ISM",
-      fullName: "ISM - International Science Movement",
-      tagline: "International Interdisciplinary Olympiad in Laboratory Research and Case-based Science",
+      fullName: "ISM — International Science Movement",
+      tagline: "Зертханалық зерттеулер мен кейс-ғылымы бойынша халықаралық пәнаралық олимпиада",
       targetGrades: "9–11 (12) сыныптар",
       teamSize: "4 Міндетті + 1 Қосымша қатысушы + Жетекші",
       disciplines: "Биология, Химия, Физика, Математика және Информатика",
@@ -994,8 +1379,8 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       registerBtn: "Тіркелу",
     },
     statsBar: {
-      disciplinesCount: "5",
-      disciplinesLabel: "Ғылыми пән",
+      disciplinesCount: "STEM",
+      disciplinesLabel: "STEM",
       teamSizeCount: "4–5",
       teamSizeLabel: "Топтағы қатысушы",
       stagesCount: "2",
@@ -1008,14 +1393,8 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
     partners: {
       title: "Серіктестер мен Демеушілер",
       subtitle: "Үздік білім беру және ғылыми ұйымдардың қолдауымен",
-      list: [
-        "Bilim Innovation Lyceum",
-        "International Science Movement",
-        "Дарын Республикалық Орталығы",
-        "Әл-Фараби атындағы ҚазҰУ",
-        "ҚР Оқу-ағарту министрлігі",
-        "Oskemen Science Hub",
-      ],
+      emptySlot: "Серіктестер логотиптері осында орналасады",
+      list: [],
     },
     cta: {
       title: "Ғылыми әлеуетіңізді тексеруге дайынсыз ба?",
@@ -1060,11 +1439,12 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       contactNotice: "Тіркелу бойынша сұрақтар мен жеке өтініштер үшін:",
       statusOpen: "Тіркелу ашық",
       statusClosed: "Тіркелу жабық",
+      checkingStatus: "Тіркелу мәртебесі тексерілуде...",
     },
     hero: {
       badge: "ISM 2025–2026",
-      title: "ISM - International Science Movement",
-      subtitle: "International Interdisciplinary Olympiad in Laboratory Research and Case-based Science",
+      title: "ISM — International Science Movement",
+      subtitle: "Зертханалық зерттеулер мен кейс-ғылымы бойынша халықаралық пәнаралық олимпиада",
       description: "Биология, Химия, Физика, Математика және Информатика пәндерін біріктіретін халықаралық олимпиада.",
       targetLabel: "Қатысушылар",
       teamSizeLabel: "Топ құрамы",
@@ -1333,6 +1713,142 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
         { lang: "Русская версия (RU)", url: "/docs/ism-regulations-ru.pdf" },
         { lang: "Казахская версия (KZ)", url: "/docs/ism-regulations-kz.pdf" }
       ]
+    },
+    aboutSection: {
+      missionParagraph: "International Science Movement (ISM) жоғары сынып оқушыларын Биология, Химия, Физика, Математика және Информатика салаларында күрделі ғылыми мәселелерді зертханалық және кейстік форматта шешуге біріктіреді.",
+      targetAudienceLabel: "Мақсатты аудитория",
+    },
+    footer: {
+      navTitle: "Навигация",
+      contactsTitle: "Байланыстар",
+      downloadRegulations: "Ережелерді жүктеу (PDF)",
+      copyright: "Барлық құқықтар қорғалған.",
+      locationNote: "Bilim Innovation Lyceum • Өскемен, Қазақстан",
+      brandName: "International Science Movement",
+    },
+    formatSection: {
+      badge1: "ОНЛАЙН КЕЗЕҢ",
+      badge2: "НЕГІЗГІ ТУРНИР • ӨСКЕМЕН",
+      badge3: "ЭТИКА МЕН СТАНДАРТТАР",
+      subtitle3: "ҒЫЛЫМИ АДАЛДЫҚ",
+      fullRulesLink: "Толық ережелер \u2192",
+      stage1Fallback: "I Кезең",
+      stage2Fallback: "II Кезең",
+    },
+    scheduleSectionUI: {
+      title: "Турнир кестесі",
+      subtitle: "Өскемендегі очно финалдық 8 күндік ресми бағдарлама.",
+      colTime: "Уақыт",
+      colEvent: "Оқиға / Белсенділік",
+      colVenue: "Орын",
+    },
+    judgesSectionUI: {
+      eyebrow: "Басшылық және басқару",
+      subtitle: "ISM олимпиадасының атқарушы комитеті мен ғылыми қазылар алқасы.",
+      committeeTitle: "ISM атқарушы кеңесі және Ұйымдастыру комитеті",
+    },
+    rulesPageItems: {
+      stage1Items: [
+        "Мерзімі: қыркүйек \u2013 қазан 2025",
+        "Формат: пәнаралық кейсті онлайн зерттеу",
+        "Тапсыру: PDF есебі + бастапқы код/есептеулер",
+        "Бағалау: қазылардың әдістеме және қатаңдық бойынша сараптамасы"
+      ],
+      stage2Items: [
+        "Мерзімі: 25 қазан \u2013 1 қараша 2025",
+        "Орын: Bilim Innovation Lyceum, Өскемен",
+        "Формат: очно зертханалық эксперименттер және өлшеулер",
+        "Қорғау: ғылыми кеңес алдында ауызша презентация"
+      ],
+      integrityItems: [
+        "Плагиат пен рұқсатсыз ИИ қолдануға нөлдік төзімділік",
+        "Қауіпсіздік жабдықтарын міндетті пайдалану",
+        "Алдау мен күмәнді сөзережелерін қатаң сақтау",
+        "8-бап Академиялық адалдық кодексін бұзғанда дисквалификация"
+      ],
+      downloadSubtitle: "Турнирдың ресми ережелер құжатын қалаулы тілде жүктеңіз.",
+    },
+    teamJury: {
+      juryTitle: "Академиялық қазылар мен сарапшылар комиссиясы",
+    },
+    caseSectionUI: {
+      stageNotice: "I кезең тапсырмалары тапсыру мерзімінен ~10 күн бұрын жарияланады. Төменде кейс форматы.",
+      submissionTitle: "Тапсыру талаптары мен форматтау:",
+      releaseNotice: "I кезең кейсінің нақты жариялану күні сайтта хабарланады.",
+      downloadTitle: "ISM ережелерін жүктеу (3 тілде)",
+      downloadSubtitle: "Турнирдің ресми құжаттары PDF форматында қол жетімді",
+    },
+    awardsSectionUI: {
+      eyebrow: "Марапаттар мен нәтижелер",
+      title: "Турнир санаттары мен ресми медальдар",
+      subtitle: "ISM олимпиадасының үздік командалары үшін ресми марапат құрылымы.",
+      tableTitle: "ISM маусымының ресми марапат құрылымы",
+      colTier: "Санат",
+      colTeams: "Командалар саны",
+      colDiploma: "Дипломдар мен медальдар",
+      colWinner: "Жеңімпаз команда",
+      tbd: "Хабарланатын болады",
+      resultsNote: "Турнирдің ресми нәтижелері финалдық тур аяқталғаннан кейін жарияланады.",
+    },
+    regulationsSectionUI: {
+      downloadFormBtn: "Бланкті жүктеу (PDF)",
+      disclaimerLabel: "Маңызды ескерту: ",
+    },
+    registrationFormUI: {
+      eyebrow: "Өтінім формасы",
+      title: "ISM-ге топты тіркеу",
+      subtitle: "Форманы топ кapitany толтырады. Құрамы: 4 негізгі қатысушы (капитан + 3) + 1 қосымша 5-ші + 1 топ жетекшісі.",
+      section1Title: "1. Топ және мекеме туралы ақпарат",
+      teamNameLabel: "Топ атауы *",
+      teamNamePlaceholder: 'мыс., "Quantum Catalyst"',
+      cityLabel: "Қала / Орналасқан жері *",
+      cityPlaceholder: 'мыс., "Алматы"',
+      schoolLabel: "Мектеп / мекеменің толық атауы *",
+      schoolPlaceholder: 'мыс., "№165 мамандандырылған лицей"',
+      section2Title: "2. Топ кapitany (Қатысушы №1 — міндетті)",
+      captainBadge: "Капитан",
+      captainNameLabel: "Капитанның толық аты *",
+      captainNamePlaceholder: "Аты-жөні",
+      captainEmailLabel: "Капитан email *",
+      captainEmailPlaceholder: "captain@example.com",
+      captainPhoneLabel: "Капитан телефоны / байланыс *",
+      captainPhonePlaceholder: "+7 (707) 000-00-00",
+      gradeLabel: "Сынып *",
+      grades: ["9 сынып", "10 сынып", "11 сынып", "12 сынып"],
+      section3Title: "3. Топ жетекшісі / куратор (міндетті)",
+      supervisorNameLabel: "Жетекшінің толық аты *",
+      supervisorNamePlaceholder: "Мұғалімнің аты-жөні",
+      supervisorEmailLabel: "Жетекші email *",
+      supervisorEmailPlaceholder: "teacher@school.edu",
+      supervisorPhoneLabel: "Жетекші телефоны / байланыс *",
+      supervisorPhonePlaceholder: "+7 (777) 000-00-00",
+      section4Title: "4. Негізгі топ мүшелері (3 міндетті)",
+      addFifthMember: "5-ші қатысушыны қосу (қосымша)",
+      memberRequiredLabel: "(Міндетті)",
+      memberOptionalLabel: "(Қосымша)",
+      memberNumberLabel: "Қатысушы №",
+      fullNamePlaceholder: "Толық аты",
+      fifthMemberPlaceholder: "Толық аты (5-ші қатысушы, қосымша)",
+      removeFifthMemberTitle: "5-ші қатысушыны жою",
+      consentData: "Жеке деректерді өңдеуге келісімімді растаймын және ISM Ережелерін, соның ішінде 8-бап академиялық адалдық ережесін (генеративті ИИ-ді қатаң тыйым салу) сақтайтынымды кепілдендіремін.",
+      consentLabSafety: "Барлық топ мүшелері зертханалық қауіпсіздік ережелерін (ҚҚҚ, халат, қорғаныш көзілдірігі) қатаң сақтайтынын және зертханадағы мінез-құлық үшін жеке жауапкершілікті мойындайтынымды растаймын.",
+      submitting: "Тіркелу жіберілуде...",
+      errors: {
+        consentRequired: "Жеке деректерді өңдеуге және 8-бап академиялық адалдық ережесіне келісіміңізді растаңыз.",
+        labSafetyRequired: "Зертханалық қауіпсіздік ережелерін (ҚҚҚ және жеке жауапкершілік) растаңыз.",
+        supervisorRequired: "Топ жетекшісі / мұғалімнің барлық өрістерін толтырыңыз.",
+        memberRequired: "Міндетті топ мүшесінің №",
+        fifthMemberRequired: "5-ші қатысушының толық атын енгізіңіз немесе оны өтінімнен жойыңыз.",
+        submitSuccess: "Топ тіркелуі сәтті жіберілді! Нұсқаулар капитан мен жетекші email-іне жіберілді.",
+        submitError: "Тіркелу қатесі:",
+        dbError: "Дерекқорға қосылу қатесі. Supabase баптауларын тексеріңіз.",
+      },
+      memberRoles: {
+        required2: "Міндетті қатысушы №2",
+        required3: "Міндетті қатысушы №3",
+        required4: "Міндетті қатысушы №4",
+        optional5: "Қосымша қатысушы №5",
+      },
     }
   }
 };

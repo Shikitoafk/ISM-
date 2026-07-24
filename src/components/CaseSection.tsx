@@ -6,7 +6,7 @@ import { Download, CheckCircle, Calendar } from "lucide-react";
 
 export const CaseSection: React.FC = () => {
   const { content } = useLanguage();
-  const { currentCase, regulationsSection } = content;
+  const { currentCase, regulationsSection, caseSectionUI } = content;
 
   return (
     <section id="case" className="py-16 md:py-24 bg-white border-b-2 border-slate-900">
@@ -21,7 +21,7 @@ export const CaseSection: React.FC = () => {
             {currentCase.title}
           </h2>
           <p className="text-slate-600 text-sm sm:text-base font-normal">
-            Stage I tasks are published ~10 days prior to the submission deadline. Below is an overview of the case format.
+            {caseSectionUI.stageNotice}
           </p>
         </div>
 
@@ -47,7 +47,7 @@ export const CaseSection: React.FC = () => {
 
           <div className="mb-6">
             <h4 className="font-serif font-bold text-slate-900 text-sm mb-3">
-              Submission Guidelines & Formatting:
+              {caseSectionUI.submissionTitle}
             </h4>
             <ul className="space-y-2">
               {currentCase.requirements.map((req, i) => (
@@ -61,17 +61,17 @@ export const CaseSection: React.FC = () => {
 
           <div className="p-4 rounded-lg bg-white border border-slate-300 text-xs text-slate-600 flex items-center gap-2 font-semibold">
             <Calendar className="w-4 h-4 text-brand-800 shrink-0" strokeWidth={2} />
-            <span>The exact release date for the Stage I Research Case will be announced on the website.</span>
+            <span>{caseSectionUI.releaseNotice}</span>
           </div>
         </div>
 
         {/* Download Regulations in 3 Languages */}
         <div className="max-w-4xl mx-auto p-6 rounded-xl border-2 border-slate-900 bg-white shadow-sm text-center">
           <h4 className="font-serif font-bold text-slate-900 text-base mb-1">
-            Download ISM Regulations & Guidelines (3 Languages)
+            {caseSectionUI.downloadTitle}
           </h4>
           <p className="text-xs text-slate-500 mb-6 font-normal">
-            Official tournament documents are available in PDF format
+            {caseSectionUI.downloadSubtitle}
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-3">

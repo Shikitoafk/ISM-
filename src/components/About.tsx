@@ -5,7 +5,7 @@ import { useLanguage } from "@/context/LanguageContext";
 
 export const About: React.FC = () => {
   const { content } = useLanguage();
-  const { aboutCards, meta, nav, hero } = content;
+  const { aboutCards, meta, nav, hero, aboutSection } = content;
 
   return (
     <section id="about" className="py-20 md:py-28 bg-white border-b border-slate-200">
@@ -27,12 +27,12 @@ export const About: React.FC = () => {
             </p>
 
             <p className="text-slate-600 text-sm leading-relaxed font-normal">
-              The International Science Movement (ISM) brings together high school students across Biology, Chemistry, Physics, Mathematics, and Computer Science to solve complex real-world scientific problems in laboratory and case settings.
+              {aboutSection.missionParagraph}
             </p>
 
             <div className="pt-2">
               <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">
-                Target Audience
+                {aboutSection.targetAudienceLabel}
               </div>
               <div className="text-sm font-semibold text-slate-900">
                 {meta.targetGrades} ({meta.teamSize})
