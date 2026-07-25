@@ -2,8 +2,17 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { ArrowRight, FileText, Atom, Trophy, Users, BookOpen, Layers, MapPin } from "lucide-react";
+
+/**
+ * Hero background photo, served from /public. Next optimises it into
+ * AVIF/WebP at several widths, so drop the full-resolution original here
+ * rather than a pre-shrunk copy. If the file is missing the gradient
+ * underneath still renders.
+ */
+const HERO_IMAGE = "/hero.jpg";
 
 const FOCUS_RING =
   "focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950";
@@ -23,18 +32,9 @@ export const Hero: React.FC = () => {
   return (
     <section className="relative pt-24 border-b border-slate-200 overflow-hidden">
       <div className="relative min-h-[520px] md:min-h-[600px] bg-slate-950 flex items-end">
-        {/* Brand background, rendered entirely in CSS: a dot lattice over two
-            brand-tinted glows. Replaces the remote stock photo the hero used
-            to fetch, which cost a third-party round trip on first paint. */}
-        <div
-          className="absolute inset-0 opacity-[0.18] pointer-events-none"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle, #7298c3 1px, transparent 1px)",
-            backgroundSize: "22px 22px",
-          }}
-          aria-hidden="true"
-        />
+        {/* Brand-tinted glows. These sit under the photo and stay visible on
+            their own if HERO_IMAGE is absent, so the hero degrades to a clean
+            gradient instead of a black box. */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -43,8 +43,29 @@ export const Hero: React.FC = () => {
           }}
           aria-hidden="true"
         />
+
+        {/* Ceremony photo. object-position favours the upper-middle band where
+            the people are, cropping the empty stage floor at the bottom. */}
+        <Image
+          src={HERO_IMAGE}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          quality={80}
+          className="object-cover object-[center_35%]"
+          aria-hidden="true"
+        />
+
+        {/* Scrim. The photo is bright and busy in the middle, so the copy needs
+            a real gradient behind it: dark from the bottom for the text block,
+            and from the left so the headline never sits on faces. */}
         <div
-          className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-slate-950/30 pointer-events-none"
+          className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/55 to-slate-950/10 pointer-events-none"
+          aria-hidden="true"
+        />
+        <div
+          className="absolute inset-0 bg-gradient-to-r from-slate-950/85 via-slate-950/20 to-transparent pointer-events-none"
           aria-hidden="true"
         />
 
