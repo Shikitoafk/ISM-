@@ -9,7 +9,7 @@ export const AwardsSection: React.FC = () => {
   const { awardsTiers, awardsSectionUI } = content;
 
   return (
-    <section id="awards" className="py-16 md:py-24 bg-slate-50 border-b-2 border-slate-900">
+    <section id="awards" className="py-16 md:py-24 bg-slate-50 border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center mb-14">
           <div className="text-xs font-bold text-brand-800 uppercase tracking-widest mb-2">
@@ -23,8 +23,8 @@ export const AwardsSection: React.FC = () => {
           </p>
         </div>
 
-        <div className="max-w-4xl mx-auto bg-white rounded-xl border-2 border-slate-900 shadow-sm overflow-hidden mb-8">
-          <div className="p-4 bg-slate-100 border-b-2 border-slate-900 flex items-center gap-2">
+        <div className="max-w-4xl mx-auto bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden mb-8">
+          <div className="p-4 bg-slate-100 border-b border-slate-200 flex items-center gap-2">
             <Trophy className="w-4 h-4 text-brand-800" strokeWidth={2} />
             <span className="font-serif font-bold text-slate-900 text-sm">
               {awardsSectionUI.tableTitle}
@@ -63,7 +63,7 @@ export const AwardsSection: React.FC = () => {
           </div>
         </div>
 
-        <div className="max-w-4xl mx-auto p-4 rounded-xl border-2 border-slate-900 bg-white text-xs text-slate-700 flex items-center justify-center gap-2 font-semibold">
+        <div className="max-w-4xl mx-auto p-4 rounded-xl border border-slate-200 bg-white text-xs text-slate-700 flex items-center justify-center gap-2 font-semibold">
           <Info className="w-4 h-4 text-brand-800 shrink-0" strokeWidth={2} />
           <span>{awardsSectionUI.resultsNote}</span>
         </div>

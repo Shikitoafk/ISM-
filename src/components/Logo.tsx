@@ -35,7 +35,7 @@ export const Logo: React.FC<LogoProps> = ({ className = "", size = "md", showTex
       {/* Brand Text */}
       {showText && (
         <div className="flex flex-col">
-          <span className={`font-serif font-extrabold text-slate-900 tracking-tight leading-tight ${textSizes[size]}`}>
+          <span className={`font-serif font-bold text-slate-900 tracking-tight leading-tight ${textSizes[size]}`}>
             ISM OLYMPIAD
           </span>
           <span className="text-[10px] sm:text-[11px] uppercase tracking-widest text-slate-500 font-bold leading-tight">

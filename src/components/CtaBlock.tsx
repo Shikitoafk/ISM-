@@ -23,7 +23,7 @@ export const CtaBlock: React.FC = () => {
               <span>{meta.fullName}</span>
             </div>
 
-            <h2 className="font-serif text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
+            <h2 className="font-serif text-3xl sm:text-5xl font-bold text-white tracking-tight leading-tight">
               {cta.title}
             </h2>
 
@@ -34,7 +34,7 @@ export const CtaBlock: React.FC = () => {
             <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
                 href="/register"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl bg-brand-800 hover:bg-brand-700 text-white font-bold text-base transition-all shadow-lg hover:shadow-xl focus:outline-none"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl bg-brand-800 hover:bg-brand-700 text-white font-bold text-base transition-all shadow-lg hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
               >
                 <span>{cta.registerBtn}</span>
                 <ArrowRight className="w-5 h-5" strokeWidth={2} />

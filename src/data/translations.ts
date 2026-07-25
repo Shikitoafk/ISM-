@@ -66,6 +66,7 @@ export interface ContentStructure {
     format: string;
     caseSection: string;
     schedule: string;
+    awards: string;
     judges: string;
     regulations: string;
     team: string;
@@ -360,6 +361,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       format: "Format",
       caseSection: "Case",
       schedule: "Schedule",
+      awards: "Awards",
       judges: "Committee & Jury",
       regulations: "Regulations",
       team: "Team",
@@ -367,8 +369,8 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       registerBtn: "Registration",
     },
     statsBar: {
-      disciplinesCount: "STEM",
-      disciplinesLabel: "STEM",
+      disciplinesCount: "5",
+      disciplinesLabel: "STEM Disciplines",
       teamSizeCount: "4–5",
       teamSizeLabel: "Members per Team",
       stagesCount: "2",
@@ -866,6 +868,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       format: "Формат",
       caseSection: "Кейс",
       schedule: "Расписание",
+      awards: "Награды",
       judges: "Комитет и Жюри",
       regulations: "Регламент",
       team: "Команда",
@@ -873,8 +876,8 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       registerBtn: "Регистрация",
     },
     statsBar: {
-      disciplinesCount: "STEM",
-      disciplinesLabel: "STEM",
+      disciplinesCount: "5",
+      disciplinesLabel: "STEM-дисциплин",
       teamSizeCount: "4–5",
       teamSizeLabel: "Участников в команде",
       stagesCount: "2",
@@ -1372,6 +1375,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       format: "Формат",
       caseSection: "Кейс",
       schedule: "Кесте",
+      awards: "Марапаттар",
       judges: "Комитет мен Қазылар",
       regulations: "Ережелер",
       team: "Команда",
@@ -1379,8 +1383,8 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       registerBtn: "Тіркелу",
     },
     statsBar: {
-      disciplinesCount: "STEM",
-      disciplinesLabel: "STEM",
+      disciplinesCount: "5",
+      disciplinesLabel: "STEM пәні",
       teamSizeCount: "4–5",
       teamSizeLabel: "Топтағы қатысушы",
       stagesCount: "2",
@@ -1797,7 +1801,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
     registrationFormUI: {
       eyebrow: "Өтінім формасы",
       title: "ISM-ге топты тіркеу",
-      subtitle: "Форманы топ кapitany толтырады. Құрамы: 4 негізгі қатысушы (капитан + 3) + 1 қосымша 5-ші + 1 топ жетекшісі.",
+      subtitle: "Форманы топ капитаны толтырады. Құрамы: 4 негізгі қатысушы (капитан + 3) + 1 қосымша 5-ші + 1 топ жетекшісі.",
       section1Title: "1. Топ және мекеме туралы ақпарат",
       teamNameLabel: "Топ атауы *",
       teamNamePlaceholder: 'мыс., "Quantum Catalyst"',
@@ -1805,7 +1809,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       cityPlaceholder: 'мыс., "Алматы"',
       schoolLabel: "Мектеп / мекеменің толық атауы *",
       schoolPlaceholder: 'мыс., "№165 мамандандырылған лицей"',
-      section2Title: "2. Топ кapitany (Қатысушы №1 — міндетті)",
+      section2Title: "2. Топ капитаны (Қатысушы №1 — міндетті)",
       captainBadge: "Капитан",
       captainNameLabel: "Капитанның толық аты *",
       captainNamePlaceholder: "Аты-жөні",

@@ -18,12 +18,12 @@ export default function TeamPage() {
       <main className="flex-grow pt-24">
         {/* Accent Hero Banner */}
         <section className="relative bg-slate-900 text-white py-14 md:py-16 overflow-hidden border-b border-slate-800">
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
+          <div className="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-900 border border-brand-500/40 text-brand-300 text-xs font-semibold uppercase tracking-wider mb-3">
               <Users className="w-4 h-4 text-brand-400" strokeWidth={2} />
               <span>{teamPage.badge}</span>
             </div>
-            <h1 className="font-serif text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-3">
+            <h1 className="font-serif text-3xl sm:text-4xl font-bold text-white tracking-tight mb-3">
               {teamPage.title}
             </h1>
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed">

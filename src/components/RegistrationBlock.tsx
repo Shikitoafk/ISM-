@@ -176,7 +176,7 @@ export const RegistrationBlock: React.FC = () => {
   const requiredMemberLabels = [memberRoles.required2, memberRoles.required3, memberRoles.required4];
 
   return (
-    <section id="registration" className="py-16 md:py-24 bg-slate-50 border-b-2 border-slate-900">
+    <section id="registration" className="py-16 md:py-24 bg-slate-50 border-b border-slate-200">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <div className="text-xs font-bold text-brand-800 uppercase tracking-widest mb-2">
@@ -192,7 +192,7 @@ export const RegistrationBlock: React.FC = () => {
 
         <form
           onSubmit={handleSubmit}
-          className="p-6 sm:p-10 rounded-2xl border-2 border-slate-900 bg-white shadow-md space-y-8"
+          className="p-6 sm:p-10 rounded-2xl border border-slate-200 bg-white shadow-md space-y-8"
         >
           {statusMessage && (
             <div
@@ -212,7 +212,7 @@ export const RegistrationBlock: React.FC = () => {
           )}
 
           <div className="space-y-4">
-            <h3 className="font-serif text-lg font-bold text-slate-900 pb-2 border-b-2 border-slate-900">
+            <h3 className="font-serif text-lg font-bold text-slate-900 pb-2 border-b border-slate-200">
               {form.section1Title}
             </h3>
 
@@ -227,7 +227,7 @@ export const RegistrationBlock: React.FC = () => {
                   placeholder={form.teamNamePlaceholder}
                   value={teamName}
                   onChange={(e) => setTeamName(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl border-2 border-slate-900 text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-brand-800 focus:outline-none text-xs sm:text-sm font-semibold bg-slate-50/50"
+                  className="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-600/30 text-xs sm:text-sm font-semibold bg-slate-50/50"
                 />
               </div>
 
@@ -241,7 +241,7 @@ export const RegistrationBlock: React.FC = () => {
                   placeholder={form.cityPlaceholder}
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl border-2 border-slate-900 text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-brand-800 focus:outline-none text-xs sm:text-sm font-semibold bg-slate-50/50"
+                  className="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-600/30 text-xs sm:text-sm font-semibold bg-slate-50/50"
                 />
               </div>
 
@@ -255,14 +255,14 @@ export const RegistrationBlock: React.FC = () => {
                   placeholder={form.schoolPlaceholder}
                   value={school}
                   onChange={(e) => setSchool(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl border-2 border-slate-900 text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-brand-800 focus:outline-none text-xs sm:text-sm font-semibold bg-slate-50/50"
+                  className="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-600/30 text-xs sm:text-sm font-semibold bg-slate-50/50"
                 />
               </div>
             </div>
           </div>
 
           <div className="space-y-4">
-            <h3 className="font-serif text-lg font-bold text-slate-900 pb-2 border-b-2 border-slate-900 flex items-center justify-between">
+            <h3 className="font-serif text-lg font-bold text-slate-900 pb-2 border-b border-slate-200 flex items-center justify-between">
               <span>{form.section2Title}</span>
               <span className="text-xs font-bold text-brand-800 bg-brand-50 px-2.5 py-0.5 rounded-md border border-brand-200 uppercase">
                 {form.captainBadge}
@@ -280,7 +280,7 @@ export const RegistrationBlock: React.FC = () => {
                   placeholder={form.captainNamePlaceholder}
                   value={captainName}
                   onChange={(e) => setCaptainName(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl border-2 border-slate-900 text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-brand-800 focus:outline-none text-xs sm:text-sm font-semibold bg-slate-50/50"
+                  className="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-600/30 text-xs sm:text-sm font-semibold bg-slate-50/50"
                 />
               </div>
 
@@ -294,7 +294,7 @@ export const RegistrationBlock: React.FC = () => {
                   placeholder={form.captainEmailPlaceholder}
                   value={captainEmail}
                   onChange={(e) => setCaptainEmail(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl border-2 border-slate-900 text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-brand-800 focus:outline-none text-xs sm:text-sm font-semibold bg-slate-50/50"
+                  className="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-600/30 text-xs sm:text-sm font-semibold bg-slate-50/50"
                 />
               </div>
 
@@ -308,7 +308,7 @@ export const RegistrationBlock: React.FC = () => {
                   placeholder={form.captainPhonePlaceholder}
                   value={captainContact}
                   onChange={(e) => setCaptainContact(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl border-2 border-slate-900 text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-brand-800 focus:outline-none text-xs sm:text-sm font-semibold bg-slate-50/50"
+                  className="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-600/30 text-xs sm:text-sm font-semibold bg-slate-50/50"
                 />
               </div>
 
@@ -319,7 +319,7 @@ export const RegistrationBlock: React.FC = () => {
                 <select
                   value={grade}
                   onChange={(e) => setGrade(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl border-2 border-slate-900 text-slate-900 focus:ring-2 focus:ring-brand-800 focus:outline-none text-xs sm:text-sm font-semibold bg-slate-50/50"
+                  className="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-slate-900 focus:outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-600/30 text-xs sm:text-sm font-semibold bg-slate-50/50"
                 >
                   {grades.map((g) => (
                     <option key={g} value={g}>
@@ -331,8 +331,8 @@ export const RegistrationBlock: React.FC = () => {
             </div>
           </div>
 
-          <div className="p-5 rounded-xl border-2 border-slate-900 bg-slate-50/80 shadow-xs space-y-4">
-            <div className="flex items-center gap-2 pb-2 border-b-2 border-slate-900">
+          <div className="p-5 rounded-xl border border-slate-200 bg-slate-50/80 shadow-xs space-y-4">
+            <div className="flex items-center gap-2 pb-2 border-b border-slate-200">
               <UserCheck className="w-5 h-5 text-brand-800" strokeWidth={2} />
               <h3 className="font-serif text-lg font-bold text-slate-900">
                 {form.section3Title}
@@ -350,7 +350,7 @@ export const RegistrationBlock: React.FC = () => {
                   placeholder={form.supervisorNamePlaceholder}
                   value={leaderName}
                   onChange={(e) => setLeaderName(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-lg border-2 border-slate-900 bg-white text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-brand-800 focus:outline-none text-xs sm:text-sm font-semibold"
+                  className="w-full px-3.5 py-2 rounded-lg border border-slate-300 bg-white text-slate-900 placeholder-slate-400 focus:outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-600/30 text-xs sm:text-sm font-semibold"
                 />
               </div>
 
@@ -364,7 +364,7 @@ export const RegistrationBlock: React.FC = () => {
                   placeholder={form.supervisorEmailPlaceholder}
                   value={leaderEmail}
                   onChange={(e) => setLeaderEmail(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-lg border-2 border-slate-900 bg-white text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-brand-800 focus:outline-none text-xs sm:text-sm font-semibold"
+                  className="w-full px-3.5 py-2 rounded-lg border border-slate-300 bg-white text-slate-900 placeholder-slate-400 focus:outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-600/30 text-xs sm:text-sm font-semibold"
                 />
               </div>
 
@@ -378,14 +378,14 @@ export const RegistrationBlock: React.FC = () => {
                   placeholder={form.supervisorPhonePlaceholder}
                   value={leaderContact}
                   onChange={(e) => setLeaderContact(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-lg border-2 border-slate-900 bg-white text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-brand-800 focus:outline-none text-xs sm:text-sm font-semibold"
+                  className="w-full px-3.5 py-2 rounded-lg border border-slate-300 bg-white text-slate-900 placeholder-slate-400 focus:outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-600/30 text-xs sm:text-sm font-semibold"
                 />
               </div>
             </div>
           </div>
 
           <div className="space-y-4">
-            <div className="flex items-center justify-between pb-2 border-b-2 border-slate-900">
+            <div className="flex items-center justify-between pb-2 border-b border-slate-200">
               <h3 className="font-serif text-lg font-bold text-slate-900">
                 {form.section4Title}
               </h3>
@@ -405,7 +405,7 @@ export const RegistrationBlock: React.FC = () => {
               {members.map((m, idx) => (
                 <div
                   key={idx}
-                  className="p-4 rounded-xl border-2 border-slate-900 bg-white shadow-xs flex flex-col sm:flex-row items-center gap-3"
+                  className="p-4 rounded-xl border border-slate-200 bg-white shadow-xs flex flex-col sm:flex-row items-center gap-3"
                 >
                   <div className="flex items-center justify-between w-full sm:w-auto gap-2">
                     <span className="text-xs font-bold text-slate-900 shrink-0 sm:w-28">
@@ -419,13 +419,13 @@ export const RegistrationBlock: React.FC = () => {
                     placeholder={form.fullNamePlaceholder}
                     value={m.full_name}
                     onChange={(e) => updateMember(idx, "full_name", e.target.value)}
-                    className="flex-grow w-full px-3.5 py-2 rounded-lg border-2 border-slate-900 text-xs sm:text-sm bg-slate-50/50 font-semibold focus:ring-1 focus:ring-brand-800"
+                    className="flex-grow w-full px-3.5 py-2 rounded-lg border border-slate-300 text-xs sm:text-sm bg-slate-50/50 font-semibold focus:outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-600/30"
                   />
 
                   <select
                     value={m.grade}
                     onChange={(e) => updateMember(idx, "grade", e.target.value)}
-                    className="w-full sm:w-36 px-3 py-2 rounded-lg border-2 border-slate-900 text-xs sm:text-sm bg-slate-50/50 font-semibold focus:ring-1 focus:ring-brand-800"
+                    className="w-full sm:w-36 px-3 py-2 rounded-lg border border-slate-300 text-xs sm:text-sm bg-slate-50/50 font-semibold focus:outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-600/30"
                   >
                     {grades.map((g) => (
                       <option key={g} value={g}>
@@ -449,13 +449,13 @@ export const RegistrationBlock: React.FC = () => {
                     placeholder={form.fifthMemberPlaceholder}
                     value={fifthMember.full_name}
                     onChange={(e) => setFifthMember({ ...fifthMember, full_name: e.target.value })}
-                    className="flex-grow w-full px-3.5 py-2 rounded-lg border-2 border-slate-900 text-xs sm:text-sm bg-white font-semibold focus:ring-1 focus:ring-brand-800"
+                    className="flex-grow w-full px-3.5 py-2 rounded-lg border border-slate-300 text-xs sm:text-sm bg-white font-semibold focus:outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-600/30"
                   />
 
                   <select
                     value={fifthMember.grade}
                     onChange={(e) => setFifthMember({ ...fifthMember, grade: e.target.value })}
-                    className="w-full sm:w-36 px-3 py-2 rounded-lg border-2 border-slate-900 text-xs sm:text-sm bg-white font-semibold focus:ring-1 focus:ring-brand-800"
+                    className="w-full sm:w-36 px-3 py-2 rounded-lg border border-slate-300 text-xs sm:text-sm bg-white font-semibold focus:outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-600/30"
                   >
                     {grades.map((g) => (
                       <option key={g} value={g}>
@@ -485,13 +485,13 @@ export const RegistrationBlock: React.FC = () => {
           </div>
 
           <div className="space-y-3">
-            <div className="p-4 rounded-xl border-2 border-slate-900 bg-slate-50">
+            <div className="p-4 rounded-xl border border-slate-200 bg-slate-50">
               <label className="flex items-start gap-3 cursor-pointer select-none">
                 <input
                   type="checkbox"
                   checked={consent}
                   onChange={(e) => setConsent(e.target.checked)}
-                  className="mt-0.5 w-4 h-4 text-brand-800 rounded border-slate-900 focus:ring-brand-800 shrink-0"
+                  className="mt-0.5 w-4 h-4 text-brand-800 rounded border-slate-300 focus:ring-brand-800 shrink-0"
                 />
                 <span className="text-xs text-slate-700 font-semibold leading-relaxed">
                   {form.consentData}
@@ -499,13 +499,13 @@ export const RegistrationBlock: React.FC = () => {
               </label>
             </div>
 
-            <div className="p-4 rounded-xl border-2 border-slate-900 bg-amber-50/60">
+            <div className="p-4 rounded-xl border border-slate-200 bg-amber-50/60">
               <label className="flex items-start gap-3 cursor-pointer select-none">
                 <input
                   type="checkbox"
                   checked={labSafetyConsent}
                   onChange={(e) => setLabSafetyConsent(e.target.checked)}
-                  className="mt-0.5 w-4 h-4 text-brand-800 rounded border-slate-900 focus:ring-brand-800 shrink-0"
+                  className="mt-0.5 w-4 h-4 text-brand-800 rounded border-slate-300 focus:ring-brand-800 shrink-0"
                 />
                 <span className="text-xs text-slate-800 font-semibold leading-relaxed">
                   {form.consentLabSafety}

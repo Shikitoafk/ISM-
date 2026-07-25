@@ -11,15 +11,32 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
+/** BCP 47 tags for the document element, so screen readers and hyphenation
+ *  use the right locale instead of always announcing English. */
+const HTML_LANG: Record<Language, string> = {
+  EN: "en",
+  RU: "ru",
+  KZ: "kk",
+};
+
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [lang, setLangState] = useState<Language>("EN");
 
   useEffect(() => {
-    const savedLang = localStorage.getItem("ism_lang") as Language;
-    if (savedLang && (savedLang === "EN" || savedLang === "RU" || savedLang === "KZ")) {
+    let savedLang: Language | null = null;
+    try {
+      savedLang = localStorage.getItem("ism_lang") as Language | null;
+    } catch {
+      // Storage can be unavailable (private mode, blocked cookies).
+    }
+    if (savedLang === "EN" || savedLang === "RU" || savedLang === "KZ") {
       setLangState(savedLang);
     }
   }, []);
+
+  useEffect(() => {
+    document.documentElement.lang = HTML_LANG[lang];
+  }, [lang]);
 
   const setLang = (newLang: Language) => {
     setLangState(newLang);

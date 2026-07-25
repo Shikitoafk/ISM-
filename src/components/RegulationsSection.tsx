@@ -2,40 +2,36 @@
 
 import React from "react";
 import { useLanguage } from "@/context/LanguageContext";
-import { FileText, Download, ShieldAlert, FileCheck, ExternalLink } from "lucide-react";
+import { FileText, Download, ShieldAlert, FileCheck } from "lucide-react";
 
 export const RegulationsSection: React.FC = () => {
   const { content } = useLanguage();
   const { regulationsSection, waivers, labSafety, regulationsSectionUI } = content;
 
   return (
-    <section id="regulations" className="py-16 md:py-24 bg-white border-b-2 border-slate-900">
+    <section id="regulations" className="py-16 md:py-24 bg-white border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Main Regulations Box */}
-        <div className="max-w-4xl mx-auto p-8 sm:p-10 rounded-xl border-2 border-slate-900 bg-slate-50 shadow-sm mb-12">
-          <div className="flex items-start gap-4 mb-6">
-            <div className="p-3 rounded-xl bg-white border-2 border-slate-900 text-brand-800 shrink-0">
-              <FileText className="w-6 h-6" strokeWidth={2} />
+        {/* Regulations downloads. The page header above already carries the
+            title and description, so this box is the documents only. */}
+        <div className="max-w-4xl mx-auto p-8 sm:p-10 rounded-xl border border-slate-200 bg-slate-50 shadow-sm mb-12">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="p-2.5 rounded-xl bg-white border border-slate-200 text-brand-800 shrink-0">
+              <FileText className="w-5 h-5" strokeWidth={2} />
             </div>
-            <div>
-              <h2 className="font-serif text-2xl font-bold text-slate-900 mb-2">
-                {regulationsSection.title}
-              </h2>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                {regulationsSection.description}
-              </p>
-            </div>
+            <h2 className="font-serif text-xl font-bold text-slate-900">
+              {regulationsSectionUI.downloadFormBtn}
+            </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6 border-t-2 border-slate-900">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {regulationsSection.downloads.map((doc, idx) => (
               <a
                 key={idx}
                 href={doc.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-4 rounded-lg border-2 border-slate-900 bg-white hover:bg-slate-100 transition-colors flex items-center justify-between gap-2 group shadow-xs"
+                className="p-4 rounded-lg border border-slate-200 bg-white hover:bg-slate-100 transition-colors flex items-center justify-between gap-2 group shadow-xs"
               >
                 <div className="text-xs font-bold text-slate-900">
                   {doc.lang}
@@ -47,8 +43,8 @@ export const RegulationsSection: React.FC = () => {
         </div>
 
         {/* Waivers & Consents Box */}
-        <div className="max-w-4xl mx-auto p-8 sm:p-10 rounded-xl border-2 border-slate-900 bg-white shadow-sm mb-12">
-          <div className="flex items-center gap-3 mb-3 pb-3 border-b-2 border-slate-900">
+        <div className="max-w-4xl mx-auto p-8 sm:p-10 rounded-xl border border-slate-200 bg-white shadow-sm mb-12">
+          <div className="flex items-center gap-3 mb-3 pb-3 border-b border-slate-200">
             <FileCheck className="w-6 h-6 text-brand-800" strokeWidth={2} />
             <div>
               <h3 className="font-serif text-xl font-bold text-slate-900">
@@ -62,7 +58,7 @@ export const RegulationsSection: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-3">
             {waivers.docs.map((item, i) => (
-              <div key={i} className="p-5 rounded-xl border-2 border-slate-900 bg-slate-50 flex flex-col justify-between">
+              <div key={i} className="p-5 rounded-xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
                 <div>
                   <h4 className="font-serif font-bold text-slate-900 text-sm mb-1">
                     {item.title}
@@ -86,7 +82,7 @@ export const RegulationsSection: React.FC = () => {
         </div>
 
         {/* Laboratory Safety Box */}
-        <div className="max-w-4xl mx-auto p-8 sm:p-10 rounded-xl border-2 border-slate-900 bg-amber-50/50 shadow-sm">
+        <div className="max-w-4xl mx-auto p-8 sm:p-10 rounded-xl border border-slate-200 bg-amber-50/50 shadow-sm">
           <div className="flex items-start gap-4 mb-4">
             <div className="p-2.5 rounded-lg bg-amber-100 border border-amber-400 text-amber-900 shrink-0 mt-0.5">
               <ShieldAlert className="w-6 h-6" strokeWidth={2} />

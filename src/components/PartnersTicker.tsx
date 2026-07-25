@@ -9,33 +9,42 @@ export const PartnersTicker: React.FC = () => {
 
   const hasPartners = partners.list && partners.list.length > 0;
 
-  if (!hasPartners) {
-    return (
-      <section className="py-8 bg-slate-900 border-b border-slate-800 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div
-            className="py-10 border-2 border-dashed border-slate-700 rounded-2xl bg-slate-950/40 flex flex-col items-center justify-center gap-2 min-h-[120px]"
-            aria-label={partners.emptySlot}
-          >
-            <span className="text-slate-500 text-xs font-semibold uppercase tracking-widest">
-              {partners.title}
-            </span>
-            <span className="text-slate-600 text-[11px] font-medium">
+  return (
+    <section
+      id="partners"
+      className="py-12 bg-slate-900 border-b border-slate-800 text-white overflow-hidden"
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="text-xs font-bold uppercase tracking-widest text-brand-300 mb-2">
+          {partners.title}
+        </div>
+        <p className="text-sm text-slate-400 mb-8">{partners.subtitle}</p>
+      </div>
+
+      {hasPartners ? (
+        // Duplicated once so the -50% keyframe wraps seamlessly.
+        <div className="relative">
+          <div className="animate-marquee gap-12 pr-12">
+            {[...partners.list, ...partners.list].map((partner, index) => (
+              <span
+                key={index}
+                aria-hidden={index >= partners.list.length}
+                className="shrink-0 text-base font-serif font-semibold text-slate-300 whitespace-nowrap"
+              >
+                {partner}
+              </span>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="py-10 border border-dashed border-slate-700 rounded-2xl bg-slate-950/40 flex items-center justify-center min-h-[120px]">
+            <span className="text-slate-500 text-xs font-medium">
               {partners.emptySlot}
             </span>
           </div>
         </div>
-      </section>
-    );
-  }
-
-  return (
-    <section className="py-10 bg-slate-900 border-b border-slate-800 text-white overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div className="py-6 border-2 border-dashed border-slate-800 rounded-2xl bg-slate-950/40 text-slate-400 text-xs font-bold uppercase tracking-widest">
-          {partners.title} • {partners.subtitle}
-        </div>
-      </div>
+      )}
     </section>
   );
 };

@@ -26,8 +26,19 @@ const config: Config = {
         },
       },
       fontFamily: {
-        serif: ["var(--font-serif)", "var(--font-sans)", "sans-serif"],
+        // Editorial serif for headings, UI sans for body — both cover
+        // Latin + Cyrillic + extended Cyrillic (see src/app/layout.tsx).
+        serif: ["var(--font-serif)", "Georgia", "serif"],
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+        mono: ["var(--font-mono)", "ui-monospace", "monospace"],
+      },
+      boxShadow: {
+        // The markup already used `shadow-xs`, which does not exist in
+        // Tailwind v3 and so rendered as nothing.
+        xs: "0 1px 2px 0 rgb(15 23 42 / 0.05)",
+      },
+      borderWidth: {
+        3: "3px",
       },
     },
   },

@@ -5,13 +5,49 @@
 :root {
   --background: #f8fafc;
   --foreground: #0f172a;
+  /* Height of the fixed header — anchors and sticky offsets read from here. */
+  --header-offset: 6rem;
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: var(--font-sans), system-ui, sans-serif;
-  overflow-x: hidden;
+@layer base {
+  html {
+    /* Keeps in-page anchors (#format, #case, …) clear of the fixed header. */
+    scroll-padding-top: var(--header-offset);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    color: var(--foreground);
+    background: var(--background);
+    font-family: var(--font-sans), system-ui, sans-serif;
+    overflow-x: hidden;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Times and codes line up in columns instead of drifting. */
+  .font-mono,
+  table td,
+  table th {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* A visible keyboard focus ring everywhere, without the click-time halo. */
+  :focus-visible {
+    outline: 2px solid theme("colors.brand.600");
+    outline-offset: 2px;
+    border-radius: 0.375rem;
+  }
 }
 
 /* Minimalist custom scrollbar */
@@ -47,4 +83,37 @@ body {
 
 .animate-marquee:hover {
   animation-play-state: paused;
+}
+
+/* Mobile drawer reveal. Replaces the `animate-in slide-in-from-top` classes
+   the markup used — tailwindcss-animate is not installed, so they were
+   silently doing nothing. */
+@keyframes drawer-in {
+  from {
+    opacity: 0;
+    transform: translateY(-0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-drawer-in {
+  animation: drawer-in 200ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

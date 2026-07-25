@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
 export const Format: React.FC = () => {
@@ -79,7 +80,7 @@ export const Format: React.FC = () => {
                     {card.badge}
                   </span>
                   <span
-                    className={`font-serif text-3xl font-black ${
+                    className={`font-serif text-3xl font-bold ${
                       card.highlight ? "text-brand-400" : "text-slate-300"
                     }`}
                   >
@@ -116,6 +117,7 @@ export const Format: React.FC = () => {
                   }`}
                 >
                   <span>{formatSection.fullRulesLink}</span>
+                  <ArrowRight className="w-4 h-4" strokeWidth={2} />
                 </Link>
               </div>
             </div>

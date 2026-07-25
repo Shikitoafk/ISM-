@@ -69,11 +69,11 @@ export default function RegisterPage() {
 
       <main className="flex-grow pt-24">
         <section className="bg-slate-900 text-white py-12 md:py-16 border-b border-slate-800">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-900 border border-brand-500/40 text-brand-300 text-xs font-semibold uppercase tracking-wider mb-3">
               <span>{registrationPage.badge}</span>
             </div>
-            <h1 className="font-serif text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-3">
+            <h1 className="font-serif text-3xl sm:text-4xl font-bold text-white tracking-tight mb-3">
               {registrationPage.title}
             </h1>
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
@@ -82,7 +82,9 @@ export default function RegisterPage() {
           </div>
         </section>
 
-        <div className="py-12 md:py-20">
+        {/* No vertical padding here — RegistrationBlock and the closed/loading
+            states bring their own, and stacking both left a large empty band. */}
+        <div>
           {loading ? (
             <div className="max-w-xl mx-auto text-center py-16 text-slate-500 font-medium flex flex-col items-center justify-center gap-3">
               <div className="w-8 h-8 border-3 border-brand-800 border-t-transparent rounded-full animate-spin"></div>
@@ -91,7 +93,7 @@ export default function RegisterPage() {
           ) : isRegistrationOpen ? (
             <RegistrationBlock />
           ) : (
-            <div className="max-w-2xl mx-auto px-4">
+            <div className="max-w-2xl mx-auto px-4 py-16 md:py-24">
               <div className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-8 sm:p-12 text-center shadow-lg">
                 <div className="absolute inset-0 opacity-5 pointer-events-none bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:12px_12px]" />
 
@@ -104,7 +106,7 @@ export default function RegisterPage() {
                     {registrationPage.statusClosed}
                   </div>
 
-                  <h2 className="font-serif text-2xl sm:text-3xl font-extrabold text-slate-900">
+                  <h2 className="font-serif text-2xl sm:text-3xl font-bold text-slate-900">
                     {registrationPage.closedTitle}
                   </h2>
 

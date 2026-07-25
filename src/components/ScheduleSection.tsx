@@ -12,7 +12,7 @@ export const ScheduleSection: React.FC = () => {
   const safeActiveIdx = activeDayIdx < scheduleDays.length ? activeDayIdx : 0;
 
   return (
-    <section id="schedule" className="py-16 md:py-24 bg-slate-50 border-b-2 border-slate-900">
+    <section id="schedule" className="py-16 md:py-24 bg-slate-50 border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center mb-12">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-200 border border-slate-400 text-slate-800 text-xs font-bold uppercase mb-2">
@@ -36,7 +36,7 @@ export const ScheduleSection: React.FC = () => {
               className={`px-3.5 py-2 rounded-lg text-xs font-bold transition-all ${
                 safeActiveIdx === idx
                   ? "bg-brand-800 text-white shadow-sm font-black"
-                  : "bg-white border-2 border-slate-900 text-slate-900 hover:bg-slate-100"
+                  : "bg-white border border-slate-200 text-slate-900 hover:bg-slate-100"
               }`}
             >
               <span>{day.dayNumber}</span>
@@ -45,8 +45,8 @@ export const ScheduleSection: React.FC = () => {
           ))}
         </div>
 
-        <div className="max-w-4xl mx-auto bg-white rounded-xl border-2 border-slate-900 shadow-sm overflow-hidden">
-          <div className="p-4 sm:p-6 bg-slate-100 border-b-2 border-slate-900 flex items-center justify-between">
+        <div className="max-w-4xl mx-auto bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+          <div className="p-4 sm:p-6 bg-slate-100 border-b border-slate-200 flex items-center justify-between">
             <div>
               <span className="text-xs font-bold text-brand-800 uppercase tracking-wide">
                 {scheduleDays[safeActiveIdx].dayNumber} • {scheduleDays[safeActiveIdx].date}
