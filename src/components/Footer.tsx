@@ -39,11 +39,8 @@ export const Footer: React.FC = () => {
 
           {/* Left Column: Logo + Description */}
           <div className="md:col-span-5 space-y-4">
-            <Link
-              href="/"
-              className={`inline-block bg-white p-2 rounded-xl ${FOCUS_RING}`}
-            >
-              <Logo size="md" />
+            <Link href="/" className={`inline-block ${FOCUS_RING}`}>
+              <Logo size="md" tone="dark" />
             </Link>
             <p className="text-sm text-slate-300 max-w-md leading-relaxed font-normal">
               {meta.fullName} — {meta.tagline}.

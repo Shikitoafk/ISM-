@@ -6,18 +6,19 @@ import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { ArrowRight, FileText, Atom, Trophy, Users, BookOpen, Layers, MapPin } from "lucide-react";
 
-/**
- * Hero background photo, served from /public. Next optimises it into
- * AVIF/WebP at several widths, so drop the full-resolution original here
- * rather than a pre-shrunk copy. If the file is missing the gradient
- * underneath still renders.
- */
-const HERO_IMAGE = "/hero.jpg";
-
 const FOCUS_RING =
   "focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950";
 
-export const Hero: React.FC = () => {
+interface HeroProps {
+  /**
+   * Background photo path, resolved from /public by the page (see
+   * src/lib/heroImage.ts). Null when no photo is present, in which case the
+   * hero shows its brand gradient alone.
+   */
+  heroImage?: string | null;
+}
+
+export const Hero: React.FC<HeroProps> = ({ heroImage = null }) => {
   const { content } = useLanguage();
   const { meta, hero, statsBar } = content;
 
@@ -33,7 +34,7 @@ export const Hero: React.FC = () => {
     <section className="relative pt-24 border-b border-slate-200 overflow-hidden">
       <div className="relative min-h-[520px] md:min-h-[600px] bg-slate-950 flex items-end">
         {/* Brand-tinted glows. These sit under the photo and stay visible on
-            their own if HERO_IMAGE is absent, so the hero degrades to a clean
+            their own when no photo is present, so the hero degrades to a clean
             gradient instead of a black box. */}
         <div
           className="absolute inset-0 pointer-events-none"
@@ -46,16 +47,18 @@ export const Hero: React.FC = () => {
 
         {/* Ceremony photo. object-position favours the upper-middle band where
             the people are, cropping the empty stage floor at the bottom. */}
-        <Image
-          src={HERO_IMAGE}
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          quality={80}
-          className="object-cover object-[center_35%]"
-          aria-hidden="true"
-        />
+        {heroImage && (
+          <Image
+            src={heroImage}
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            quality={80}
+            className="object-cover object-[center_35%]"
+            aria-hidden="true"
+          />
+        )}
 
         {/* Scrim. The photo is bright and busy in the middle, so the copy needs
             a real gradient behind it: dark from the bottom for the text block,

@@ -52,10 +52,10 @@ export const metadata: Metadata = {
     "Science Competition",
   ],
   icons: {
-    icon: [
-      { url: "/logo.svg", type: "image/svg+xml" },
-      { url: "/logo.png", type: "image/png", sizes: "681x681" },
-    ],
+    // PNG only: logo.svg is a rough hand-drawn approximation whose flask and
+    // letterforms differ from the real mark, and browsers prefer SVG when
+    // both are offered.
+    icon: [{ url: "/logo.png", type: "image/png", sizes: "681x681" }],
     apple: "/logo.png",
   },
   openGraph: {
