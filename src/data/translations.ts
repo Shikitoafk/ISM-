@@ -353,7 +353,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       regulationsPdfEn: "/docs/ism-regulations-en.pdf",
       parentalConsentPdf: "/docs/parental-consent.pdf",
       participantConsentPdf: "/docs/participant-consent.pdf",
-      dateAnnouncementNote: "Tournament Period: October 23 – November 1, 2026",
+      dateAnnouncementNote: "Tournament Period: October 26 – November 1, 2026",
     },
     nav: {
       home: "Home",
@@ -572,7 +572,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
           id: "stage-2",
           number: "Stage II",
           name: "On-Site Final Round",
-          timeframe: "October 23 – November 1",
+          timeframe: "October 26 – November 1",
           description: "On-site final round. Host city and campus to be announced.",
           parts: [
             {
@@ -615,14 +615,6 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
     scheduleDays: [
       {
         dayNumber: "Day 1",
-        date: "October 23-24",
-        title: "Team Registration",
-        rows: [
-          { time: "All day", event: "Team registration and arrival of participants", location: "TBA" }
-        ]
-      },
-      {
-        dayNumber: "Day 2",
         date: "October 25",
         title: "Accommodation",
         rows: [
@@ -630,7 +622,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
         ]
       },
       {
-        dayNumber: "Day 3",
+        dayNumber: "Day 2",
         date: "October 26",
         title: "Opening Ceremony & Rounds 1-2",
         rows: [
@@ -642,7 +634,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
         ]
       },
       {
-        dayNumber: "Day 4",
+        dayNumber: "Day 3",
         date: "October 27",
         title: "Rounds 3-4",
         rows: [
@@ -652,7 +644,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
         ]
       },
       {
-        dayNumber: "Day 5",
+        dayNumber: "Day 4",
         date: "October 28",
         title: "Problem Round & City Tour",
         rows: [
@@ -662,7 +654,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
         ]
       },
       {
-        dayNumber: "Day 6",
+        dayNumber: "Day 5",
         date: "October 29",
         title: "Appeals & Final Round",
         rows: [
@@ -672,7 +664,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
         ]
       },
       {
-        dayNumber: "Day 7",
+        dayNumber: "Day 6",
         date: "October 30",
         title: "Experiments & Project Defense",
         rows: [
@@ -682,7 +674,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
         ]
       },
       {
-        dayNumber: "Day 8",
+        dayNumber: "Day 7",
         date: "November 1",
         title: "Closing Ceremony & Departures",
         rows: [
@@ -694,7 +686,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
     awardsTiers: [
       { tier: "Grand Prix", teamsCount: "1 Team", reward: "Grand Prix Trophy & Absolute Winner Cup" },
       { tier: "Gold Award (I Degree)", teamsCount: "1 Team", reward: "Diploma I Degree + Gold Medals" },
-      { tier: "Silver Awards (II Degree)", teamsCount: "2 Teams", reward: "Diplomas II Degree + Silver Medals" },
+      { tier: "Silver Awards (II Degree)", teamsCount: "3 Teams", reward: "Diplomas II Degree + Silver Medals" },
       { tier: "Bronze Awards (III Degree)", teamsCount: "3 Teams", reward: "Diplomas III Degree + Bronze Medals" },
       { tier: "Stage II Finalists", teamsCount: "All Finalist Teams", reward: "Official ISM Finalist Certificates" }
     ],
@@ -863,7 +855,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       regulationsPdfEn: "/docs/ism-regulations-en.pdf",
       parentalConsentPdf: "/docs/parental-consent.pdf",
       participantConsentPdf: "/docs/participant-consent.pdf",
-      dateAnnouncementNote: "Период турнира: 23 октября – 1 ноября 2026",
+      dateAnnouncementNote: "Период турнира: 26 октября – 1 ноября 2026",
     },
     nav: {
       home: "Главная",
@@ -1082,7 +1074,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
           id: "stage-2",
           number: "II Этап",
           name: "Очный Финал",
-          timeframe: "23 октября – 1 ноября",
+          timeframe: "26 октября – 1 ноября",
           description: "Очный финальный этап. Город и площадка уточняются.",
           parts: [
             {
@@ -1125,14 +1117,6 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
     scheduleDays: [
       {
         dayNumber: "День 1",
-        date: "23-24 октября",
-        title: "Регистрация команд",
-        rows: [
-          { time: "Весь день", event: "Регистрация команд и заезд участников", location: "Уточняется" }
-        ]
-      },
-      {
-        dayNumber: "День 2",
         date: "25 октября",
         title: "Заселение",
         rows: [
@@ -1140,7 +1124,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
         ]
       },
       {
-        dayNumber: "День 3",
+        dayNumber: "День 2",
         date: "26 октября",
         title: "Открытие и Раунды 1-2",
         rows: [
@@ -1152,7 +1136,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
         ]
       },
       {
-        dayNumber: "День 4",
+        dayNumber: "День 3",
         date: "27 октября",
         title: "Раунды 3-4",
         rows: [
@@ -1162,7 +1146,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
         ]
       },
       {
-        dayNumber: "День 5",
+        dayNumber: "День 4",
         date: "28 октября",
         title: "Решение задач и экскурсия",
         rows: [
@@ -1172,7 +1156,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
         ]
       },
       {
-        dayNumber: "День 6",
+        dayNumber: "День 5",
         date: "29 октября",
         title: "Апелляция и Финальный раунд",
         rows: [
@@ -1182,7 +1166,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
         ]
       },
       {
-        dayNumber: "День 7",
+        dayNumber: "День 6",
         date: "30 октября",
         title: "Эксперименты и защита проектов",
         rows: [
@@ -1192,7 +1176,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
         ]
       },
       {
-        dayNumber: "День 8",
+        dayNumber: "День 7",
         date: "1 ноября",
         title: "Закрытие и отъезд",
         rows: [
@@ -1204,7 +1188,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
     awardsTiers: [
       { tier: "Гран-при", teamsCount: "1 Команда", reward: "Кубок абсолютного победителя Гран-при" },
       { tier: "Золотые награды (I Степени)", teamsCount: "1 Команда", reward: "Диплом I Степени + Золотые медали" },
-      { tier: "Серебряные награды (II Степени)", teamsCount: "2 Команды", reward: "Дипломы II Степени + Серебряные медали" },
+      { tier: "Серебряные награды (II Степени)", teamsCount: "3 Команды", reward: "Дипломы II Степени + Серебряные медали" },
       { tier: "Бронзовые награды (III Степени)", teamsCount: "3 Команды", reward: "Дипломы III Степени + Бронзовые медали" },
       { tier: "Финалисты II Этапа", teamsCount: "Все финалисты", reward: "Официальные сертификаты финалистов ISM" }
     ],
@@ -1373,7 +1357,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       regulationsPdfEn: "/docs/ism-regulations-en.pdf",
       parentalConsentPdf: "/docs/parental-consent.pdf",
       participantConsentPdf: "/docs/participant-consent.pdf",
-      dateAnnouncementNote: "Турнир мерзімі: 2026 жылғы 23 қазан – 1 қараша",
+      dateAnnouncementNote: "Турнир мерзімі: 2026 жылғы 26 қазан – 1 қараша",
     },
     nav: {
       home: "Басты бет",
@@ -1592,7 +1576,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
           id: "stage-2",
           number: "II Кезең",
           name: "Офлайн Финал",
-          timeframe: "23 қазан – 1 қараша",
+          timeframe: "26 қазан – 1 қараша",
           description: "Финалдық кезең. Өтетін қала мен алаң нақтылануда.",
           parts: [
             {
@@ -1635,14 +1619,6 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
     scheduleDays: [
       {
         dayNumber: "1-күн",
-        date: "23-24 қазан",
-        title: "Командаларды тіркеу",
-        rows: [
-          { time: "Күні бойы", event: "Командаларды тіркеу және қатысушылардың келуі", location: "Нақтылануда" }
-        ]
-      },
-      {
-        dayNumber: "2-күн",
         date: "25 қазан",
         title: "Орналасу",
         rows: [
@@ -1650,7 +1626,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
         ]
       },
       {
-        dayNumber: "3-күн",
+        dayNumber: "2-күн",
         date: "26 қазан",
         title: "Ашылу және 1-2 раундтар",
         rows: [
@@ -1662,7 +1638,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
         ]
       },
       {
-        dayNumber: "4-күн",
+        dayNumber: "3-күн",
         date: "27 қазан",
         title: "3-4 раундтар",
         rows: [
@@ -1672,7 +1648,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
         ]
       },
       {
-        dayNumber: "5-күн",
+        dayNumber: "4-күн",
         date: "28 қазан",
         title: "Есептер туры және қала турі",
         rows: [
@@ -1682,7 +1658,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
         ]
       },
       {
-        dayNumber: "6-күн",
+        dayNumber: "5-күн",
         date: "29 қазан",
         title: "Апелляция және финалдық раунд",
         rows: [
@@ -1692,7 +1668,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
         ]
       },
       {
-        dayNumber: "7-күн",
+        dayNumber: "6-күн",
         date: "30 қазан",
         title: "Эксперименттер және жобаларды қорғау",
         rows: [
@@ -1702,7 +1678,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
         ]
       },
       {
-        dayNumber: "8-күн",
+        dayNumber: "7-күн",
         date: "1 қараша",
         title: "Жабылу және шығу",
         rows: [
@@ -1714,7 +1690,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
     awardsTiers: [
       { tier: "Гран-при", teamsCount: "1 Топ", reward: "Гран-при кубогы мен Абсолют жеңімпаз кубогы" },
       { tier: "Алтын марапаттар (I Дәрежелі)", teamsCount: "1 Топ", reward: "I Дәрежелі Диплом + Алтын медальдар" },
-      { tier: "Күміс марапаттар (II Дәрежелі)", teamsCount: "2 Топ", reward: "II Дәрежелі Дипломдар + Күміс медальдар" },
+      { tier: "Күміс марапаттар (II Дәрежелі)", teamsCount: "3 Топ", reward: "II Дәрежелі Дипломдар + Күміс медальдар" },
       { tier: "Қола марапаттар (III Дәрежелі)", teamsCount: "3 Топ", reward: "III Дәрежелі Дипломдар + Қола медальдар" },
       { tier: "II Кезең финалисттері", teamsCount: "Барлық финалист топтар", reward: "ISM ресми финалист сертификаттары" }
     ],
