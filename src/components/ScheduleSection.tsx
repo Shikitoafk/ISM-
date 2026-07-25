@@ -6,7 +6,7 @@ import { Clock, MapPin, Calendar } from "lucide-react";
 
 export const ScheduleSection: React.FC = () => {
   const { content } = useLanguage();
-  const { scheduleDays, scheduleSectionUI, meta, organizers } = content;
+  const { scheduleDays, scheduleSectionUI, meta } = content;
   const [activeDayIdx, setActiveDayIdx] = useState(0);
 
   const safeActiveIdx = activeDayIdx < scheduleDays.length ? activeDayIdx : 0;
@@ -19,8 +19,10 @@ export const ScheduleSection: React.FC = () => {
             <Calendar className="w-3.5 h-3.5 text-brand-800" strokeWidth={2} />
             <span>{meta.dateAnnouncementNote}</span>
           </div>
+          {/* The venue used to be appended in brackets here; while the host
+              city is undecided that just rendered "(To be announced)". */}
           <h2 className="font-serif text-2xl sm:text-4xl font-bold text-slate-900 mb-3">
-            {scheduleSectionUI.title} ({organizers.finalVenue.name})
+            {scheduleSectionUI.title}
           </h2>
           <p className="text-slate-600 text-sm sm:text-base font-normal">
             {scheduleSectionUI.subtitle}

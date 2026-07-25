@@ -343,17 +343,17 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       targetGrades: "Grades 9–11 (12)",
       teamSize: "4 Required + 1 Optional Member + Team Supervisor",
       disciplines: "Biology, Chemistry, Physics, Mathematics & Computer Science",
-      location: "Oskemen, Bilim Innovation Lyceum, Likhareva 5",
+      location: "Kazakhstan — venue to be announced",
       contactEmail: "info.ism.olympiad@gmail.com",
       contactPhone: "+7 702 861 8611",
-      contactAddress: "Oskemen, Bilim Innovation Lyceum, Likhareva 5",
+      contactAddress: "Kazakhstan — venue to be announced",
       awardsNotice: "Official Cups, Medals & Certificates",
       regulationsPdfRu: "/docs/ism-regulations-ru.pdf",
       regulationsPdfKz: "/docs/ism-regulations-kz.pdf",
       regulationsPdfEn: "/docs/ism-regulations-en.pdf",
       parentalConsentPdf: "/docs/parental-consent.pdf",
       participantConsentPdf: "/docs/participant-consent.pdf",
-      dateAnnouncementNote: "Tournament Period: October 25 – November 1",
+      dateAnnouncementNote: "Tournament Period: October 23 – November 1, 2026",
     },
     nav: {
       home: "Home",
@@ -377,8 +377,8 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       stagesLabel: "Tournament Stages",
       targetCount: "9–11",
       targetLabel: "High School Grades",
-      venueCount: "Oskemen",
-      venueLabel: "Host City & Campus",
+      venueCount: "TBA",
+      venueLabel: "Host City",
     },
     partners: {
       title: "Partners & Sponsors",
@@ -406,7 +406,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       stage1Title: "2. Stage I — Qualification & Case Defence",
       stage1Desc: "Online research stage requiring teams to solve a real-world interdisciplinary scientific case and submit a comprehensive technical report.",
       stage2Title: "3. Stage II — Final Laboratory Research",
-      stage2Desc: "On-site practical laboratory tournament hosted in Oskemen, featuring hands-on experiments, data analysis, and oral defense.",
+      stage2Desc: "On-site practical laboratory tournament with hands-on experiments, data analysis and oral defense. Host city to be announced.",
       integrityTitle: "4. Academic Integrity & Safety",
       integrityDesc: "Strict adherence to scientific honesty, lab safety procedures, and ethical standards. Plagiarism results in disqualification.",
       downloadsTitle: "Official Regulations (PDF Downloads)",
@@ -459,9 +459,9 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
         description: "Panel of academic experts, researchers, and professors from partner scientific institutions."
       },
       finalVenue: {
-        name: "Oskemen, Bilim Innovation Lyceum",
-        city: "Oskemen, Kazakhstan",
-        address: "Likhareva 5, Oskemen",
+        name: "To be announced",
+        city: "Kazakhstan — to be announced",
+        address: "To be announced",
       }
     },
     aboutCards: [
@@ -572,8 +572,8 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
           id: "stage-2",
           number: "Stage II",
           name: "On-Site Final Round",
-          timeframe: "October 25 – November 1 (Oskemen)",
-          description: "On-site final round hosted at Oskemen Bilim Innovation Lyceum.",
+          timeframe: "October 23 – November 1",
+          description: "On-site final round. Host city and campus to be announced.",
           parts: [
             {
               name: "Round 1: Scientific Battle Rounds",
@@ -615,76 +615,79 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
     scheduleDays: [
       {
         dayNumber: "Day 1",
-        date: "October 25",
-        title: "Arrival & Check-in",
+        date: "October 23-24",
+        title: "Team Registration",
         rows: [
-          { time: "09:00 - 18:00", event: "Arrival of teams, hotel/campus check-in, registration & badge distribution", location: "Main Building" },
-          { time: "18:30 - 20:00", event: "Welcome dinner & informal team orientation", location: "Dining Hall" }
+          { time: "All day", event: "Team registration and arrival of participants", location: "TBA" }
         ]
       },
       {
         dayNumber: "Day 2",
-        date: "October 26",
-        title: "Opening Ceremony & Technical Briefing",
+        date: "October 25",
+        title: "Accommodation",
         rows: [
-          { time: "10:00 - 12:00", event: "Grand Opening Ceremony of ISM Olympiad", location: "Main Assembly Hall" },
-          { time: "14:00 - 16:00", event: "Battle Rounds draw & Captains' & Supervisors' technical briefing", location: "Conference Hall #1" },
-          { time: "16:30 - 18:00", event: "Campus & laboratory facility orientation tour", location: "Laboratory Complex" }
+          { time: "All day", event: "Check-in and accommodation of teams", location: "TBA" }
         ]
       },
       {
         dayNumber: "Day 3",
-        date: "October 27",
-        title: "Stage II: Battle Rounds (Session 1)",
+        date: "October 26",
+        title: "Opening Ceremony & Rounds 1-2",
         rows: [
-          { time: "09:30 - 13:00", event: "Scientific Debates (Biology, Chemistry & Biochemistry)", location: "Rooms 301-305" },
-          { time: "14:30 - 18:00", event: "Scientific Debates (Physics, Math & Computer Science)", location: "Rooms 301-305" }
+          { time: "08:00 - 09:00", event: "On-site registration", location: "TBA" },
+          { time: "09:00 - 10:00", event: "Opening Ceremony", location: "TBA" },
+          { time: "10:00 - 13:00", event: "Round 1", location: "TBA" },
+          { time: "13:00 - 14:00", event: "Break (tea and refreshments)", location: "TBA" },
+          { time: "14:00 - 17:00", event: "Round 2", location: "TBA" }
         ]
       },
       {
         dayNumber: "Day 4",
-        date: "October 28",
-        title: "Battle Rounds (Session 2) & Finalists Announcement",
+        date: "October 27",
+        title: "Rounds 3-4",
         rows: [
-          { time: "09:30 - 13:00", event: "Final Battle Round debates & jury deliberations", location: "Small Assembly Hall" },
-          { time: "15:00 - 16:30", event: "Announcement of finalist teams advancing to Practical Round", location: "Main Assembly Hall" },
-          { time: "17:00 - 18:30", event: "Practical Laboratory Safety briefing & gear check", location: "Research Center" }
+          { time: "10:00 - 13:00", event: "Round 3", location: "TBA" },
+          { time: "13:00 - 14:00", event: "Break", location: "TBA" },
+          { time: "14:00 - 17:00", event: "Round 4", location: "TBA" }
         ]
       },
       {
         dayNumber: "Day 5",
-        date: "October 29",
-        title: "Practical Laboratory Research Round (Day 1)",
+        date: "October 28",
+        title: "Problem Round & City Tour",
         rows: [
-          { time: "09:00 - 13:00", event: "Experimental laboratory measurements & chemical-physical synthesis", location: "Chemistry Lab" },
-          { time: "14:00 - 18:00", event: "Instrumental data collection & spectrometry analysis", location: "Physics Lab" }
+          { time: "10:00 - 13:00", event: "Problem round (20% of the total score)", location: "TBA" },
+          { time: "13:00 - 14:00", event: "Break", location: "TBA" },
+          { time: "14:00 - 18:00", event: "City tour", location: "City" }
         ]
       },
       {
         dayNumber: "Day 6",
-        date: "October 30",
-        title: "Practical Laboratory Research Round (Day 2)",
+        date: "October 29",
+        title: "Appeals & Final Round",
         rows: [
-          { time: "09:00 - 13:00", event: "Computational modeling & statistical data processing", location: "IT Center" },
-          { time: "14:00 - 18:00", event: "Final experimental report writing & chart preparation", location: "Coworking Space" }
+          { time: "09:00 - 10:00", event: "Appeals", location: "TBA" },
+          { time: "10:00 - 11:00", event: "Break", location: "TBA" },
+          { time: "12:00 - 17:00", event: "Final Round", location: "TBA" }
         ]
       },
       {
         dayNumber: "Day 7",
-        date: "October 31",
-        title: "Practical Report Defense & Jury Review",
+        date: "October 30",
+        title: "Experiments & Project Defense",
         rows: [
-          { time: "09:30 - 13:30", event: "Public defense of practical laboratory reports before the Jury", location: "Academic Boardroom" },
-          { time: "15:00 - 17:30", event: "Scientific workshop & campus excursion", location: "Labs" }
+          { time: "09:00 - 12:00", event: "Presentation of experiments and problem solving", location: "TBA" },
+          { time: "12:00 - 14:00", event: "Break", location: "TBA" },
+          { time: "14:00 - 17:00", event: "Project defense", location: "TBA" }
         ]
       },
       {
         dayNumber: "Day 8",
         date: "November 1",
-        title: "Closing Ceremony & Team Departures",
+        title: "Closing Ceremony & Departures",
         rows: [
-          { time: "11:00 - 13:30", event: "Grand Closing Ceremony, Medals, Diplomas & Trophy Presentation", location: "Main Assembly Hall" },
-          { time: "14:00 - 16:00", event: "Farewell reception & official team departures", location: "Campus Grounds" }
+          { time: "10:00 - 11:00", event: "Closing Ceremony", location: "TBA" },
+          { time: "11:00 - 22:30", event: "Departure of participants", location: "TBA" }
         ]
       }
     ],
@@ -713,7 +716,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       contactsTitle: "Contacts & Info",
       downloadRegulations: "Download Regulations (PDF)",
       copyright: "All rights reserved.",
-      locationNote: "Bilim Innovation Lyceum • Oskemen, Kazakhstan",
+      locationNote: "Kazakhstan • venue to be announced",
       brandName: "International Science Movement",
     },
     formatSection: {
@@ -727,7 +730,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
     },
     scheduleSectionUI: {
       title: "Tournament Schedule",
-      subtitle: "8-day official program for the on-site final round in Oskemen.",
+      subtitle: "Official program of the on-site final round. Host city to be announced.",
       colTime: "Time",
       colEvent: "Event / Activity",
       colVenue: "Venue",
@@ -746,7 +749,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       ],
       stage2Items: [
         "Timeframe: October 25 \u2013 November 1, 2025",
-        "Venue: Bilim Innovation Lyceum, Oskemen",
+        "Venue: to be announced",
         "Format: On-site laboratory experiments & physical measurements",
         "Defense: Oral presentation before the Academic Board"
       ],
@@ -850,17 +853,17 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       targetGrades: "9–11 (12) классы",
       teamSize: "4 Обязательных + 1 Опциональный участник + Руководитель",
       disciplines: "Биология, Химия, Физика, Математика и Информатика",
-      location: "Усть-Каменогорск, Bilim Innovation Lyceum, Лихарева 5",
+      location: "Казахстан — место проведения уточняется",
       contactEmail: "info.ism.olympiad@gmail.com",
       contactPhone: "+7 702 861 8611",
-      contactAddress: "Усть-Каменогорск, Bilim Innovation Lyceum, ул. Лихарева 5",
+      contactAddress: "Казахстан — место проведения уточняется",
       awardsNotice: "Официальные Кубки, Медали и Сертификаты",
       regulationsPdfRu: "/docs/ism-regulations-ru.pdf",
       regulationsPdfKz: "/docs/ism-regulations-kz.pdf",
       regulationsPdfEn: "/docs/ism-regulations-en.pdf",
       parentalConsentPdf: "/docs/parental-consent.pdf",
       participantConsentPdf: "/docs/participant-consent.pdf",
-      dateAnnouncementNote: "Период турнира: 25 октября – 1 ноября",
+      dateAnnouncementNote: "Период турнира: 23 октября – 1 ноября 2026",
     },
     nav: {
       home: "Главная",
@@ -884,7 +887,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       stagesLabel: "Этапа турнира",
       targetCount: "9–11",
       targetLabel: "Классы обучения",
-      venueCount: "Усть-Каменогорск",
+      venueCount: "Уточняется",
       venueLabel: "Город проведения",
     },
     partners: {
@@ -913,7 +916,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       stage1Title: "2. Stage I — Отборочный этап и кейс",
       stage1Desc: "Онлайн-этап решения междисциплинарного кейса с подготовкой детального исследовательского отчёта.",
       stage2Title: "3. Stage II — Финальные лабораторные работы",
-      stage2Desc: "Очный практический тур в г. Усть-Каменогорск: лабораторные эксперименты, обработка данных и защита перед жюри.",
+      stage2Desc: "Очный практический тур: лабораторные эксперименты, обработка данных и защита перед жюри. Город проведения уточняется.",
       integrityTitle: "4. Академическая честность и безопасность",
       integrityDesc: "Строгое соблюдение научной честности и техники безопасности в лабораториях. Плагиат влечёт дисквалификацию.",
       downloadsTitle: "Официальный регламент (PDF)",
@@ -966,9 +969,9 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
         description: "Коллегия академических экспертов, исследователей и преподавателей партнерских институтов."
       },
       finalVenue: {
-        name: "Усть-Каменогорск, Bilim Innovation Lyceum",
-        city: "Усть-Каменогорск, Казахстан",
-        address: "ул. Лихарева 5",
+        name: "Уточняется",
+        city: "Казахстан — уточняется",
+        address: "Уточняется",
       }
     },
     aboutCards: [
@@ -1079,8 +1082,8 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
           id: "stage-2",
           number: "II Этап",
           name: "Очный Финал",
-          timeframe: "25 Октября – 1 Ноября (Усть-Каменогорск)",
-          description: "Очный финал на базе Oskemen Bilim Innovation Lyceum.",
+          timeframe: "23 октября – 1 ноября",
+          description: "Очный финальный этап. Город и площадка уточняются.",
           parts: [
             {
               name: "Раунд 1: Научные бои",
@@ -1122,76 +1125,79 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
     scheduleDays: [
       {
         dayNumber: "День 1",
-        date: "25 Октября",
-        title: "Заселение и Регистрация (Check-in)",
+        date: "23-24 октября",
+        title: "Регистрация команд",
         rows: [
-          { time: "09:00 - 18:00", event: "Заезд команд, заселение, регистрация и выдача бейджей", location: "Главный корпус BIL" },
-          { time: "18:30 - 20:00", event: "Приветственный ужин и ориентационная встреча", location: "Столовая" }
+          { time: "Весь день", event: "Регистрация команд и заезд участников", location: "Уточняется" }
         ]
       },
       {
         dayNumber: "День 2",
-        date: "26 Октября",
-        title: "Открытие и Технический Брифинг",
+        date: "25 октября",
+        title: "Заселение",
         rows: [
-          { time: "10:00 - 12:00", event: "Торжественная церемония открытия олимпиады ISM", location: "Актовый зал" },
-          { time: "14:00 - 16:00", event: "Жеребьевка научных боев и инструктаж капитанов и руководителей", location: "Конференц-зал №1" },
-          { time: "16:30 - 18:00", event: "Ознакомительная экскурсия по кампусу и лабораториям", location: "Лаборатории" }
+          { time: "Весь день", event: "Заселение команд", location: "Уточняется" }
         ]
       },
       {
         dayNumber: "День 3",
-        date: "27 Октября",
-        title: "II Этап: Научные бои (Сессия 1)",
+        date: "26 октября",
+        title: "Открытие и Раунды 1-2",
         rows: [
-          { time: "09:30 - 13:00", event: "Научные бои (Биология, Химия и Биохимия)", location: "Кабинеты 301-305" },
-          { time: "14:30 - 18:00", event: "Научные бои (Физика, Математика и Информатика)", location: "Кабинеты 301-305" }
+          { time: "08:00 - 09:00", event: "Регистрация на месте", location: "Уточняется" },
+          { time: "09:00 - 10:00", event: "Церемония открытия", location: "Уточняется" },
+          { time: "10:00 - 13:00", event: "Раунд 1", location: "Уточняется" },
+          { time: "13:00 - 14:00", event: "Перерыв (чай и угощение)", location: "Уточняется" },
+          { time: "14:00 - 17:00", event: "Раунд 2", location: "Уточняется" }
         ]
       },
       {
         dayNumber: "День 4",
-        date: "28 Октября",
-        title: "Научные бои (Сессия 2) и Объявление Финалистов",
+        date: "27 октября",
+        title: "Раунды 3-4",
         rows: [
-          { time: "09:30 - 13:00", event: "Финальные бои отборочного этапа и работа жюри", location: "Малый зал" },
-          { time: "15:00 - 16:30", event: "Объявление команд-финалистов практического тура", location: "Актовый зал" },
-          { time: "17:00 - 18:30", event: "Инструктаж по технике безопасности в лабораториях", location: "Центр исследований" }
+          { time: "10:00 - 13:00", event: "Раунд 3", location: "Уточняется" },
+          { time: "13:00 - 14:00", event: "Перерыв", location: "Уточняется" },
+          { time: "14:00 - 17:00", event: "Раунд 4", location: "Уточняется" }
         ]
       },
       {
         dayNumber: "День 5",
-        date: "29 Октября",
-        title: "Практический лабораторный тур (День 1)",
+        date: "28 октября",
+        title: "Решение задач и экскурсия",
         rows: [
-          { time: "09:00 - 13:00", event: "Экспериментальные измерения и физико-химический синтез", location: "Лаборатория синтеза" },
-          { time: "14:00 - 18:00", event: "Спектрометрия и инструментальный анализ", location: "Лаборатория физики" }
+          { time: "10:00 - 13:00", event: "Тур задач (20% итогового балла)", location: "Уточняется" },
+          { time: "13:00 - 14:00", event: "Перерыв", location: "Уточняется" },
+          { time: "14:00 - 18:00", event: "Экскурсия по городу", location: "Город" }
         ]
       },
       {
         dayNumber: "День 6",
-        date: "30 Октября",
-        title: "Практический лабораторный тур (День 2)",
+        date: "29 октября",
+        title: "Апелляция и Финальный раунд",
         rows: [
-          { time: "09:00 - 13:00", event: "Математическое моделирование и компьютерная обработка данных", location: "IT-центр" },
-          { time: "14:00 - 18:00", event: "Подготовка итогового практического отчета и графиков", location: "Коворкинг" }
+          { time: "09:00 - 10:00", event: "Апелляция", location: "Уточняется" },
+          { time: "10:00 - 11:00", event: "Перерыв", location: "Уточняется" },
+          { time: "12:00 - 17:00", event: "Финальный раунд", location: "Уточняется" }
         ]
       },
       {
         dayNumber: "День 7",
-        date: "31 Октября",
-        title: "Защита практических отчетов перед Жюри",
+        date: "30 октября",
+        title: "Эксперименты и защита проектов",
         rows: [
-          { time: "09:30 - 13:30", event: "Публичная защита практических отчетов перед Жюри", location: "Конференц-зал" },
-          { time: "15:00 - 17:30", event: "Научный мастер-класс и экскурсия", location: "Лаборатории" }
+          { time: "09:00 - 12:00", event: "Представление экспериментов и решение задач", location: "Уточняется" },
+          { time: "12:00 - 14:00", event: "Перерыв", location: "Уточняется" },
+          { time: "14:00 - 17:00", event: "Защита проектов", location: "Уточняется" }
         ]
       },
       {
         dayNumber: "День 8",
-        date: "1 Ноября",
-        title: "Закрытие и Отъезд команд",
+        date: "1 ноября",
+        title: "Закрытие и отъезд",
         rows: [
-          { time: "11:00 - 13:30", event: "Церемония закрытия, вручение медалей, дипломов и кубка", location: "Актовый зал" },
-          { time: "14:00 - 16:00", event: "Фуршет и официальный отъезд команд", location: "Кампус" }
+          { time: "10:00 - 11:00", event: "Церемония закрытия", location: "Уточняется" },
+          { time: "11:00 - 22:30", event: "Отправка участников", location: "Уточняется" }
         ]
       }
     ],
@@ -1220,7 +1226,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       contactsTitle: "Контакты",
       downloadRegulations: "Скачать регламент (PDF)",
       copyright: "Все права защищены.",
-      locationNote: "Bilim Innovation Lyceum • Усть-Каменогорск, Казахстан",
+      locationNote: "Казахстан • место проведения уточняется",
       brandName: "International Science Movement",
     },
     formatSection: {
@@ -1234,7 +1240,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
     },
     scheduleSectionUI: {
       title: "Расписание турнира",
-      subtitle: "8-дневная официальная программа очного финала в Усть-Каменогорске.",
+      subtitle: "Официальная программа очного финала. Город проведения уточняется.",
       colTime: "Время",
       colEvent: "Событие / Активность",
       colVenue: "Место",
@@ -1253,7 +1259,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       ],
       stage2Items: [
         "Сроки: 25 октября \u2013 1 ноября 2025",
-        "Место: Bilim Innovation Lyceum, Усть-Каменогорск",
+        "Место: уточняется",
         "Формат: очные лабораторные эксперименты и измерения",
         "Защита: устная презентация перед учёным советом"
       ],
@@ -1357,17 +1363,17 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       targetGrades: "9–11 (12) сыныптар",
       teamSize: "4 Міндетті + 1 Қосымша қатысушы + Жетекші",
       disciplines: "Биология, Химия, Физика, Математика және Информатика",
-      location: "Өскемен, Bilim Innovation Lyceum, Лихарев көшесі 5",
+      location: "Қазақстан — өтетін орны нақтылануда",
       contactEmail: "info.ism.olympiad@gmail.com",
       contactPhone: "+7 702 861 8611",
-      contactAddress: "Өскемен, Bilim Innovation Lyceum, Лихарев көшесі 5",
+      contactAddress: "Қазақстан — өтетін орны нақтылануда",
       awardsNotice: "Ресми кубоктар, медальдар және дипломдар",
       regulationsPdfRu: "/docs/ism-regulations-ru.pdf",
       regulationsPdfKz: "/docs/ism-regulations-kz.pdf",
       regulationsPdfEn: "/docs/ism-regulations-en.pdf",
       parentalConsentPdf: "/docs/parental-consent.pdf",
       participantConsentPdf: "/docs/participant-consent.pdf",
-      dateAnnouncementNote: "Турнир мерзімі: 25 қазан – 1 қараша",
+      dateAnnouncementNote: "Турнир мерзімі: 2026 жылғы 23 қазан – 1 қараша",
     },
     nav: {
       home: "Басты бет",
@@ -1391,7 +1397,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       stagesLabel: "Турнир кезеңі",
       targetCount: "9–11",
       targetLabel: "Оқу сыныптары",
-      venueCount: "Өскемен",
+      venueCount: "Нақтылануда",
       venueLabel: "Өтетін қала мен кампус",
     },
     partners: {
@@ -1420,7 +1426,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       stage1Title: "2. Stage I — Сұрыптау кезеңі және кейс",
       stage1Desc: "Пәнаралық кейсті шешу және егжей-тегжейлі зерттеу есебін дайындау онлайн кезеңі.",
       stage2Title: "3. Stage II — Финалдық зертханалық жұмыстар",
-      stage2Desc: "Өскемен қаласындағы практикалық тур: зертханалық эксперименттер, деректерді өңдеу және қорғау.",
+      stage2Desc: "Практикалық тур: зертханалық эксперименттер, деректерді өңдеу және қорғау. Өтетін қала нақтылануда.",
       integrityTitle: "4. Академиялық адалдық және қауіпсіздік",
       integrityDesc: "Ғылыми адалдық пен зертханалық қауіпсіздік ережелерін қатаң сақтау. Плагиат дисквалификацияға әкеледі.",
       downloadsTitle: "Ресми ережелер (PDF)",
@@ -1473,9 +1479,9 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
         description: "Серіктес институттардың профессорлары мен ғылыми сарапшылары."
       },
       finalVenue: {
-        name: "Өскемен, Bilim Innovation Lyceum",
-        city: "Өскемен, Қазақстан",
-        address: "Лихарев көшесі 5",
+        name: "Нақтылануда",
+        city: "Қазақстан — нақтылануда",
+        address: "Нақтылануда",
       }
     },
     aboutCards: [
@@ -1586,8 +1592,8 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
           id: "stage-2",
           number: "II Кезең",
           name: "Офлайн Финал",
-          timeframe: "25 Қазан – 1 Қараша (Өскемен)",
-          description: "Oskemen Bilim Innovation Lyceum базесінде өтетін финалдық кезең.",
+          timeframe: "23 қазан – 1 қараша",
+          description: "Финалдық кезең. Өтетін қала мен алаң нақтылануда.",
           parts: [
             {
               name: "1-раунд: Ғылыми жекпе-жектер",
@@ -1629,76 +1635,79 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
     scheduleDays: [
       {
         dayNumber: "1-күн",
-        date: "25 Қазан",
-        title: "Келу және Орналасу (Check-in)",
+        date: "23-24 қазан",
+        title: "Командаларды тіркеу",
         rows: [
-          { time: "09:00 - 18:00", event: "Командалардың келуі, қонақүйге заселение және тіркеу", location: "Бас ғимарат" },
-          { time: "18:30 - 20:00", event: "Қарсы алу кешкі асы мен танысу", location: "Асхана" }
+          { time: "Күні бойы", event: "Командаларды тіркеу және қатысушылардың келуі", location: "Нақтылануда" }
         ]
       },
       {
         dayNumber: "2-күн",
-        date: "26 Қазан",
-        title: "Ашылу салтанаты мен Нұсқаулық",
+        date: "25 қазан",
+        title: "Орналасу",
         rows: [
-          { time: "10:00 - 12:00", event: "ISM олимпиадасының ашылу салтанаты", location: "Ақ зал" },
-          { time: "14:00 - 16:00", event: "Жедебе тастау және капитандар нұсқаулығы", location: "Конференция залы №1" },
-          { time: "16:30 - 18:00", event: "Кампус пен зертханаларға экскурсия", location: "Зертханалар" }
+          { time: "Күні бойы", event: "Командаларды орналастыру", location: "Нақтылануда" }
         ]
       },
       {
         dayNumber: "3-күн",
-        date: "27 Қазан",
-        title: "II Кезең: Ғылыми жекпе-жектер (1-сессия)",
+        date: "26 қазан",
+        title: "Ашылу және 1-2 раундтар",
         rows: [
-          { time: "09:30 - 13:00", event: "Ғылыми бои (Биология, Химия және Биохимия)", location: "301-305 бөлмелер" },
-          { time: "14:30 - 18:00", event: "Ғылыми бои (Физика, Математика және Информатика)", location: "301-305 бөлмелер" }
+          { time: "08:00 - 09:00", event: "Орында тіркеу", location: "Нақтылануда" },
+          { time: "09:00 - 10:00", event: "Ашылу салтанаты", location: "Нақтылануда" },
+          { time: "10:00 - 13:00", event: "1-раунд", location: "Нақтылануда" },
+          { time: "13:00 - 14:00", event: "Үзіліс (шай және дәм)", location: "Нақтылануда" },
+          { time: "14:00 - 17:00", event: "2-раунд", location: "Нақтылануда" }
         ]
       },
       {
         dayNumber: "4-күн",
-        date: "28 Қазан",
-        title: "Ғылыми жекпе-жектер және Финалисттерді жариялау",
+        date: "27 қазан",
+        title: "3-4 раундтар",
         rows: [
-          { time: "09:30 - 13:00", event: "Іріктеу кезеңінің соңғы боилары", location: "Кіші зал" },
-          { time: "15:00 - 16:30", event: "Практикалық турға өткен финалисттерді хабарлау", location: "Ақ зал" },
-          { time: "17:00 - 18:30", event: "Зертханалық қауіпсіздік нұсқаулығы", location: "Ғылыми орталық" }
+          { time: "10:00 - 13:00", event: "3-раунд", location: "Нақтылануда" },
+          { time: "13:00 - 14:00", event: "Үзіліс", location: "Нақтылануда" },
+          { time: "14:00 - 17:00", event: "4-раунд", location: "Нақтылануда" }
         ]
       },
       {
         dayNumber: "5-күн",
-        date: "29 Қазан",
-        title: "Практикалық зертханалық тур (1-күн)",
+        date: "28 қазан",
+        title: "Есептер туры және қала турі",
         rows: [
-          { time: "09:00 - 13:00", event: "Эксперименттік өлшеулер мен синтез", location: "Синтез зертханасы" },
-          { time: "14:00 - 18:00", event: "Спектрометрия мен аспаптық талдау", location: "Физика зертханасы" }
+          { time: "10:00 - 13:00", event: "Есептер туры (жалпы упайдың 20%)", location: "Нақтылануда" },
+          { time: "13:00 - 14:00", event: "Үзіліс", location: "Нақтылануда" },
+          { time: "14:00 - 18:00", event: "Қала бойынша экскурсия", location: "Қала" }
         ]
       },
       {
         dayNumber: "6-күн",
-        date: "30 Қазан",
-        title: "Практикалық зертханалық тур (2-күн)",
+        date: "29 қазан",
+        title: "Апелляция және финалдық раунд",
         rows: [
-          { time: "09:00 - 13:00", event: "Математикалық модельдеу және деректерді өңдеу", location: "IT-орталық" },
-          { time: "14:00 - 18:00", event: "Практикалық есепті дайындау", location: "Коворкинг" }
+          { time: "09:00 - 10:00", event: "Апелляция", location: "Нақтылануда" },
+          { time: "10:00 - 11:00", event: "Үзіліс", location: "Нақтылануда" },
+          { time: "12:00 - 17:00", event: "Финалдық раунд", location: "Нақтылануда" }
         ]
       },
       {
         dayNumber: "7-күн",
-        date: "31 Қазан",
-        title: "Практикалық есептерді қорғау",
+        date: "30 қазан",
+        title: "Эксперименттер және жобаларды қорғау",
         rows: [
-          { time: "09:30 - 13:30", event: "Практикалық есептерді Қазылар алдында қорғау", location: "Конференция залы" },
-          { time: "15:00 - 17:30", event: "Ғылыми шеберлік-сыныбы мен экскурсия", location: "Зертханалар" }
+          { time: "09:00 - 12:00", event: "Эксперименттерді ұсыну және есептерді шығару", location: "Нақтылануда" },
+          { time: "12:00 - 14:00", event: "Үзіліс", location: "Нақтылануда" },
+          { time: "14:00 - 17:00", event: "Жобаларды қорғау", location: "Нақтылануда" }
         ]
       },
       {
         dayNumber: "8-күн",
-        date: "1 Қараша",
-        title: "Жабылу салтанаты мен Қайту",
+        date: "1 қараша",
+        title: "Жабылу және шығу",
         rows: [
-          { time: "11:00 - 13:30", event: "Жабылу салтанаты, медалдар мен кубок тапсыру", location: "Ақ зал" },
-          { time: "14:00 - 16:00", event: "Фуршет және командалардың қайтуы", location: "Кампус" }
+          { time: "10:00 - 11:00", event: "Жабылу салтанаты", location: "Нақтылануда" },
+          { time: "11:00 - 22:30", event: "Қатысушыларды шығарып салу", location: "Нақтылануда" }
         ]
       }
     ],
@@ -1727,7 +1736,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       contactsTitle: "Байланыстар",
       downloadRegulations: "Ережелерді жүктеу (PDF)",
       copyright: "Барлық құқықтар қорғалған.",
-      locationNote: "Bilim Innovation Lyceum • Өскемен, Қазақстан",
+      locationNote: "Қазақстан • өтетін орны нақтылануда",
       brandName: "International Science Movement",
     },
     formatSection: {
@@ -1741,7 +1750,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
     },
     scheduleSectionUI: {
       title: "Турнир кестесі",
-      subtitle: "Өскемендегі очно финалдық 8 күндік ресми бағдарлама.",
+      subtitle: "Финалдық кезеңнің ресми бағдарламасы. Өтетін қала нақтылануда.",
       colTime: "Уақыт",
       colEvent: "Оқиға / Белсенділік",
       colVenue: "Орын",
@@ -1760,7 +1769,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       ],
       stage2Items: [
         "Мерзімі: 25 қазан \u2013 1 қараша 2025",
-        "Орын: Bilim Innovation Lyceum, Өскемен",
+        "Орын: нақтылануда",
         "Формат: очно зертханалық эксперименттер және өлшеулер",
         "Қорғау: ғылыми кеңес алдында ауызша презентация"
       ],
