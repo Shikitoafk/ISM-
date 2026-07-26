@@ -342,7 +342,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       tagline: "International Interdisciplinary Olympiad in Laboratory Research and Case-based Science",
       targetGrades: "Grades 9–11 (12)",
       teamSize: "4 Required + 1 Optional Member + Team Supervisor",
-      disciplines: "Biology, Chemistry, Physics, Mathematics & Computer Science",
+      disciplines: "Biology, Chemistry and Physics, with applied Mathematics, Statistics and Engineering Analysis",
       location: "Kazakhstan — venue to be announced",
       contactEmail: "info.ism.olympiad@gmail.com",
       contactPhone: "+7 702 861 8611",
@@ -369,8 +369,8 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       registerBtn: "Registration",
     },
     statsBar: {
-      disciplinesCount: "5",
-      disciplinesLabel: "STEM Disciplines",
+      disciplinesCount: "3",
+      disciplinesLabel: "Core Disciplines",
       teamSizeCount: "4–5",
       teamSizeLabel: "Members per Team",
       stagesCount: "2",
@@ -401,7 +401,10 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
         "Team must consist of 4 core members (Grade 9–11) + 1 optional member.",
         "Each team must appoint a Captain and have an official Team Supervisor/Leader.",
         "All team members must represent the same school or educational lyceum.",
-        "Interdisciplinary balance (Biology, Chemistry, Physics, Math, CS) is strongly recommended."
+        "Grade 8 students may be admitted exceptionally by decision of the Organizing Committee, on confirmed olympiad results — send supporting diplomas or certificates to the official e-mail.",
+        "The official language of all competition stages is English.",
+        "All dates and deadlines are given in Almaty time (UTC+5).",
+        "Interdisciplinary balance (Biology, Chemistry, Physics) is strongly recommended."
       ],
       stage1Title: "2. Stage I — Qualification & Case Defence",
       stage1Desc: "Online research stage requiring teams to solve a real-world interdisciplinary scientific case and submit a comprehensive technical report.",
@@ -435,7 +438,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       badge: "ISM 2025–2026",
       title: "ISM - International Science Movement",
       subtitle: "International Interdisciplinary Olympiad in Laboratory Research and Case-based Science",
-      description: "Premier team science olympiad integrating Biology, Chemistry, Physics, Mathematics, and Computer Science (Informatics).",
+      description: "Premier team science olympiad in Biology, Chemistry and Physics. All competition stages are held in English.",
       targetLabel: "Target",
       teamSizeLabel: "Team Composition",
       venueLabel: "Venue",
@@ -453,6 +456,9 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
         { name: "Omar Zhanbolat", role: "Marketing Manager", organization: "ISM Executive Board", badge: "Marketing" },
         { name: "Nurmukhammed Marat", role: "Security Manager", organization: "ISM Executive Board", badge: "Security" },
         { name: "Zangar Seiilkhanov", role: "HR Manager", organization: "ISM Executive Board", badge: "HR Manager" },
+        { name: "Iztileu Yerbolatuly", role: "SMM Manager", organization: "ISM Executive Board", badge: "SMM & Media" },
+        { name: "Batyrkhan Madeny", role: "HR Manager", organization: "ISM Executive Board", badge: "HR Manager" },
+        { name: "Ilyas Beisenbek", role: "HR Manager", organization: "ISM Executive Board", badge: "HR Manager" },
       ],
       juryInfo: {
         title: "Scientific Committee & Jury",
@@ -480,8 +486,8 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       {
         id: "disciplines",
         title: "Disciplines",
-        subtitle: "5 Core Scientific Fields",
-        description: "Biology, Chemistry, Physics, Mathematics, and Computer Science (Informatics) combined into integrated research tasks."
+        subtitle: "3 Core Scientific Fields",
+        description: "Biology, Chemistry and Physics, drawing on mathematics, statistics, materials science and engineering analysis."
       },
       {
         id: "team-structure",
@@ -555,8 +561,8 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
           id: "stage-1",
           number: "Stage I",
           name: "Online Selection Round",
-          timeframe: "Mid-September (Online)",
-          description: "Selection round scored out of 100 points, conducted remotely.",
+          timeframe: "11-18 October 2026 (online)",
+          description: "Online selection: research case (70%) and two proctored problem rounds (30%). The top 24 teams advance to the on-site final.",
           parts: [
             {
               name: "Part (a): Research Case",
@@ -573,7 +579,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
           number: "Stage II",
           name: "On-Site Final Round",
           timeframe: "October 26 – November 1",
-          description: "On-site final round. Host city and campus to be announced.",
+          description: "Qualification Round for 24 teams (26-28 October) and Final Research Round for 8 teams (29-30 October). Host city and campus to be announced.",
           parts: [
             {
               name: "Round 1: Scientific Battle Rounds",
@@ -646,31 +652,26 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       {
         dayNumber: "Day 4",
         date: "October 28",
-        title: "Problem Round & City Tour",
+        title: "STEM Problem Round & Announcement of the 8 Finalists",
         rows: [
-          { time: "10:00 - 13:00", event: "Problem round (20% of the total score)", location: "TBA" },
-          { time: "13:00 - 14:00", event: "Break", location: "TBA" },
-          { time: "14:00 - 18:00", event: "City tour", location: "City" }
+          { time: "10:00 - 13:00", event: "On-site STEM problem round (20% of the Qualification Round score)", location: "TBA" },
+          { time: "After marking", event: "Marking, appeals on the problem round and announcement of the 8 teams advancing", location: "TBA" }
         ]
       },
       {
         dayNumber: "Day 5",
         date: "October 29",
-        title: "Appeals & Final Round",
+        title: "Final Research Round — Day 1",
         rows: [
-          { time: "09:00 - 10:00", event: "Appeals", location: "TBA" },
-          { time: "10:00 - 11:00", event: "Break", location: "TBA" },
-          { time: "12:00 - 17:00", event: "Final Round", location: "TBA" }
+          { time: "09:00 - 17:00", event: "Safety briefing and first day of laboratory work for the 8 finalist teams; breaks scheduled", location: "TBA" }
         ]
       },
       {
         dayNumber: "Day 6",
         date: "October 30",
-        title: "Experiments & Project Defense",
+        title: "Final Research Round — Day 2",
         rows: [
-          { time: "09:00 - 12:00", event: "Presentation of experiments and problem solving", location: "TBA" },
-          { time: "12:00 - 14:00", event: "Break", location: "TBA" },
-          { time: "14:00 - 17:00", event: "Project defense", location: "TBA" }
+          { time: "09:00 - 17:00", event: "Completion of experiments, data processing, preparation of materials and defense of results; breaks scheduled", location: "TBA" }
         ]
       },
       {
@@ -678,8 +679,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
         date: "November 1",
         title: "Closing Ceremony & Departures",
         rows: [
-          { time: "10:00 - 11:00", event: "Closing Ceremony", location: "TBA" },
-          { time: "11:00 - 22:30", event: "Departure of participants", location: "TBA" }
+          { time: "10:00 - 11:00", event: "Closing Ceremony and awards", location: "TBA" }
         ]
       }
     ],
@@ -700,7 +700,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       ]
     },
     aboutSection: {
-      missionParagraph: "The International Science Movement (ISM) brings together high school students across Biology, Chemistry, Physics, Mathematics, and Computer Science to solve complex real-world scientific problems in laboratory and case settings.",
+      missionParagraph: "The International Science Movement (ISM) brings together high school students in Biology, Chemistry and Physics to solve complex scientific problems in laboratory and case settings. All competition stages are conducted in English.",
       targetAudienceLabel: "Target Audience",
     },
     footer: {
@@ -734,16 +734,20 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
     },
     rulesPageItems: {
       stage1Items: [
-        "Timeframe: September \u2013 October 2025",
-        "Format: Online interdisciplinary case research",
-        "Submission: Comprehensive PDF report + source code/calculations",
-        "Evaluation: Peer & Jury review based on methodology and rigor"
+        "Research case published on 11 October 2026",
+        "Problem round 1 — 17 October 2026; problem round 2 — 18 October 2026",
+        "Each round lasts 2 hours and contains 2 STEM problems",
+        "Held on the Formative platform with mandatory proctoring",
+        "Score: 70% research case + 30% the two problem rounds",
+        "The top 24 teams advance to the on-site final"
       ],
       stage2Items: [
-        "Timeframe: October 25 \u2013 November 1, 2025",
-        "Venue: to be announced",
-        "Format: On-site laboratory experiments & physical measurements",
-        "Defense: Oral presentation before the Academic Board"
+        "Qualification Round, 26-28 October 2026, for 24 teams",
+        "Four rounds of scientific battles (Presenter / Opponent / Reviewer)",
+        "Score: 80% scientific battles + 20% the on-site STEM problem round",
+        "The top 8 teams advance to the Final Research Round",
+        "Final Research Round, 29-30 October 2026: laboratory work and defense",
+        "Venue: to be announced"
       ],
       integrityItems: [
         "Zero tolerance for plagiarism or AI-generated unauthorized fabrication",
@@ -757,9 +761,9 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       juryTitle: "Academic Jury & Panel of Experts",
     },
     caseSectionUI: {
-      stageNotice: "Stage I tasks are published ~10 days prior to the submission deadline. Below is an overview of the case format.",
+      stageNotice: "The research case is published on 11 October 2026. Below is an overview of the case format.",
       submissionTitle: "Submission Guidelines & Formatting:",
-      releaseNotice: "The exact release date for the Stage I Research Case will be announced on the website.",
+      releaseNotice: "Case published 11 October 2026 • problem rounds 17 and 18 October 2026 (Almaty time, UTC+5)",
       downloadTitle: "Download ISM Regulations & Guidelines (3 Languages)",
       downloadSubtitle: "Official tournament documents are available in PDF format",
     },
@@ -844,7 +848,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       tagline: "Международная междисциплинарная олимпиада по лабораторным исследованиям и кейс-науке",
       targetGrades: "9–11 (12) классы",
       teamSize: "4 обязательных + 1 дополнительный участник + руководитель",
-      disciplines: "Биология, Химия, Физика, Математика и Информатика",
+      disciplines: "Биология, Химия и Физика с применением математики, статистики и инженерного анализа",
       location: "Казахстан — место проведения уточняется",
       contactEmail: "info.ism.olympiad@gmail.com",
       contactPhone: "+7 702 861 8611",
@@ -871,8 +875,8 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       registerBtn: "Регистрация",
     },
     statsBar: {
-      disciplinesCount: "5",
-      disciplinesLabel: "STEM-дисциплин",
+      disciplinesCount: "3",
+      disciplinesLabel: "Профильные дисциплины",
       teamSizeCount: "4–5",
       teamSizeLabel: "Участников в команде",
       stagesCount: "2",
@@ -903,7 +907,10 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
         "Команда состоит из 4 основных участников (9–11 классы) + 1 дополнительного участника.",
         "В каждой команде назначается Капитан и Руководитель (наставник).",
         "Все участники должны представлять одно учебное заведение.",
-        "Рекомендуется междисциплинарный баланс (Биология, Химия, Физика, Математика, Информатика)."
+        "Учащийся 8 класса может быть допущен в порядке исключения по решению Оргкомитета при подтверждённых олимпиадных результатах — диплом или сертификат направляется на официальную почту.",
+        "Официальный язык всех соревновательных этапов — английский.",
+        "Все даты и сроки указаны по времени Алматы (UTC+5).",
+        "Рекомендуется междисциплинарный баланс (Биология, Химия, Физика)."
       ],
       stage1Title: "2. Stage I — Отборочный этап и кейс",
       stage1Desc: "Онлайн-этап решения междисциплинарного кейса с подготовкой детального исследовательского отчёта.",
@@ -937,7 +944,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       badge: "ISM 2025–2026",
       title: "ISM — International Science Movement",
       subtitle: "Международная междисциплинарная олимпиада по лабораторным исследованиям и кейс-науке",
-      description: "Престижная международная командная олимпиада, объединяющая Биологию, Химию, Физику, Математику и Информатику.",
+      description: "Престижная международная командная олимпиада по биологии, химии и физике. Все соревновательные этапы проходят на английском языке.",
       targetLabel: "Участники",
       teamSizeLabel: "Состав команды",
       venueLabel: "Место проведения",
@@ -955,6 +962,9 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
         { name: "Жанболат Омар", role: "Маркетинг менеджер", organization: "Исполнительный комитет ISM", badge: "Marketing" },
         { name: "Нурмухаммед Марат", role: "Менеджер по безопасности", organization: "Исполнительный комитет ISM", badge: "Security" },
         { name: "Зангар Сейлханов", role: "HR Менеджер", organization: "Исполнительный комитет ISM", badge: "HR Manager" },
+        { name: "Изтилеу Ерболатулы", role: "SMM Менеджер", organization: "Исполнительный комитет ISM", badge: "SMM & Media" },
+        { name: "Батырхан Мадени", role: "HR Менеджер", organization: "Исполнительный комитет ISM", badge: "HR Manager" },
+        { name: "Ильяс Бейсенбек", role: "HR Менеджер", organization: "Исполнительный комитет ISM", badge: "HR Manager" },
       ],
       juryInfo: {
         title: "Научный комитет и Жюри",
@@ -982,8 +992,8 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       {
         id: "disciplines",
         title: "Дисциплины",
-        subtitle: "5 Ключевых Предметов",
-        description: "Биология, Химия, Физика, Математика и Информатика в комплексных междисциплинарных задачах."
+        subtitle: "3 Профильных Предмета",
+        description: "Биология, Химия и Физика с привлечением математики, статистики, материаловедения и инженерного анализа."
       },
       {
         id: "team-structure",
@@ -1057,8 +1067,8 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
           id: "stage-1",
           number: "I Этап",
           name: "Онлайн-Отборочный Тур",
-          timeframe: "Середина Сентября (Дистанционно)",
-          description: "Отборочный этап, проводимый в онлайн-формате.",
+          timeframe: "11-18 октября 2026 (онлайн)",
+          description: "Онлайн-отбор: исследовательский кейс (70%) и два прокторируемых задачных тура (30%). 24 лучшие команды проходят в очный финал.",
           parts: [
             {
               name: "Часть (a): Исследовательский кейс",
@@ -1075,7 +1085,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
           number: "II Этап",
           name: "Очный Финал",
           timeframe: "26 октября – 1 ноября",
-          description: "Очный финальный этап. Город и площадка уточняются.",
+          description: "Квалификационный тур для 24 команд (26-28 октября) и Финальный исследовательский тур для 8 команд (29-30 октября). Город и площадка уточняются.",
           parts: [
             {
               name: "Раунд 1: Научные бои",
@@ -1148,31 +1158,26 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       {
         dayNumber: "День 4",
         date: "28 октября",
-        title: "Решение задач и экскурсия",
+        title: "Задачный раунд STEM и объявление 8 финалистов",
         rows: [
-          { time: "10:00 - 13:00", event: "Тур задач (20% итогового балла)", location: "Уточняется" },
-          { time: "13:00 - 14:00", event: "Перерыв", location: "Уточняется" },
-          { time: "14:00 - 18:00", event: "Экскурсия по городу", location: "Город" }
+          { time: "10:00 - 13:00", event: "Очный задачный раунд STEM (20% рейтинга Квалификационного тура)", location: "Уточняется" },
+          { time: "После проверки", event: "Проверка, апелляции по задачному раунду и объявление 8 команд", location: "Уточняется" }
         ]
       },
       {
         dayNumber: "День 5",
         date: "29 октября",
-        title: "Апелляция и Финальный раунд",
+        title: "Финальный исследовательский тур — день 1",
         rows: [
-          { time: "09:00 - 10:00", event: "Апелляция", location: "Уточняется" },
-          { time: "10:00 - 11:00", event: "Перерыв", location: "Уточняется" },
-          { time: "12:00 - 17:00", event: "Финальный раунд", location: "Уточняется" }
+          { time: "09:00 - 17:00", event: "Инструктаж по безопасности и первый день лабораторной работы для 8 команд; предусмотрены перерывы", location: "Уточняется" }
         ]
       },
       {
         dayNumber: "День 6",
         date: "30 октября",
-        title: "Эксперименты и защита проектов",
+        title: "Финальный исследовательский тур — день 2",
         rows: [
-          { time: "09:00 - 12:00", event: "Представление экспериментов и решение задач", location: "Уточняется" },
-          { time: "12:00 - 14:00", event: "Перерыв", location: "Уточняется" },
-          { time: "14:00 - 17:00", event: "Защита проектов", location: "Уточняется" }
+          { time: "09:00 - 17:00", event: "Завершение экспериментов, обработка данных, подготовка материалов и защита результатов; предусмотрены перерывы", location: "Уточняется" }
         ]
       },
       {
@@ -1180,8 +1185,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
         date: "1 ноября",
         title: "Закрытие и отъезд",
         rows: [
-          { time: "10:00 - 11:00", event: "Церемония закрытия", location: "Уточняется" },
-          { time: "11:00 - 22:30", event: "Отправка участников", location: "Уточняется" }
+          { time: "10:00 - 11:00", event: "Церемония закрытия и награждение", location: "Уточняется" }
         ]
       }
     ],
@@ -1202,7 +1206,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       ]
     },
     aboutSection: {
-      missionParagraph: "International Science Movement (ISM) объединяет старшеклассников в области Биологии, Химии, Физики, Математики и Информатики для решения сложных научных задач в лабораторных и кейсовых форматах.",
+      missionParagraph: "International Science Movement (ISM) объединяет старшеклассников в области биологии, химии и физики для решения сложных научных задач в лабораторных и кейсовых форматах. Все соревновательные этапы проходят на английском языке.",
       targetAudienceLabel: "Целевая аудитория",
     },
     footer: {
@@ -1236,16 +1240,20 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
     },
     rulesPageItems: {
       stage1Items: [
-        "Сроки: сентябрь \u2013 октябрь 2025",
-        "Формат: онлайн-исследование междисциплинарного кейса",
-        "Подача: PDF-отчёт + исходный код/вычисления",
-        "Оценка: рецензирование жюри по методологии и строгости"
+        "Исследовательский кейс публикуется 11 октября 2026",
+        "Задачный тур 1 — 17 октября 2026; задачный тур 2 — 18 октября 2026",
+        "Каждый тур длится 2 часа и содержит 2 задачи STEM",
+        "Проводится на платформе Formative с обязательным прокторингом",
+        "Оценка: 70% исследовательский кейс + 30% два задачных тура",
+        "24 лучшие команды проходят в очный финал"
       ],
       stage2Items: [
-        "Сроки: 25 октября \u2013 1 ноября 2025",
-        "Место: уточняется",
-        "Формат: очные лабораторные эксперименты и измерения",
-        "Защита: устная презентация перед учёным советом"
+        "Квалификационный тур, 26-28 октября 2026, для 24 команд",
+        "Четыре раунда научных боёв (Докладчик / Оппонент / Рецензент)",
+        "Оценка: 80% научные бои + 20% очный задачный раунд STEM",
+        "8 лучших команд проходят в Финальный исследовательский тур",
+        "Финальный исследовательский тур, 29-30 октября 2026: лаборатория и защита",
+        "Место проведения уточняется"
       ],
       integrityItems: [
         "Нулевая терпимость к плагиату и несанкционированному использованию ИИ",
@@ -1259,9 +1267,9 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       juryTitle: "Академическое жюри и экспертная комиссия",
     },
     caseSectionUI: {
-      stageNotice: "Задания I этапа публикуются примерно за 10 дней до дедлайна. Ниже — обзор формата кейса.",
+      stageNotice: "Исследовательский кейс публикуется 11 октября 2026 года. Ниже — обзор формата кейса.",
       submissionTitle: "Требования к оформлению и подаче:",
-      releaseNotice: "Точная дата публикации кейса I этапа будет объявлена на сайте.",
+      releaseNotice: "Кейс — 11 октября 2026 • задачные туры — 17 и 18 октября 2026 (время Алматы, UTC+5)",
       downloadTitle: "Скачать Регламент ISM (3 языка)",
       downloadSubtitle: "Официальные документы турнира доступны в формате PDF",
     },
@@ -1346,7 +1354,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       tagline: "Зертханалық зерттеулер мен кейс-ғылымы бойынша халықаралық пәнаралық олимпиада",
       targetGrades: "9–11 (12) сыныптар",
       teamSize: "4 Міндетті + 1 Қосымша қатысушы + Жетекші",
-      disciplines: "Биология, Химия, Физика, Математика және Информатика",
+      disciplines: "Биология, Химия және Физика — математика, статистика және инженерлік талдауды қолдана отырып",
       location: "Қазақстан — өтетін орны нақтылануда",
       contactEmail: "info.ism.olympiad@gmail.com",
       contactPhone: "+7 702 861 8611",
@@ -1373,8 +1381,8 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       registerBtn: "Тіркелу",
     },
     statsBar: {
-      disciplinesCount: "5",
-      disciplinesLabel: "STEM пәні",
+      disciplinesCount: "3",
+      disciplinesLabel: "Негізгі пәндер",
       teamSizeCount: "4–5",
       teamSizeLabel: "Топтағы қатысушы",
       stagesCount: "2",
@@ -1405,7 +1413,10 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
         "Топ 4 негізгі қатысушыдан (9–11 сыныптар) + 1 қосымша қатысушыдан тұрады.",
         "Әр топта капитан мен жетекші (мұғалім) тағайындалады.",
         "Барлық қатысушылар бір білім беру ұйымының оқушылары болуы тиіс.",
-        "Пәнаралық тепе-теңдік (Биология, Химия, Физика, Математика, Информатика) ұсынылады."
+        "8-сынып оқушысы Ұйымдастыру комитетінің шешімімен, расталған олимпиада нәтижелері болған жағдайда ерекше тәртіппен жіберілуі мүмкін — диплом немесе сертификат ресми поштаға жіберіледі.",
+        "Барлық жарыс кезеңдерінің ресми тілі — ағылшын тілі.",
+        "Барлық күндер мен мерзімдер Алматы уақыты бойынша (UTC+5) көрсетілген.",
+        "Пәнаралық тепе-теңдік (Биология, Химия, Физика) ұсынылады."
       ],
       stage1Title: "2. Stage I — Сұрыптау кезеңі және кейс",
       stage1Desc: "Пәнаралық кейсті шешу және егжей-тегжейлі зерттеу есебін дайындау онлайн кезеңі.",
@@ -1439,7 +1450,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       badge: "ISM 2025–2026",
       title: "ISM — International Science Movement",
       subtitle: "Зертханалық зерттеулер мен кейс-ғылымы бойынша халықаралық пәнаралық олимпиада",
-      description: "Биология, Химия, Физика, Математика және Информатика пәндерін біріктіретін халықаралық олимпиада.",
+      description: "Биология, химия және физика бойынша беделді халықаралық командалық олимпиада. Барлық жарыс кезеңдері ағылшын тілінде өтеді.",
       targetLabel: "Қатысушылар",
       teamSizeLabel: "Топ құрамы",
       venueLabel: "Өтетін орны",
@@ -1457,6 +1468,9 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
         { name: "Жанболат Омар", role: "Маркетинг менеджері", organization: "ISM Атқарушы кеңесі", badge: "Marketing" },
         { name: "Нұрмұхаммед Марат", role: "Қауіпсіздік менеджері", organization: "ISM Атқарушы кеңесі", badge: "Security" },
         { name: "Занғар Сейілханов", role: "HR Менеджері", organization: "ISM Атқарушы кеңесі", badge: "HR Manager" },
+        { name: "Ізтілеу Ерболатұлы", role: "SMM Менеджері", organization: "ISM Атқарушы кеңесі", badge: "SMM & Media" },
+        { name: "Батырхан Мәдени", role: "HR Менеджері", organization: "ISM Атқарушы кеңесі", badge: "HR Manager" },
+        { name: "Ілияс Бейсенбек", role: "HR Менеджері", organization: "ISM Атқарушы кеңесі", badge: "HR Manager" },
       ],
       juryInfo: {
         title: "Ғылыми Комитет және Қазылар алқасы",
@@ -1484,8 +1498,8 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       {
         id: "disciplines",
         title: "Пәндер",
-        subtitle: "5 Негізгі Ғылыми Бағыт",
-        description: "Биология, Химия, Физика, Математика және Информатика интеграциясы."
+        subtitle: "3 Негізгі Ғылыми Бағыт",
+        description: "Биология, Химия және Физика — математика, статистика, материалтану және инженерлік талдауды қолдана отырып."
       },
       {
         id: "team-structure",
@@ -1559,8 +1573,8 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
           id: "stage-1",
           number: "I Кезең",
           name: "Онлайн іріктеу туры",
-          timeframe: "Қыркүйек ортасы (Онлайн)",
-          description: "Іріктеу кезеңі қашықтан өткізіледі.",
+          timeframe: "2026 жылғы 11-18 қазан (онлайн)",
+          description: "Онлайн іріктеу: зерттеу кейсі (70%) және екі прокторингті задачалық тур (30%). Үздік 24 команда очно финалға өтеді.",
           parts: [
             {
               name: "(a) бөлігі: Зерттеу кейсі",
@@ -1577,7 +1591,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
           number: "II Кезең",
           name: "Офлайн Финал",
           timeframe: "26 қазан – 1 қараша",
-          description: "Финалдық кезең. Өтетін қала мен алаң нақтылануда.",
+          description: "24 команда үшін Квалификациялық тур (26-28 қазан) және 8 команда үшін Финалдық зерттеу туры (29-30 қазан). Өтетін қала мен алаң нақтылануда.",
           parts: [
             {
               name: "1-раунд: Ғылыми жекпе-жектер",
@@ -1650,31 +1664,26 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       {
         dayNumber: "4-күн",
         date: "28 қазан",
-        title: "Есептер туры және қала турі",
+        title: "STEM задачалық раунды және 8 финалистті жариялау",
         rows: [
-          { time: "10:00 - 13:00", event: "Есептер туры (жалпы упайдың 20%)", location: "Нақтылануда" },
-          { time: "13:00 - 14:00", event: "Үзіліс", location: "Нақтылануда" },
-          { time: "14:00 - 18:00", event: "Қала бойынша экскурсия", location: "Қала" }
+          { time: "10:00 - 13:00", event: "Очно STEM задачалық раунды (Квалификациялық тур рейтингінің 20%)", location: "Нақтылануда" },
+          { time: "Тексерілгеннен кейін", event: "Тексеру, задачалық раунд бойынша апелляция және 8 команданы жариялау", location: "Нақтылануда" }
         ]
       },
       {
         dayNumber: "5-күн",
         date: "29 қазан",
-        title: "Апелляция және финалдық раунд",
+        title: "Финалдық зерттеу туры — 1-күн",
         rows: [
-          { time: "09:00 - 10:00", event: "Апелляция", location: "Нақтылануда" },
-          { time: "10:00 - 11:00", event: "Үзіліс", location: "Нақтылануда" },
-          { time: "12:00 - 17:00", event: "Финалдық раунд", location: "Нақтылануда" }
+          { time: "09:00 - 17:00", event: "Қауіпсіздік нұсқамасы және 8 команда үшін зертханалық жұмыстың бірінші күні; үзілістер қарастырылған", location: "Нақтылануда" }
         ]
       },
       {
         dayNumber: "6-күн",
         date: "30 қазан",
-        title: "Эксперименттер және жобаларды қорғау",
+        title: "Финалдық зерттеу туры — 2-күн",
         rows: [
-          { time: "09:00 - 12:00", event: "Эксперименттерді ұсыну және есептерді шығару", location: "Нақтылануда" },
-          { time: "12:00 - 14:00", event: "Үзіліс", location: "Нақтылануда" },
-          { time: "14:00 - 17:00", event: "Жобаларды қорғау", location: "Нақтылануда" }
+          { time: "09:00 - 17:00", event: "Эксперименттерді аяқтау, деректерді өңдеу, материалдарды дайындау және нәтижелерді қорғау; үзілістер қарастырылған", location: "Нақтылануда" }
         ]
       },
       {
@@ -1682,8 +1691,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
         date: "1 қараша",
         title: "Жабылу және шығу",
         rows: [
-          { time: "10:00 - 11:00", event: "Жабылу салтанаты", location: "Нақтылануда" },
-          { time: "11:00 - 22:30", event: "Қатысушыларды шығарып салу", location: "Нақтылануда" }
+          { time: "10:00 - 11:00", event: "Жабылу салтанаты және марапаттау", location: "Нақтылануда" }
         ]
       }
     ],
@@ -1704,7 +1712,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       ]
     },
     aboutSection: {
-      missionParagraph: "International Science Movement (ISM) жоғары сынып оқушыларын Биология, Химия, Физика, Математика және Информатика салаларында күрделі ғылыми мәселелерді зертханалық және кейстік форматта шешуге біріктіреді.",
+      missionParagraph: "International Science Movement (ISM) жоғары сынып оқушыларын биология, химия және физика бойынша күрделі ғылыми міндеттерді шешу үшін біріктіреді. Барлық жарыс кезеңдері ағылшын тілінде өтеді.",
       targetAudienceLabel: "Мақсатты аудитория",
     },
     footer: {
@@ -1738,16 +1746,20 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
     },
     rulesPageItems: {
       stage1Items: [
-        "Мерзімі: қыркүйек \u2013 қазан 2025",
-        "Формат: пәнаралық кейсті онлайн зерттеу",
-        "Тапсыру: PDF есебі + бастапқы код/есептеулер",
-        "Бағалау: қазылардың әдістеме және қатаңдық бойынша сараптамасы"
+        "Зерттеу кейсі 2026 жылғы 11 қазанда жарияланады",
+        "1-задачалық тур — 17 қазан 2026; 2-задачалық тур — 18 қазан 2026",
+        "Әр тур 2 сағатқа созылады және 2 STEM есебінен тұрады",
+        "Formative платформасында міндетті прокторингпен өткізіледі",
+        "Бағалау: 70% зерттеу кейсі + 30% екі задачалық тур",
+        "Үздік 24 команда очно финалға өтеді"
       ],
       stage2Items: [
-        "Мерзімі: 25 қазан \u2013 1 қараша 2025",
-        "Орын: нақтылануда",
-        "Формат: очно зертханалық эксперименттер және өлшеулер",
-        "Қорғау: ғылыми кеңес алдында ауызша презентация"
+        "Квалификациялық тур, 2026 жылғы 26-28 қазан, 24 команда үшін",
+        "Ғылыми шайқастардың төрт раунды (Баяндамашы / Оппонент / Рецензент)",
+        "Бағалау: 80% ғылыми шайқастар + 20% очно STEM задачалық раунд",
+        "Үздік 8 команда Финалдық зерттеу турына өтеді",
+        "Финалдық зерттеу туры, 2026 жылғы 29-30 қазан: зертхана және қорғау",
+        "Өтетін орны нақтылануда"
       ],
       integrityItems: [
         "Плагиат пен рұқсатсыз ИИ қолдануға нөлдік төзімділік",
@@ -1761,9 +1773,9 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       juryTitle: "Академиялық қазылар мен сарапшылар комиссиясы",
     },
     caseSectionUI: {
-      stageNotice: "I кезең тапсырмалары тапсыру мерзімінен ~10 күн бұрын жарияланады. Төменде кейс форматы.",
+      stageNotice: "Зерттеу кейсі 2026 жылғы 11 қазанда жарияланады. Төменде кейс форматы.",
       submissionTitle: "Тапсыру талаптары мен форматтау:",
-      releaseNotice: "I кезең кейсінің нақты жариялану күні сайтта хабарланады.",
+      releaseNotice: "Кейс — 2026 жылғы 11 қазан • задачалық турлар — 17 және 18 қазан (Алматы уақыты, UTC+5)",
       downloadTitle: "ISM ережелерін жүктеу (3 тілде)",
       downloadSubtitle: "Турнирдің ресми құжаттары PDF форматында қол жетімді",
     },
