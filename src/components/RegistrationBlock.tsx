@@ -1,9 +1,21 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import { supabase, isSupabaseConfigured } from "../lib/supabase";
 import { useLanguage } from "@/context/LanguageContext";
-import { Trash2, Send, CheckCircle, AlertCircle, UserCheck, Plus } from "lucide-react";
+import { Trash2, Send, CheckCircle, AlertCircle, UserCheck, Plus, Upload, FileText, X, Download } from "lucide-react";
+
+/** Signed consent scans: what the storage bucket and the form will accept. */
+const CONSENT_BUCKET = "consents";
+const MAX_FILE_BYTES = 10 * 1024 * 1024;
+const ACCEPTED_TYPES = ["application/pdf", "image/jpeg", "image/png"];
+const ACCEPT_ATTR = ".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png";
+
+function formatBytes(bytes: number): string {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${Math.round(bytes / 1024)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
 
 interface Member {
   full_name: string;
@@ -25,7 +37,7 @@ function createDefaultMembers(
 
 export const RegistrationBlock: React.FC = () => {
   const { content } = useLanguage();
-  const { nav, registrationFormUI: form } = content;
+  const { nav, meta, registrationFormUI: form } = content;
   const { grades, memberRoles, errors } = form;
 
   const defaultGrade = grades[1] ?? grades[0] ?? "";
@@ -57,10 +69,28 @@ export const RegistrationBlock: React.FC = () => {
     role_or_notes: memberRoles.optional5,
   });
 
+  const [consentFiles, setConsentFiles] = useState<File[]>([]);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   const [consent, setConsent] = useState(false);
   const [labSafetyConsent, setLabSafetyConsent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [statusMessage, setStatusMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
+
+  const addConsentFiles = (picked: FileList | null) => {
+    if (!picked) return;
+    // Same file picked twice (two separate "choose" clicks) should not double up.
+    const incoming = Array.from(picked);
+    setConsentFiles((current) => {
+      const seen = new Set(current.map((f) => `${f.name}:${f.size}`));
+      return [...current, ...incoming.filter((f) => !seen.has(`${f.name}:${f.size}`))];
+    });
+    // Clear the input so re-picking the same file still fires onChange.
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  };
+
+  const removeConsentFile = (index: number) =>
+    setConsentFiles((current) => current.filter((_, i) => i !== index));
 
   const updateMember = (index: number, field: keyof Member, value: string) => {
     const updated = [...members];
@@ -88,6 +118,8 @@ export const RegistrationBlock: React.FC = () => {
     });
     setConsent(false);
     setLabSafetyConsent(false);
+    setConsentFiles([]);
+    if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -129,6 +161,23 @@ export const RegistrationBlock: React.FC = () => {
       return;
     }
 
+    if (consentFiles.length === 0) {
+      setStatusMessage({ type: "error", text: errors.filesRequired });
+      return;
+    }
+
+    const oversized = consentFiles.find((f) => f.size > MAX_FILE_BYTES);
+    if (oversized) {
+      setStatusMessage({ type: "error", text: `${errors.fileTooLarge}${oversized.name}` });
+      return;
+    }
+
+    const wrongType = consentFiles.find((f) => !ACCEPTED_TYPES.includes(f.type));
+    if (wrongType) {
+      setStatusMessage({ type: "error", text: `${errors.fileTypeInvalid}${wrongType.name}` });
+      return;
+    }
+
     const allMembersPayload = [...members];
     if (hasFifthMember) {
       allMembersPayload.push(fifthMember);
@@ -137,8 +186,37 @@ export const RegistrationBlock: React.FC = () => {
     setLoading(true);
 
     try {
+      // Upload the scans first, then record their paths on the row. Doing it in
+      // this order means a failed upload never leaves a team registered without
+      // its consent forms.
+      const submissionId =
+        typeof crypto !== "undefined" && "randomUUID" in crypto
+          ? crypto.randomUUID()
+          : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+
+      const uploaded: { name: string; path: string; size: number; type: string }[] = [];
+
+      for (let index = 0; index < consentFiles.length; index++) {
+        const file = consentFiles[index];
+        const safeName = file.name.replace(/[^\w.\-]+/g, "_").slice(-80);
+        const path = `${submissionId}/${index + 1}-${safeName}`;
+        const { error: uploadError } = await supabase.storage
+          .from(CONSENT_BUCKET)
+          .upload(path, file, { contentType: file.type, upsert: false });
+
+        if (uploadError) {
+          console.error("Consent upload error:", uploadError);
+          setStatusMessage({ type: "error", text: errors.uploadFailed });
+          setLoading(false);
+          return;
+        }
+        uploaded.push({ name: file.name, path, size: file.size, type: file.type });
+      }
+
       const { error } = await supabase.from("teams").insert([
         {
+          consent_folder: submissionId,
+          consent_files: uploaded,
           team_name: teamName,
           captain_name: captainName,
           captain_email: captainEmail,
@@ -481,6 +559,108 @@ export const RegistrationBlock: React.FC = () => {
                   </button>
                 </div>
               )}
+            </div>
+          </div>
+
+          {/* Signed consent scans */}
+          <div className="space-y-4">
+            <h3 className="font-serif text-lg font-bold text-slate-900 pb-2 border-b border-slate-200">
+              {form.documents.sectionTitle}
+            </h3>
+
+            <div className="p-4 rounded-xl border border-slate-200 bg-slate-50/80 space-y-4">
+              <div>
+                <p className="text-xs font-bold text-slate-700 uppercase tracking-wide mb-2">
+                  {form.documents.templatesIntro}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  <a
+                    href={meta.parentalConsentPdf}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-300 bg-white hover:bg-slate-100 text-slate-800 text-xs font-bold transition-colors"
+                  >
+                    <Download className="w-3.5 h-3.5 text-brand-800" strokeWidth={2} />
+                    <span>{form.documents.parentalTemplate}</span>
+                  </a>
+                  <a
+                    href={meta.participantConsentPdf}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-300 bg-white hover:bg-slate-100 text-slate-800 text-xs font-bold transition-colors"
+                  >
+                    <Download className="w-3.5 h-3.5 text-brand-800" strokeWidth={2} />
+                    <span>{form.documents.participantTemplate}</span>
+                  </a>
+                </div>
+              </div>
+
+              <div className="pt-3 border-t border-slate-200">
+                <label
+                  htmlFor="consent-files"
+                  className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1"
+                >
+                  {form.documents.label}
+                </label>
+                <p className="text-xs text-slate-500 mb-3 leading-relaxed">
+                  {form.documents.hint}
+                </p>
+
+                <input
+                  id="consent-files"
+                  ref={fileInputRef}
+                  type="file"
+                  multiple
+                  accept={ACCEPT_ATTR}
+                  onChange={(e) => addConsentFiles(e.target.files)}
+                  className="sr-only"
+                />
+                <div className="flex items-center gap-3 flex-wrap">
+                  <label
+                    htmlFor="consent-files"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-brand-800 hover:bg-brand-900 text-white text-xs font-bold cursor-pointer transition-colors"
+                  >
+                    <Upload className="w-4 h-4" strokeWidth={2} />
+                    <span>{form.documents.chooseBtn}</span>
+                  </label>
+                  <span className="text-xs text-slate-500 font-medium">
+                    {consentFiles.length === 0
+                      ? form.documents.noFiles
+                      : form.documents.selectedCount.replace(
+                          "{n}",
+                          String(consentFiles.length)
+                        )}
+                  </span>
+                </div>
+
+                {consentFiles.length > 0 && (
+                  <ul className="mt-3 space-y-2">
+                    {consentFiles.map((file, idx) => (
+                      <li
+                        key={`${file.name}-${file.size}-${idx}`}
+                        className="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 bg-white"
+                      >
+                        <FileText className="w-4 h-4 text-brand-800 shrink-0" strokeWidth={2} />
+                        <span className="text-xs font-semibold text-slate-800 truncate flex-grow min-w-0">
+                          {file.name}
+                        </span>
+                        <span className="text-[11px] text-slate-500 shrink-0">
+                          {formatBytes(file.size)}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => removeConsentFile(idx)}
+                          title={form.documents.removeTitle}
+                          aria-label={`${form.documents.removeTitle}: ${file.name}`}
+                          className="p-1 rounded text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors shrink-0"
+                        >
+                          <X className="w-4 h-4" strokeWidth={2} />
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
             </div>
           </div>
 

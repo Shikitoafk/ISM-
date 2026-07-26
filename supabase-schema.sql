@@ -18,13 +18,19 @@ CREATE TABLE IF NOT EXISTS public.teams (
     consent_confirmed BOOLEAN NOT NULL DEFAULT TRUE,
     -- The registration form requires a separate lab-safety acknowledgement
     -- and sends it on every insert.
-    lab_safety_confirmed BOOLEAN NOT NULL DEFAULT FALSE
+    lab_safety_confirmed BOOLEAN NOT NULL DEFAULT FALSE,
+    -- Scans of the signed consent forms, uploaded to the 'consents' storage
+    -- bucket. See supabase-consents.sql for the bucket and its policies.
+    consent_folder TEXT,
+    consent_files JSONB NOT NULL DEFAULT '[]'::jsonb
 );
 
 -- For databases created before lab_safety_confirmed existed: without this
 -- column every submission fails with "column not found".
 ALTER TABLE public.teams
-    ADD COLUMN IF NOT EXISTS lab_safety_confirmed BOOLEAN NOT NULL DEFAULT FALSE;
+    ADD COLUMN IF NOT EXISTS lab_safety_confirmed BOOLEAN NOT NULL DEFAULT FALSE,
+    ADD COLUMN IF NOT EXISTS consent_folder TEXT,
+    ADD COLUMN IF NOT EXISTS consent_files JSONB NOT NULL DEFAULT '[]'::jsonb;
 
 -- Index for fast queries
 CREATE INDEX IF NOT EXISTS idx_teams_created_at ON public.teams (created_at DESC);

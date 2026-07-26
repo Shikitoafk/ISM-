@@ -315,12 +315,28 @@ export interface ContentStructure {
     consentData: string;
     consentLabSafety: string;
     submitting: string;
+    documents: {
+      sectionTitle: string;
+      label: string;
+      hint: string;
+      chooseBtn: string;
+      noFiles: string;
+      selectedCount: string;
+      removeTitle: string;
+      templatesIntro: string;
+      parentalTemplate: string;
+      participantTemplate: string;
+    };
     errors: {
       consentRequired: string;
       labSafetyRequired: string;
       supervisorRequired: string;
       memberRequired: string;
       fifthMemberRequired: string;
+      filesRequired: string;
+      fileTooLarge: string;
+      fileTypeInvalid: string;
+      uploadFailed: string;
       submitSuccess: string;
       submitError: string;
       dbError: string;
@@ -459,6 +475,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
         { name: "Iztileu Yerbolatuly", role: "SMM Manager", organization: "ISM Executive Board", badge: "SMM & Media" },
         { name: "Batyrkhan Madeny", role: "HR Manager", organization: "ISM Executive Board", badge: "HR Manager" },
         { name: "Ilyas Beisenbek", role: "HR Manager", organization: "ISM Executive Board", badge: "HR Manager" },
+        { name: "Yernur Zhanatbek", role: "Security Manager", organization: "ISM Executive Board", badge: "Security" },
       ],
       juryInfo: {
         title: "Scientific Committee & Jury",
@@ -822,7 +839,23 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       consentData: "I confirm agreement to personal data processing and guarantee compliance with ISM Regulations, including Article 8 Academic Integrity Rules (strict prohibition of generative AI).",
       consentLabSafety: "I confirm that all team members will strictly comply with Laboratory Safety Regulations (mandatory PPE, lab coats, safety goggles) and acknowledge personal responsibility for laboratory conduct.",
       submitting: "Submitting Registration...",
+      documents: {
+        sectionTitle: "5. Signed Consent Forms",
+        label: "Scans of the completed consent forms *",
+        hint: "Attach a scan or photo of the legal representative consent and the participant consent for every team member. PDF, JPG or PNG, up to 10 MB each.",
+        chooseBtn: "Choose files",
+        noFiles: "No files selected",
+        selectedCount: "Files selected: {n}",
+        removeTitle: "Remove file",
+        templatesIntro: "Download the blank forms, print, sign and scan them:",
+        parentalTemplate: "Legal representative consent",
+        participantTemplate: "Participant consent",
+      },
       errors: {
+        filesRequired: "Attach scans of the signed consent forms.",
+        fileTooLarge: "File is larger than 10 MB: ",
+        fileTypeInvalid: "Only PDF, JPG and PNG are accepted: ",
+        uploadFailed: "Could not upload the files. Please try again.",
         consentRequired: "Please confirm your agreement to personal data processing and Article 8 Academic Integrity Rules.",
         labSafetyRequired: "Please confirm compliance with Laboratory Safety Regulations (mandatory PPE & personal liability).",
         supervisorRequired: "Please complete all fields for the Team Supervisor / Teacher.",
@@ -965,6 +998,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
         { name: "Изтилеу Ерболатулы", role: "SMM Менеджер", organization: "Исполнительный комитет ISM", badge: "SMM & Media" },
         { name: "Батырхан Мадени", role: "HR Менеджер", organization: "Исполнительный комитет ISM", badge: "HR Manager" },
         { name: "Ильяс Бейсенбек", role: "HR Менеджер", organization: "Исполнительный комитет ISM", badge: "HR Manager" },
+        { name: "Ернур Жанатбек", role: "Менеджер по безопасности", organization: "Исполнительный комитет ISM", badge: "Security" },
       ],
       juryInfo: {
         title: "Научный комитет и Жюри",
@@ -1328,7 +1362,23 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       consentData: "Подтверждаю согласие на обработку персональных данных и гарантирую соблюдение Регламента ISM, включая Статью 8 об академической честности (строгий запрет генеративного ИИ).",
       consentLabSafety: "Подтверждаю, что все участники команды будут строго соблюдать правила лабораторной безопасности (СИЗ, халаты, защитные очки) и несут личную ответственность за поведение в лаборатории.",
       submitting: "Отправка регистрации...",
+      documents: {
+        sectionTitle: "5. Подписанные согласия",
+        label: "Сканы заполненных согласий *",
+        hint: "Приложите скан или фото согласия законного представителя и согласия участника на каждого члена команды. PDF, JPG или PNG, до 10 МБ каждый.",
+        chooseBtn: "Выбрать файлы",
+        noFiles: "Файлы не выбраны",
+        selectedCount: "Выбрано файлов: {n}",
+        removeTitle: "Удалить файл",
+        templatesIntro: "Скачайте бланки, распечатайте, подпишите и отсканируйте:",
+        parentalTemplate: "Согласие законного представителя",
+        participantTemplate: "Согласие участника",
+      },
       errors: {
+        filesRequired: "Приложите сканы подписанных согласий.",
+        fileTooLarge: "Файл больше 10 МБ: ",
+        fileTypeInvalid: "Принимаются только PDF, JPG и PNG: ",
+        uploadFailed: "Не удалось загрузить файлы. Попробуйте ещё раз.",
         consentRequired: "Подтвердите согласие на обработку персональных данных и Статью 8 об академической честности.",
         labSafetyRequired: "Подтвердите соблюдение правил лабораторной безопасности (СИЗ и личная ответственность).",
         supervisorRequired: "Заполните все поля для руководителя команды / учителя.",
@@ -1471,6 +1521,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
         { name: "Ізтілеу Ерболатұлы", role: "SMM Менеджері", organization: "ISM Атқарушы кеңесі", badge: "SMM & Media" },
         { name: "Батырхан Мәдени", role: "HR Менеджері", organization: "ISM Атқарушы кеңесі", badge: "HR Manager" },
         { name: "Ілияс Бейсенбек", role: "HR Менеджері", organization: "ISM Атқарушы кеңесі", badge: "HR Manager" },
+        { name: "Ернұр Жанатбек", role: "Қауіпсіздік менеджері", organization: "ISM Атқарушы кеңесі", badge: "Security" },
       ],
       juryInfo: {
         title: "Ғылыми Комитет және Қазылар алқасы",
@@ -1834,7 +1885,23 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       consentData: "Жеке деректерді өңдеуге келісімімді растаймын және ISM Ережелерін, соның ішінде 8-бап академиялық адалдық ережесін (генеративті ИИ-ді қатаң тыйым салу) сақтайтынымды кепілдендіремін.",
       consentLabSafety: "Барлық топ мүшелері зертханалық қауіпсіздік ережелерін (ҚҚҚ, халат, қорғаныш көзілдірігі) қатаң сақтайтынын және зертханадағы мінез-құлық үшін жеке жауапкершілікті мойындайтынымды растаймын.",
       submitting: "Тіркелу жіберілуде...",
+      documents: {
+        sectionTitle: "5. Қол қойылған келісімдер",
+        label: "Толтырылған келісімдердің сканы *",
+        hint: "Әр қатысушыға заңды өкілдің келісімі мен қатысушы келісімінің сканын немесе фотосын тіркеңіз. PDF, JPG немесе PNG, әрқайсысы 10 МБ дейін.",
+        chooseBtn: "Файлдарды таңдау",
+        noFiles: "Файлдар таңдалмаған",
+        selectedCount: "Таңдалған файлдар: {n}",
+        removeTitle: "Файлды жою",
+        templatesIntro: "Бланкілерді жүктеп алыңыз, басып шығарыңыз, қол қойып, сканерлеңіз:",
+        parentalTemplate: "Заңды өкілдің келісімі",
+        participantTemplate: "Қатысушының келісімі",
+      },
       errors: {
+        filesRequired: "Қол қойылған келісімдердің сканын тіркеңіз.",
+        fileTooLarge: "Файл 10 МБ-тан үлкен: ",
+        fileTypeInvalid: "Тек PDF, JPG және PNG қабылданады: ",
+        uploadFailed: "Файлдарды жүктеу мүмкін болмады. Қайталап көріңіз.",
         consentRequired: "Жеке деректерді өңдеуге және 8-бап академиялық адалдық ережесіне келісіміңізді растаңыз.",
         labSafetyRequired: "Зертханалық қауіпсіздік ережелерін (ҚҚҚ және жеке жауапкершілік) растаңыз.",
         supervisorRequired: "Топ жетекшісі / мұғалімнің барлық өрістерін толтырыңыз.",

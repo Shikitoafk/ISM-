@@ -37,7 +37,12 @@ CREATE TABLE public.teams (
 
     -- Both checkboxes on the form; the app refuses to submit without them.
     consent_confirmed    BOOLEAN NOT NULL DEFAULT FALSE,
-    lab_safety_confirmed BOOLEAN NOT NULL DEFAULT FALSE
+    lab_safety_confirmed BOOLEAN NOT NULL DEFAULT FALSE,
+
+    -- Scans of the signed consent forms, uploaded to the 'consents' storage
+    -- bucket. See supabase-consents.sql for the bucket and its policies.
+    consent_folder       TEXT,
+    consent_files        JSONB NOT NULL DEFAULT '[]'::jsonb
 );
 
 CREATE INDEX idx_teams_created_at ON public.teams (created_at DESC);
