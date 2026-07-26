@@ -713,7 +713,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
     },
     formatSection: {
       badge1: "ONLINE STAGE",
-      badge2: "MAIN EVENT • OSKEMEN",
+      badge2: "MAIN EVENT",
       badge3: "ETHICS & STANDARDS",
       subtitle3: "SCIENTIFIC HONESTY",
       fullRulesLink: "Full Rules \u2192",
@@ -1215,7 +1215,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
     },
     formatSection: {
       badge1: "ОНЛАЙН ЭТАП",
-      badge2: "ОСНОВНОЙ ТУРНИР • УСТЬ-КАМЕНОГОРСК",
+      badge2: "ОСНОВНОЙ ТУРНИР",
       badge3: "ЭТИКА И СТАНДАРТЫ",
       subtitle3: "НАУЧНАЯ ЧЕСТНОСТЬ",
       fullRulesLink: "Полные правила \u2192",
@@ -1717,7 +1717,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
     },
     formatSection: {
       badge1: "ОНЛАЙН КЕЗЕҢ",
-      badge2: "НЕГІЗГІ ТУРНИР • ӨСКЕМЕН",
+      badge2: "НЕГІЗГІ ТУРНИР",
       badge3: "ЭТИКА МЕН СТАНДАРТТАР",
       subtitle3: "ҒЫЛЫМИ АДАЛДЫҚ",
       fullRulesLink: "Толық ережелер \u2192",
