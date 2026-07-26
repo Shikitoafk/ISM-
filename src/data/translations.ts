@@ -57,7 +57,6 @@ export interface ContentStructure {
     regulationsPdfKz: string;
     regulationsPdfEn: string;
     parentalConsentPdf: string;
-    participantConsentPdf: string;
     dateAnnouncementNote: string;
   };
   nav: {
@@ -325,7 +324,6 @@ export interface ContentStructure {
       removeTitle: string;
       templatesIntro: string;
       parentalTemplate: string;
-      participantTemplate: string;
     };
     errors: {
       consentRequired: string;
@@ -368,7 +366,6 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       regulationsPdfKz: "/docs/ism-regulations-kz.pdf",
       regulationsPdfEn: "/docs/ism-regulations-en.pdf",
       parentalConsentPdf: "/docs/parental-consent.pdf",
-      participantConsentPdf: "/docs/participant-consent.pdf",
       dateAnnouncementNote: "Tournament Period: October 26 – November 1, 2026",
     },
     nav: {
@@ -562,11 +559,6 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
           title: "Parental Consent Form",
           description: "Official consent for minors to participate in the on-site tournament stage and travel.",
           url: "/docs/parental-consent.pdf"
-        },
-        {
-          title: "Participant Consent Form",
-          description: "Individual participant agreement regarding regulations, data processing, and photo/video rights.",
-          url: "/docs/participant-consent.pdf"
         }
       ]
     },
@@ -842,14 +834,13 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       documents: {
         sectionTitle: "5. Signed Consent Forms",
         label: "Scans of the completed consent forms *",
-        hint: "Attach a scan or photo of the legal representative consent and the participant consent for every team member. PDF, JPG or PNG, up to 10 MB each.",
+        hint: "Attach a scan or photo of the signed legal representative consent for every team member. PDF, JPG or PNG, up to 10 MB each.",
         chooseBtn: "Choose files",
         noFiles: "No files selected",
         selectedCount: "Files selected: {n}",
         removeTitle: "Remove file",
-        templatesIntro: "Download the blank forms, print, sign and scan them:",
+        templatesIntro: "Download the blank form, print, sign and scan it:",
         parentalTemplate: "Legal representative consent",
-        participantTemplate: "Participant consent",
       },
       errors: {
         filesRequired: "Attach scans of the signed consent forms.",
@@ -891,7 +882,6 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       regulationsPdfKz: "/docs/ism-regulations-kz.pdf",
       regulationsPdfEn: "/docs/ism-regulations-en.pdf",
       parentalConsentPdf: "/docs/parental-consent.pdf",
-      participantConsentPdf: "/docs/participant-consent.pdf",
       dateAnnouncementNote: "Период турнира: 26 октября – 1 ноября 2026",
     },
     nav: {
@@ -1085,11 +1075,6 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
           title: "Согласие родителей (Parental Consent)",
           description: "Официальное согласие родителей на участие несовершеннолетнего школьника в очном этапе турнира.",
           url: "/docs/parental-consent.pdf"
-        },
-        {
-          title: "Согласие участника (Participant Consent)",
-          description: "Персональное согласие участника на соблюдение регламента, обработку данных и фото/видеосъемку.",
-          url: "/docs/participant-consent.pdf"
         }
       ]
     },
@@ -1365,14 +1350,13 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       documents: {
         sectionTitle: "5. Подписанные согласия",
         label: "Сканы заполненных согласий *",
-        hint: "Приложите скан или фото согласия законного представителя и согласия участника на каждого члена команды. PDF, JPG или PNG, до 10 МБ каждый.",
+        hint: "Приложите скан или фото подписанного согласия законного представителя на каждого члена команды. PDF, JPG или PNG, до 10 МБ каждый.",
         chooseBtn: "Выбрать файлы",
         noFiles: "Файлы не выбраны",
         selectedCount: "Выбрано файлов: {n}",
         removeTitle: "Удалить файл",
-        templatesIntro: "Скачайте бланки, распечатайте, подпишите и отсканируйте:",
+        templatesIntro: "Скачайте бланк, распечатайте, подпишите и отсканируйте:",
         parentalTemplate: "Согласие законного представителя",
-        participantTemplate: "Согласие участника",
       },
       errors: {
         filesRequired: "Приложите сканы подписанных согласий.",
@@ -1414,7 +1398,6 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       regulationsPdfKz: "/docs/ism-regulations-kz.pdf",
       regulationsPdfEn: "/docs/ism-regulations-en.pdf",
       parentalConsentPdf: "/docs/parental-consent.pdf",
-      participantConsentPdf: "/docs/participant-consent.pdf",
       dateAnnouncementNote: "Турнир мерзімі: 2026 жылғы 26 қазан – 1 қараша",
     },
     nav: {
@@ -1608,11 +1591,6 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
           title: "Ата-аналар келісімі (Parental Consent)",
           description: "Кәмелетке толмаған оқушының офлайн турнирге қатысуына ата-анасының ресми келісімі.",
           url: "/docs/parental-consent.pdf"
-        },
-        {
-          title: "Қатысушы келісімі (Participant Consent)",
-          description: "Қатысушының ережелерді сақтау және деректерді өңдеуге ресми келісімі.",
-          url: "/docs/participant-consent.pdf"
         }
       ]
     },
@@ -1888,14 +1866,13 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       documents: {
         sectionTitle: "5. Қол қойылған келісімдер",
         label: "Толтырылған келісімдердің сканы *",
-        hint: "Әр қатысушыға заңды өкілдің келісімі мен қатысушы келісімінің сканын немесе фотосын тіркеңіз. PDF, JPG немесе PNG, әрқайсысы 10 МБ дейін.",
+        hint: "Әр қатысушыға заңды өкілдің қол қойылған келісімінің сканын немесе фотосын тіркеңіз. PDF, JPG немесе PNG, әрқайсысы 10 МБ дейін.",
         chooseBtn: "Файлдарды таңдау",
         noFiles: "Файлдар таңдалмаған",
         selectedCount: "Таңдалған файлдар: {n}",
         removeTitle: "Файлды жою",
-        templatesIntro: "Бланкілерді жүктеп алыңыз, басып шығарыңыз, қол қойып, сканерлеңіз:",
+        templatesIntro: "Бланкіні жүктеп алыңыз, басып шығарыңыз, қол қойып, сканерлеңіз:",
         parentalTemplate: "Заңды өкілдің келісімі",
-        participantTemplate: "Қатысушының келісімі",
       },
       errors: {
         filesRequired: "Қол қойылған келісімдердің сканын тіркеңіз.",

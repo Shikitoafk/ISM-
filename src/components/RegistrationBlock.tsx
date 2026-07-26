@@ -583,15 +583,6 @@ export const RegistrationBlock: React.FC = () => {
                     <Download className="w-3.5 h-3.5 text-brand-800" strokeWidth={2} />
                     <span>{form.documents.parentalTemplate}</span>
                   </a>
-                  <a
-                    href={meta.participantConsentPdf}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-300 bg-white hover:bg-slate-100 text-slate-800 text-xs font-bold transition-colors"
-                  >
-                    <Download className="w-3.5 h-3.5 text-brand-800" strokeWidth={2} />
-                    <span>{form.documents.participantTemplate}</span>
-                  </a>
                 </div>
               </div>
 
