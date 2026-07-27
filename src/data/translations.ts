@@ -1735,9 +1735,9 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       title: "Ресми Ережелер мен Бланктер",
       description: "ISM Ережелерімен, бланкілермен және қауіпсіздік нормаларымен танысыңыз.",
       downloads: [
-        { lang: "Ағылшын нұсқасы (EN)", url: "/docs/ism-regulations-en.pdf" },
-        { lang: "Русская версия (RU)", url: "/docs/ism-regulations-ru.pdf" },
-        { lang: "Казахская версия (KZ)", url: "/docs/ism-regulations-kz.pdf" }
+        { lang: "Ағылшынша нұсқа (EN)", url: "/docs/ism-regulations-en.pdf" },
+        { lang: "Орысша нұсқа (RU)", url: "/docs/ism-regulations-ru.pdf" },
+        { lang: "Қазақша нұсқа (KZ)", url: "/docs/ism-regulations-kz.pdf" }
       ]
     },
     aboutSection: {
