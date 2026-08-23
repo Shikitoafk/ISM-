@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Logo } from "./Logo";
-import { Menu, X, Globe, ArrowRight } from "lucide-react";
+import { Menu, X, Globe, ArrowRight, LogIn } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { Language } from "@/data/translations";
 
@@ -62,6 +62,7 @@ export const Header: React.FC = () => {
     !href.startsWith("/#") && pathname === href;
 
   const languages: Language[] = ["EN", "RU", "KZ"];
+  const cabinetLabel = lang === "EN" ? "Team login" : lang === "KZ" ? "Топ кабинеті" : "Кабинет";
 
   return (
     <header
@@ -125,6 +126,14 @@ export const Header: React.FC = () => {
               </button>
             ))}
           </div>
+
+          <Link
+            href="/cabinet"
+            className={`inline-flex items-center gap-1.5 px-3 py-2 text-sm font-bold text-slate-700 hover:text-brand-800 whitespace-nowrap ${FOCUS_RING}`}
+          >
+            <LogIn className="w-4 h-4" strokeWidth={2} />
+            <span>{cabinetLabel}</span>
+          </Link>
 
           {/* Registration CTA Button */}
           <Link
@@ -208,6 +217,15 @@ export const Header: React.FC = () => {
               <ArrowRight className="w-4 h-4" strokeWidth={2} />
             </Link>
           </div>
+
+          <Link
+            href="/cabinet"
+            onClick={() => setMobileMenuOpen(false)}
+            className={`inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-slate-300 bg-white text-slate-800 font-bold text-sm ${FOCUS_RING}`}
+          >
+            <LogIn className="w-4 h-4" strokeWidth={2} />
+            <span>{cabinetLabel}</span>
+          </Link>
         </div>
       )}
     </header>

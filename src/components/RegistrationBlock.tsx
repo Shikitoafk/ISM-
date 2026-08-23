@@ -4,6 +4,7 @@ import React, { useMemo, useRef, useState } from "react";
 import { supabase, isSupabaseConfigured } from "../lib/supabase";
 import { useLanguage } from "@/context/LanguageContext";
 import { Trash2, Send, CheckCircle, AlertCircle, UserCheck, Plus, Upload, FileText, X, Download } from "lucide-react";
+import { generateTeamCode, hashTeamCode } from "@/lib/teamAccess";
 
 /** Signed consent scans: what the storage bucket and the form will accept. */
 const CONSENT_BUCKET = "consents";
@@ -76,6 +77,7 @@ export const RegistrationBlock: React.FC = () => {
   const [labSafetyConsent, setLabSafetyConsent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [statusMessage, setStatusMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
+  const [teamAccessCode, setTeamAccessCode] = useState<string | null>(null);
 
   const addConsentFiles = (picked: FileList | null) => {
     if (!picked) return;
@@ -125,6 +127,7 @@ export const RegistrationBlock: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatusMessage(null);
+    setTeamAccessCode(null);
 
     if (!isSupabaseConfigured()) {
       setStatusMessage({ type: "error", text: errors.dbError });
@@ -213,6 +216,8 @@ export const RegistrationBlock: React.FC = () => {
         uploaded.push({ name: file.name, path, size: file.size, type: file.type });
       }
 
+      const accessCode = generateTeamCode();
+      const accessCodeHash = await hashTeamCode(accessCode);
       const { error } = await supabase.from("teams").insert([
         {
           consent_folder: submissionId,
@@ -230,6 +235,7 @@ export const RegistrationBlock: React.FC = () => {
           members: allMembersPayload,
           consent_confirmed: consent,
           lab_safety_confirmed: labSafetyConsent,
+          access_code_hash: accessCodeHash,
         },
       ]);
 
@@ -241,6 +247,7 @@ export const RegistrationBlock: React.FC = () => {
         });
       } else {
         setStatusMessage({ type: "success", text: errors.submitSuccess });
+        setTeamAccessCode(accessCode);
         resetForm();
       }
     } catch (err) {
@@ -286,6 +293,26 @@ export const RegistrationBlock: React.FC = () => {
                 <AlertCircle className="w-5 h-5 text-red-700 shrink-0 mt-0.5" strokeWidth={2} />
               )}
               <span>{statusMessage.text}</span>
+            </div>
+          )}
+
+          {teamAccessCode && (
+            <div className="rounded-2xl border-2 border-brand-700 bg-brand-50 p-5 text-center">
+              <p className="text-xs font-bold uppercase tracking-wider text-brand-900">
+                Код доступа команды
+              </p>
+              <div className="my-3 font-mono text-3xl font-black tracking-[0.2em] text-slate-950">
+                {teamAccessCode}
+              </div>
+              <p className="text-xs font-semibold leading-relaxed text-slate-700">
+                Сохраните или сфотографируйте код. Он понадобится команде для входа в личный кабинет и больше не будет показан на сайте.
+              </p>
+              <a
+                href="/cabinet"
+                className="mt-4 inline-flex items-center justify-center rounded-lg bg-brand-800 px-5 py-2.5 text-sm font-bold text-white hover:bg-brand-900"
+              >
+                Открыть кабинет
+              </a>
             </div>
           )}
 
