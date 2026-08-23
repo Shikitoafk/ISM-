@@ -118,6 +118,8 @@ export interface ContentStructure {
     subtitle: string;
     organizersTitle: string;
     organizersSubtitle: string;
+    juryAchievementsShow: string;
+    juryAchievementsHide: string;
     partnersTitle: string;
   };
   registrationPage: {
@@ -436,6 +438,8 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       subtitle: "Dedicated scientific mentors, project managers, and committee chairs driving the movement.",
       organizersTitle: "Organizing Committee",
       organizersSubtitle: "Co-chairs, managers, and scientific leaders of the International Science Movement.",
+      juryAchievementsShow: "View achievements",
+      juryAchievementsHide: "Hide achievements",
       partnersTitle: "Our Partners & Supporters",
     },
     registrationPage: {
@@ -961,6 +965,8 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       subtitle: "Научные менторы, менеджеры проектов и сопредседатели, создающие международное движение.",
       organizersTitle: "Организационный комитет",
       organizersSubtitle: "Руководители, менеджеры и научные эксперты International Science Movement.",
+      juryAchievementsShow: "Показать достижения",
+      juryAchievementsHide: "Скрыть достижения",
       partnersTitle: "Наши партнёры",
     },
     registrationPage: {
@@ -1486,6 +1492,8 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       subtitle: "Халықаралық қозғалысты дамытушы ғылыми менторлар, жоба менеджерлері мен төрағалар.",
       organizersTitle: "Ұйымдастыру комитеті",
       organizersSubtitle: "International Science Movement басшылары мен ғылыми сарапшылары.",
+      juryAchievementsShow: "Жетістіктерді көрсету",
+      juryAchievementsHide: "Жетістіктерді жасыру",
       partnersTitle: "Біздің серіктестер",
     },
     registrationPage: {

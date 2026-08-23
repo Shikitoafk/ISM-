@@ -1,15 +1,16 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { PartnersTicker } from "@/components/PartnersTicker";
 import { useLanguage } from "@/context/LanguageContext";
-import { Users, User, Award, Building2 } from "lucide-react";
+import { Users, User, Award, Building2, ChevronDown } from "lucide-react";
 
 export default function TeamPage() {
   const { content } = useLanguage();
   const { teamPage, organizers, teamJury } = content;
+  const [openJuryMember, setOpenJuryMember] = useState<number | null>(null);
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 selection:bg-brand-800 selection:text-white">
@@ -116,14 +117,27 @@ export default function TeamPage() {
                 </div>
 
                 {member.achievements && member.achievements.length > 0 && (
-                  <ul className="mt-5 space-y-2 border-t border-slate-100 pt-4">
-                    {member.achievements.map((achievement) => (
-                      <li key={achievement} className="flex gap-2 text-xs leading-relaxed text-slate-600">
-                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-700" />
-                        {achievement}
-                      </li>
-                    ))}
-                  </ul>
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => setOpenJuryMember(openJuryMember === index ? null : index)}
+                      aria-expanded={openJuryMember === index}
+                      className="mt-5 flex w-full items-center justify-between rounded-lg border border-slate-200 bg-slate-50 px-3 py-2.5 text-xs font-bold text-brand-800 transition-colors hover:border-brand-300 hover:bg-brand-50"
+                    >
+                      <span>{openJuryMember === index ? teamPage.juryAchievementsHide : teamPage.juryAchievementsShow}</span>
+                      <ChevronDown className={`h-4 w-4 transition-transform ${openJuryMember === index ? "rotate-180" : ""}`} />
+                    </button>
+                    {openJuryMember === index && (
+                      <ul className="mt-4 space-y-2 border-t border-slate-100 pt-4">
+                        {member.achievements.map((achievement) => (
+                          <li key={achievement} className="flex gap-2 text-xs leading-relaxed text-slate-600">
+                            <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-700" />
+                            {achievement}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </>
                 )}
               </article>
             ))}
