@@ -68,7 +68,7 @@ CREATE OR REPLACE FUNCTION public.get_team_dashboard(p_code TEXT)
 RETURNS JSONB
 LANGUAGE plpgsql
 SECURITY DEFINER
-SET search_path = public
+SET search_path = public, extensions
 AS $$
 DECLARE
     v_team public.teams%ROWTYPE;
@@ -114,7 +114,7 @@ CREATE OR REPLACE FUNCTION public.confirm_team_arrival(p_code TEXT)
 RETURNS BOOLEAN
 LANGUAGE plpgsql
 SECURITY DEFINER
-SET search_path = public
+SET search_path = public, extensions
 AS $$
 BEGIN
     UPDATE public.teams SET arrived = TRUE
