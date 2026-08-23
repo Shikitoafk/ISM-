@@ -5,6 +5,7 @@ import { supabase, isSupabaseConfigured } from "../lib/supabase";
 import { useLanguage } from "@/context/LanguageContext";
 import { Trash2, Send, CheckCircle, AlertCircle, UserCheck, Plus, Upload, FileText, X, Download } from "lucide-react";
 import { generateTeamCode, hashTeamCode } from "@/lib/teamAccess";
+import { portalTranslations } from "@/data/portalTranslations";
 
 /** Signed consent scans: what the storage bucket and the form will accept. */
 const CONSENT_BUCKET = "consents";
@@ -37,7 +38,8 @@ function createDefaultMembers(
 }
 
 export const RegistrationBlock: React.FC = () => {
-  const { content } = useLanguage();
+  const { content, lang } = useLanguage();
+  const portal = portalTranslations[lang];
   const { nav, meta, registrationFormUI: form } = content;
   const { grades, memberRoles, errors } = form;
 
@@ -299,19 +301,19 @@ export const RegistrationBlock: React.FC = () => {
           {teamAccessCode && (
             <div className="rounded-2xl border-2 border-brand-700 bg-brand-50 p-5 text-center">
               <p className="text-xs font-bold uppercase tracking-wider text-brand-900">
-                Код доступа команды
+                {portal.accessCode.title}
               </p>
               <div className="my-3 font-mono text-3xl font-black tracking-[0.2em] text-slate-950">
                 {teamAccessCode}
               </div>
               <p className="text-xs font-semibold leading-relaxed text-slate-700">
-                Сохраните или сфотографируйте код. Он понадобится команде для входа в личный кабинет и больше не будет показан на сайте.
+                {portal.accessCode.hint}
               </p>
               <a
                 href="/cabinet"
                 className="mt-4 inline-flex items-center justify-center rounded-lg bg-brand-800 px-5 py-2.5 text-sm font-bold text-white hover:bg-brand-900"
               >
-                Открыть кабинет
+                {portal.accessCode.open}
               </a>
             </div>
           )}

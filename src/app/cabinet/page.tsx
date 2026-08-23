@@ -24,6 +24,8 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
 import { formatTeamCode } from "@/lib/teamAccess";
+import { useLanguage } from "@/context/LanguageContext";
+import { portalTranslations } from "@/data/portalTranslations";
 
 const STORAGE_KEY = "ism_team_access_code";
 const REFRESH_MS = 30_000;
@@ -87,6 +89,8 @@ function StatCard({ icon, label, value }: { icon: React.ReactNode; label: string
 }
 
 export default function CabinetPage() {
+  const { lang } = useLanguage();
+  const t = portalTranslations[lang];
   const [code, setCode] = useState("");
   const [activeCode, setActiveCode] = useState<string | null>(null);
   const [data, setData] = useState<DashboardData | null>(null);
@@ -97,7 +101,7 @@ export default function CabinetPage() {
 
   const loadDashboard = useCallback(async (accessCode: string, quiet = false) => {
     if (!isSupabaseConfigured()) {
-      setError("Supabase пока не настроен. Добавьте переменные окружения и примените SQL-схему.");
+      setError(t.cabinet.setupError);
       return false;
     }
     quiet ? setRefreshing(true) : setLoading(true);
@@ -108,7 +112,7 @@ export default function CabinetPage() {
       });
       if (rpcError) throw rpcError;
       if (!result) {
-        setError("Команда с таким кодом не найдена. Проверьте код и попробуйте ещё раз.");
+        setError(t.cabinet.notFound);
         return false;
       }
       setData(result as DashboardData);
@@ -117,13 +121,13 @@ export default function CabinetPage() {
       return true;
     } catch (requestError) {
       console.error(requestError);
-      setError("Не удалось загрузить кабинет. Проверьте подключение или повторите позже.");
+      setError(t.cabinet.loadError);
       return false;
     } finally {
       setLoading(false);
       setRefreshing(false);
     }
-  }, []);
+  }, [t.cabinet.loadError, t.cabinet.notFound, t.cabinet.setupError]);
 
   useEffect(() => {
     const savedCode = window.localStorage.getItem(STORAGE_KEY);
@@ -144,7 +148,7 @@ export default function CabinetPage() {
     const formatted = formatTeamCode(code);
     setCode(formatted);
     if (formatted.length !== 9) {
-      setError("Введите полный код из 8 символов.");
+      setError(t.cabinet.fullCode);
       return;
     }
     await loadDashboard(formatted);
@@ -166,7 +170,7 @@ export default function CabinetPage() {
       p_code: activeCode,
     });
     if (rpcError || !confirmed) {
-      setError("Не получилось подтвердить прибытие. Попробуйте ещё раз.");
+      setError(t.cabinet.arrivalError);
     } else {
       setData({ ...data, team: { ...data.team, arrived: true } });
     }
@@ -183,15 +187,15 @@ export default function CabinetPage() {
               <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-700">
                 <KeyRound className="h-6 w-6" />
               </div>
-              <h1 className="font-serif text-3xl font-bold">Кабинет команды</h1>
+              <h1 className="font-serif text-3xl font-bold">{t.cabinet.title}</h1>
               <p className="mt-2 text-sm leading-relaxed text-slate-300">
-                Введите код, полученный капитаном после регистрации команды.
+                {t.cabinet.loginHint}
               </p>
             </div>
             <form onSubmit={handleLogin} className="space-y-5 p-7">
               <div>
                 <label htmlFor="team-code" className="mb-2 block text-xs font-bold uppercase tracking-wider text-slate-700">
-                  Код команды
+                  {t.cabinet.code}
                 </label>
                 <input
                   id="team-code"
@@ -208,10 +212,10 @@ export default function CabinetPage() {
                 </div>
               )}
               <button disabled={loading} className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-800 px-5 py-3.5 text-sm font-bold text-white hover:bg-brand-900 disabled:bg-slate-400">
-                {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : <><span>Войти</span><ArrowRight className="h-4 w-4" /></>}
+                {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : <><span>{t.cabinet.login}</span><ArrowRight className="h-4 w-4" /></>}
               </button>
               <p className="text-center text-xs leading-relaxed text-slate-500">
-                Ещё нет кода? <Link href="/register" className="font-bold text-brand-800 hover:underline">Зарегистрировать команду</Link>
+                {t.cabinet.noCode} <Link href="/register" className="font-bold text-brand-800 hover:underline">{t.cabinet.register}</Link>
               </p>
             </form>
           </div>
@@ -231,7 +235,7 @@ export default function CabinetPage() {
           <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-10 sm:px-6 md:flex-row md:items-end md:justify-between lg:px-8">
             <div>
               <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-brand-500/30 bg-brand-900 px-3 py-1 text-xs font-bold uppercase tracking-wider text-brand-200">
-                <ShieldCheck className="h-4 w-4" /> Личный кабинет
+                <ShieldCheck className="h-4 w-4" /> {t.cabinet.badge}
               </div>
               <h1 className="font-serif text-3xl font-bold sm:text-4xl">{team.team_name}</h1>
               <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm text-slate-300">
@@ -242,10 +246,10 @@ export default function CabinetPage() {
             </div>
             <div className="flex items-center gap-2">
               <button onClick={() => activeCode && loadDashboard(activeCode, true)} disabled={refreshing} className="flex items-center gap-2 rounded-lg border border-slate-700 px-3 py-2 text-xs font-bold text-slate-200 hover:bg-slate-800">
-                <RefreshCw className={`h-4 w-4 ${refreshing ? "animate-spin" : ""}`} /> Обновить
+                <RefreshCw className={`h-4 w-4 ${refreshing ? "animate-spin" : ""}`} /> {t.common.refresh}
               </button>
               <button onClick={logout} className="flex items-center gap-2 rounded-lg border border-slate-700 px-3 py-2 text-xs font-bold text-slate-200 hover:bg-slate-800">
-                <LogOut className="h-4 w-4" /> Выйти
+                <LogOut className="h-4 w-4" /> {t.common.logout}
               </button>
             </div>
           </div>
@@ -255,57 +259,57 @@ export default function CabinetPage() {
           {error && <div className="flex gap-2 rounded-xl border border-red-200 bg-red-50 p-4 text-sm font-semibold text-red-800"><AlertCircle className="h-5 w-5 shrink-0" />{error}</div>}
 
           <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-            <StatCard icon={<Trophy className="h-5 w-5" />} label="Место" value={`#${team.rank}`} />
-            <StatCard icon={<Award className="h-5 w-5" />} label="Victory Points" value={team.victory_points} />
-            <StatCard icon={<Swords className="h-5 w-5" />} label="Общий балл" value={team.total_score} />
-            <StatCard icon={<AlertCircle className="h-5 w-5" />} label="Жёлтые карточки" value={team.yellow_cards} />
+            <StatCard icon={<Trophy className="h-5 w-5" />} label={t.cabinet.place} value={`#${team.rank}`} />
+            <StatCard icon={<Award className="h-5 w-5" />} label={t.cabinet.victoryPoints} value={team.victory_points} />
+            <StatCard icon={<Swords className="h-5 w-5" />} label={t.cabinet.totalScore} value={team.total_score} />
+            <StatCard icon={<AlertCircle className="h-5 w-5" />} label={t.cabinet.yellowCards} value={team.yellow_cards} />
           </div>
 
           <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
             <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
               <div className="flex items-center gap-3 border-b border-slate-200 p-5">
                 <div className="rounded-xl bg-brand-50 p-2 text-brand-800"><CalendarClock className="h-5 w-5" /></div>
-                <div><h2 className="font-serif text-xl font-bold">Текущий раунд</h2><p className="text-xs text-slate-500">Данные обновляются автоматически</p></div>
+                <div><h2 className="font-serif text-xl font-bold">{t.cabinet.currentRound}</h2><p className="text-xs text-slate-500">{t.cabinet.autoUpdate}</p></div>
               </div>
               {round ? (
                 <div className="grid gap-4 p-5 sm:grid-cols-2">
-                  <div className="rounded-xl bg-slate-50 p-4"><div className="text-xs font-bold uppercase text-slate-500">Раунд</div><div className="mt-1 text-xl font-bold">{round.round_number}</div></div>
-                  <div className="rounded-xl bg-slate-50 p-4"><div className="text-xs font-bold uppercase text-slate-500">Кабинет</div><div className="mt-1 text-xl font-bold">{round.room || "Уточняется"}</div></div>
-                  <div className="rounded-xl bg-slate-50 p-4"><div className="text-xs font-bold uppercase text-slate-500">Ваша роль</div><div className="mt-1 font-bold">{round.team_role || "Уточняется"}</div></div>
-                  <div className="rounded-xl bg-slate-50 p-4"><div className="text-xs font-bold uppercase text-slate-500">Начало</div><div className="mt-1 font-bold">{round.starts_at ? new Date(round.starts_at).toLocaleString("ru-RU") : "Уточняется"}</div></div>
-                  <div className="sm:col-span-2"><div className="text-xs font-bold uppercase text-slate-500">Команды в кабинете</div><div className="mt-2 flex flex-wrap gap-2">{round.opponents.length ? round.opponents.map((name) => <span key={name} className="rounded-full bg-slate-100 px-3 py-1 text-xs font-bold">{name}</span>) : <span className="text-sm text-slate-500">Соперники ещё не назначены</span>}</div></div>
-                  <div className="sm:col-span-2"><div className="text-xs font-bold uppercase text-slate-500">Судьи</div><p className="mt-1 text-sm font-semibold text-slate-700">{round.judges.length ? round.judges.join(", ") : "Состав судей ещё не опубликован"}</p></div>
+                  <div className="rounded-xl bg-slate-50 p-4"><div className="text-xs font-bold uppercase text-slate-500">{t.cabinet.round}</div><div className="mt-1 text-xl font-bold">{round.round_number}</div></div>
+                  <div className="rounded-xl bg-slate-50 p-4"><div className="text-xs font-bold uppercase text-slate-500">{t.cabinet.room}</div><div className="mt-1 text-xl font-bold">{round.room || t.cabinet.pending}</div></div>
+                  <div className="rounded-xl bg-slate-50 p-4"><div className="text-xs font-bold uppercase text-slate-500">{t.cabinet.role}</div><div className="mt-1 font-bold">{round.team_role || t.cabinet.pending}</div></div>
+                  <div className="rounded-xl bg-slate-50 p-4"><div className="text-xs font-bold uppercase text-slate-500">{t.cabinet.starts}</div><div className="mt-1 font-bold">{round.starts_at ? new Date(round.starts_at).toLocaleString(lang === "RU" ? "ru-RU" : lang === "KZ" ? "kk-KZ" : "en-GB") : t.cabinet.pending}</div></div>
+                  <div className="sm:col-span-2"><div className="text-xs font-bold uppercase text-slate-500">{t.cabinet.roomTeams}</div><div className="mt-2 flex flex-wrap gap-2">{round.opponents.length ? round.opponents.map((name) => <span key={name} className="rounded-full bg-slate-100 px-3 py-1 text-xs font-bold">{name}</span>) : <span className="text-sm text-slate-500">{t.cabinet.opponentsPending}</span>}</div></div>
+                  <div className="sm:col-span-2"><div className="text-xs font-bold uppercase text-slate-500">{t.cabinet.judges}</div><p className="mt-1 text-sm font-semibold text-slate-700">{round.judges.length ? round.judges.join(", ") : t.cabinet.judgesPending}</p></div>
                 </div>
               ) : (
-                <div className="p-10 text-center"><CalendarClock className="mx-auto h-10 w-10 text-slate-300" /><h3 className="mt-3 font-bold">Раунд ещё не назначен</h3><p className="mt-1 text-sm text-slate-500">Информация появится здесь перед началом соревнования.</p></div>
+                <div className="p-10 text-center"><CalendarClock className="mx-auto h-10 w-10 text-slate-300" /><h3 className="mt-3 font-bold">{t.cabinet.noRound}</h3><p className="mt-1 text-sm text-slate-500">{t.cabinet.noRoundHint}</p></div>
               )}
             </section>
 
             <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-              <h2 className="font-serif text-xl font-bold">Прибытие команды</h2>
-              <p className="mt-2 text-sm leading-relaxed text-slate-600">Подтвердите прибытие, когда вся команда будет на площадке соревнования.</p>
+              <h2 className="font-serif text-xl font-bold">{t.cabinet.arrival}</h2>
+              <p className="mt-2 text-sm leading-relaxed text-slate-600">{t.cabinet.arrivalHint}</p>
               {team.arrived ? (
-                <div className="mt-5 flex items-center gap-3 rounded-xl border border-emerald-200 bg-emerald-50 p-4 font-bold text-emerald-800"><CheckCircle2 className="h-6 w-6" />Прибытие подтверждено</div>
+                <div className="mt-5 flex items-center gap-3 rounded-xl border border-emerald-200 bg-emerald-50 p-4 font-bold text-emerald-800"><CheckCircle2 className="h-6 w-6" />{t.cabinet.arrived}</div>
               ) : (
-                <button onClick={confirmArrival} disabled={arrivalLoading} className="mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-700 px-4 py-3 text-sm font-bold text-white hover:bg-emerald-800 disabled:bg-slate-400">{arrivalLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : <><DoorOpen className="h-5 w-5" />Подтвердить прибытие</>}</button>
+                <button onClick={confirmArrival} disabled={arrivalLoading} className="mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-700 px-4 py-3 text-sm font-bold text-white hover:bg-emerald-800 disabled:bg-slate-400">{arrivalLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : <><DoorOpen className="h-5 w-5" />{t.cabinet.confirmArrival}</>}</button>
               )}
             </section>
           </div>
 
           <div className="grid gap-6 lg:grid-cols-2">
             <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-              <div className="border-b border-slate-200 p-5"><h2 className="font-serif text-xl font-bold">🏆 Рейтинг команд</h2></div>
+              <div className="border-b border-slate-200 p-5"><h2 className="font-serif text-xl font-bold">🏆 {t.cabinet.ranking}</h2></div>
               <div className="max-h-[440px] overflow-auto">
                 <table className="w-full text-left text-sm">
-                  <thead className="sticky top-0 bg-slate-100 text-xs uppercase text-slate-600"><tr><th className="px-4 py-3">#</th><th className="px-4 py-3">Команда</th><th className="px-4 py-3 text-right">VP</th><th className="px-4 py-3 text-right">Балл</th></tr></thead>
+                  <thead className="sticky top-0 bg-slate-100 text-xs uppercase text-slate-600"><tr><th className="px-4 py-3">#</th><th className="px-4 py-3">{t.cabinet.team}</th><th className="px-4 py-3 text-right">VP</th><th className="px-4 py-3 text-right">{t.cabinet.score}</th></tr></thead>
                   <tbody>{ranking.map((row) => <tr key={`${row.rank}-${row.team_name}`} className={`border-t border-slate-100 ${row.team_name === team.team_name ? "bg-brand-50 font-bold" : ""}`}><td className="px-4 py-3">{row.rank}</td><td className="px-4 py-3">{row.team_name}</td><td className="px-4 py-3 text-right">{row.victory_points}</td><td className="px-4 py-3 text-right">{row.total_score}</td></tr>)}</tbody>
                 </table>
               </div>
             </section>
 
             <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-              <h2 className="font-serif text-xl font-bold">Доступные вызовы</h2>
-              {challenges.length ? <div className="mt-4 space-y-3">{challenges.map((challenge) => <div key={challenge.id} className="rounded-xl border border-slate-200 p-4"><div className="flex items-center justify-between gap-3"><h3 className="font-bold">{challenge.title}</h3><span className="rounded-full bg-emerald-50 px-2 py-1 text-[10px] font-bold uppercase text-emerald-700">{challenge.status}</span></div>{challenge.description && <p className="mt-2 text-sm text-slate-600">{challenge.description}</p>}</div>)}</div> : <div className="py-10 text-center"><Swords className="mx-auto h-10 w-10 text-slate-300" /><h3 className="mt-3 font-bold">Пока нет доступных вызовов</h3><p className="mt-1 text-sm text-slate-500">Они появятся во время соответствующего этапа.</p></div>}
+              <h2 className="font-serif text-xl font-bold">{t.cabinet.challenges}</h2>
+              {challenges.length ? <div className="mt-4 space-y-3">{challenges.map((challenge) => <div key={challenge.id} className="rounded-xl border border-slate-200 p-4"><div className="flex items-center justify-between gap-3"><h3 className="font-bold">{challenge.title}</h3><span className="rounded-full bg-emerald-50 px-2 py-1 text-[10px] font-bold uppercase text-emerald-700">{challenge.status}</span></div>{challenge.description && <p className="mt-2 text-sm text-slate-600">{challenge.description}</p>}</div>)}</div> : <div className="py-10 text-center"><Swords className="mx-auto h-10 w-10 text-slate-300" /><h3 className="mt-3 font-bold">{t.cabinet.noChallenges}</h3><p className="mt-1 text-sm text-slate-500">{t.cabinet.noChallengesHint}</p></div>}
             </section>
           </div>
         </div>
