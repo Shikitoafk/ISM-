@@ -85,6 +85,50 @@ export default function TeamPage() {
             ))}
           </div>
 
+          <div className="max-w-3xl mx-auto text-center mb-10">
+            <div className="text-xs font-bold text-brand-800 uppercase tracking-widest mb-2">
+              {teamJury.juryTitle}
+            </div>
+            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-slate-900">
+              {organizers.juryInfo.title}
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-16">
+            {organizers.juryMembers.map((member, index) => (
+              <article
+                key={index}
+                className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
+              >
+                <div className="flex items-start gap-4">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-800">
+                    <Award className="h-6 w-6" strokeWidth={1.8} />
+                  </div>
+                  <div>
+                    {member.badge && (
+                      <span className="mb-2 inline-block rounded-full border border-brand-200 bg-brand-50 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-brand-800">
+                        {member.badge}
+                      </span>
+                    )}
+                    <h3 className="font-serif text-lg font-bold text-slate-900">{member.name}</h3>
+                    <p className="mt-0.5 text-xs font-semibold text-slate-600">{member.role}</p>
+                  </div>
+                </div>
+
+                {member.achievements && member.achievements.length > 0 && (
+                  <ul className="mt-5 space-y-2 border-t border-slate-100 pt-4">
+                    {member.achievements.map((achievement) => (
+                      <li key={achievement} className="flex gap-2 text-xs leading-relaxed text-slate-600">
+                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-700" />
+                        {achievement}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </article>
+            ))}
+          </div>
+
           {/* Section: Jury Information Note */}
           <div className="max-w-4xl mx-auto p-8 rounded-2xl border border-slate-200 bg-white shadow-sm text-center">
             <h3 className="font-serif text-xl font-bold text-slate-900 mb-2">

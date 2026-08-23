@@ -19,6 +19,7 @@ export interface CommitteeMember {
   role: string;
   organization: string;
   badge?: string;
+  achievements?: string[];
 }
 
 export interface AwardTier {
@@ -143,6 +144,7 @@ export interface ContentStructure {
   };
   organizers: {
     committeeMembers: CommitteeMember[];
+    juryMembers: CommitteeMember[];
     juryInfo: {
       title: string;
       description: string;
@@ -473,6 +475,15 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
         { name: "Batyrkhan Madeny", role: "HR Manager", organization: "ISM Executive Board", badge: "HR Manager" },
         { name: "Ilyas Beisenbek", role: "HR Manager", organization: "ISM Executive Board", badge: "HR Manager" },
         { name: "Yernur Zhanatbek", role: "Security Manager", organization: "ISM Executive Board", badge: "Security" },
+      ],
+      juryMembers: [
+        { name: "Isa Hafiz Almasuly", role: "Jury Member", organization: "Academic Jury", badge: "Biology", achievements: ["Republican Olympiad — Gold", "IJSO participant", "British Biology Olympiad — Silver", "KBO finalist — Gold & Silver"] },
+        { name: "Dzhubayaliyev Amir Armanovich", role: "Jury Member", organization: "Academic Jury", badge: "Biology", achievements: ["Republican Biology Olympiad — 1st place (2025)", "Avicenna International Biology Olympiad — 2nd place (2026)", "National Engineering and Science Olympiad — 2nd place (2026)", "KBO Senior — 1st place (2024, 2025)"] },
+        { name: "Aldiyar Amangeldi", role: "Jury Member", organization: "Academic Jury", badge: "Mathematics", achievements: ["National Olympiad — Gold", "Eurasian Team Olympiad — Gold", "Al-Khwarizmi IMIO — Gold", "Tuymaada — Silver · IZhO — Bronze"] },
+        { name: "Samatuly Alimukhammed", role: "Jury Member", organization: "Academic Jury", badge: "Biology", achievements: ["OIBO — Silver & Gold", "Republican Olympiad — 2 Gold, 1 Silver", "MBIO — Gold", "Stanford iGEM Bioengineering Research Program alumnus"] },
+        { name: "Iznat Ibrahim Zhantemirovich", role: "Jury Member", organization: "Academic Jury", badge: "Chemistry", achievements: ["Republican Chemistry Olympiad — Silver & Bronze", "International Satpayev Olympiad — Bronze", "Republican Satpayev Olympiad — Silver", "Republican Junior Olympiad — Bronze"] },
+        { name: "Alikhan Ashirkhanov Anuaruly", role: "Jury Member", organization: "Academic Jury", badge: "Biology", achievements: ["IBO — Silver (2026), Bronze (2025)", "OIBO Team — Gold (2025)", "OIBO Individual — Silver (2025)", "Republican Olympiad — Gold (2025, 2026)"] },
+        { name: "Daryabay Zhandos", role: "Jury Member", organization: "Academic Jury", badge: "Chemistry", achievements: ["Avicenna International Biology Olympiad participant (2026)", "All-Siberian Chemistry Olympiad — 1st-degree selection prize", "All-Siberian Chemistry Olympiad — 3rd-degree final prize", "Republican Olympiad — Silver · KBO Senior — Silver"] },
       ],
       juryInfo: {
         title: "Scientific Committee & Jury",
@@ -990,6 +1001,15 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
         { name: "Ильяс Бейсенбек", role: "HR Менеджер", organization: "Исполнительный комитет ISM", badge: "HR Manager" },
         { name: "Ернур Жанатбек", role: "Менеджер по безопасности", organization: "Исполнительный комитет ISM", badge: "Security" },
       ],
+      juryMembers: [
+        { name: "Иса Хафиз Алмасұлы", role: "Член жюри", organization: "Академическое жюри", badge: "Биология", achievements: ["Республиканская олимпиада — золото", "Участник IJSO", "British Biology Olympiad — серебро", "Финалист KBO — золото и серебро"] },
+        { name: "Джубаялиев Амир Арманович", role: "Член жюри", organization: "Академическое жюри", badge: "Биология", achievements: ["Республиканская олимпиада по биологии — I место (2025)", "Avicenna International Biology Olympiad — II место (2026)", "National Engineering and Science Olympiad — II место (2026)", "KBO Senior — I место (2024, 2025)"] },
+        { name: "Алдияр Амангелді", role: "Член жюри", organization: "Академическое жюри", badge: "Математика", achievements: ["National Olympiad — золото", "Eurasian Team Olympiad — золото", "Al-Khwarizmi IMIO — золото", "Tuymaada — серебро · IZhO — бронза"] },
+        { name: "Саматұлы Алимухаммед", role: "Член жюри", organization: "Академическое жюри", badge: "Биология", achievements: ["OIBO — серебро и золото", "Республиканская олимпиада — 2 золота, 1 серебро", "MBIO — золото", "Выпускник Stanford iGEM Bioengineering Research Program"] },
+        { name: "Ізнәт Ибраһим Жантемірұлы", role: "Член жюри", organization: "Академическое жюри", badge: "Химия", achievements: ["Республиканская олимпиада по химии — серебро и бронза", "Международная Сатпаевская олимпиада — бронза", "Республиканская Сатпаевская олимпиада — серебро", "Республиканская юниорская олимпиада — бронза"] },
+        { name: "Алихан Аширханов Ануарұлы", role: "Член жюри", organization: "Академическое жюри", badge: "Биология", achievements: ["IBO — серебро (2026), бронза (2025)", "OIBO командный — золото (2025)", "OIBO индивидуальный — серебро (2025)", "Республиканская олимпиада — золото (2025, 2026)"] },
+        { name: "Дарябай Жандос", role: "Член жюри", organization: "Академическое жюри", badge: "Химия", achievements: ["Участник Avicenna International Biology Olympiad (2026)", "Всесибирская олимпиада по химии — призёр I степени отбора", "Всесибирская олимпиада по химии — призёр III степени финала", "Республиканская олимпиада — серебро · KBO Senior — серебро"] },
+      ],
       juryInfo: {
         title: "Научный комитет и Жюри",
         description: "Коллегия академических экспертов, исследователей и преподавателей партнерских институтов."
@@ -1505,6 +1525,15 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
         { name: "Батырхан Мәдени", role: "HR Менеджері", organization: "ISM Атқарушы кеңесі", badge: "HR Manager" },
         { name: "Ілияс Бейсенбек", role: "HR Менеджері", organization: "ISM Атқарушы кеңесі", badge: "HR Manager" },
         { name: "Ернұр Жанатбек", role: "Қауіпсіздік менеджері", organization: "ISM Атқарушы кеңесі", badge: "Security" },
+      ],
+      juryMembers: [
+        { name: "Иса Хафиз Алмасұлы", role: "Қазылар алқасының мүшесі", organization: "Академиялық қазылар", badge: "Биология", achievements: ["Республикалық олимпиада — алтын", "IJSO қатысушысы", "British Biology Olympiad — күміс", "KBO финалисі — алтын және күміс"] },
+        { name: "Джубаялиев Амир Арманович", role: "Қазылар алқасының мүшесі", organization: "Академиялық қазылар", badge: "Биология", achievements: ["Республикалық биология олимпиадасы — I орын (2025)", "Avicenna International Biology Olympiad — II орын (2026)", "National Engineering and Science Olympiad — II орын (2026)", "KBO Senior — I орын (2024, 2025)"] },
+        { name: "Алдияр Амангелді", role: "Қазылар алқасының мүшесі", organization: "Академиялық қазылар", badge: "Математика", achievements: ["National Olympiad — алтын", "Eurasian Team Olympiad — алтын", "Al-Khwarizmi IMIO — алтын", "Tuymaada — күміс · IZhO — қола"] },
+        { name: "Саматұлы Алимухаммед", role: "Қазылар алқасының мүшесі", organization: "Академиялық қазылар", badge: "Биология", achievements: ["OIBO — күміс және алтын", "Республикалық олимпиада — 2 алтын, 1 күміс", "MBIO — алтын", "Stanford iGEM Bioengineering Research Program түлегі"] },
+        { name: "Ізнәт Ибраһим Жантемірұлы", role: "Қазылар алқасының мүшесі", organization: "Академиялық қазылар", badge: "Химия", achievements: ["Республикалық химия олимпиадасы — күміс және қола", "Халықаралық Сәтбаев олимпиадасы — қола", "Республикалық Сәтбаев олимпиадасы — күміс", "Республикалық жасөспірімдер олимпиадасы — қола"] },
+        { name: "Алихан Аширханов Ануарұлы", role: "Қазылар алқасының мүшесі", organization: "Академиялық қазылар", badge: "Биология", achievements: ["IBO — күміс (2026), қола (2025)", "OIBO командалық — алтын (2025)", "OIBO жеке — күміс (2025)", "Республикалық олимпиада — алтын (2025, 2026)"] },
+        { name: "Дарябай Жандос", role: "Қазылар алқасының мүшесі", organization: "Академиялық қазылар", badge: "Химия", achievements: ["Avicenna International Biology Olympiad қатысушысы (2026)", "Бүкілсібірлік химия олимпиадасы — іріктеуде I дәрежелі жүлдегер", "Бүкілсібірлік химия олимпиадасы — финалда III дәрежелі жүлдегер", "Республикалық олимпиада — күміс · KBO Senior — күміс"] },
       ],
       juryInfo: {
         title: "Ғылыми Комитет және Қазылар алқасы",
