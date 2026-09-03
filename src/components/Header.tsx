@@ -47,9 +47,12 @@ export const Header: React.FC = () => {
     };
   }, [mobileMenuOpen]);
 
+  const generalInfoLabel = lang === "EN" ? "General info" : lang === "KZ" ? "Жалпы ақпарат" : "Общая информация";
+
   // Every section of the site is reachable from here. Registration is
   // intentionally absent — the CTA button beside the nav already covers it.
   const navItems = [
+    { label: generalInfoLabel, href: "/general-info" },
     { label: content.nav.about, href: "/#about" },
     { label: content.nav.format, href: "/#format" },
     { label: content.nav.caseSection, href: "/#case" },
