@@ -122,7 +122,7 @@ AS $$
         SELECT t.id, t.team_name, t.city, t.victory_points, t.total_score,
                rank() OVER (ORDER BY t.victory_points DESC, t.total_score DESC) AS rank
         FROM public.teams t
-        WHERE t.competition_status <> 'disqualified'
+        WHERE t.competition_status IN ('approved', 'active', 'finished')
     )
     SELECT jsonb_build_object(
         'rounds', COALESCE((

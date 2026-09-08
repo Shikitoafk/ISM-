@@ -181,8 +181,10 @@ $$;
 -- SELECT policy on public.teams on purpose: that table holds captain and
 -- supervisor emails and phone numbers, and a read policy would expose them to
 -- anonymous visitors. Only the columns below ever leave the database.
--- Disqualified teams are hidden; every other team is listed, so the board is
--- populated from the moment teams register rather than looking broken.
+-- Only teams the organizers have admitted are listed: 'approved', plus the
+-- 'active' and 'finished' states an admitted team moves through later. Teams
+-- still sitting at 'registered' and disqualified ones never appear, so the
+-- board stays empty until the committee approves the first team.
 CREATE OR REPLACE FUNCTION public.get_public_scoreboard()
 RETURNS JSONB
 LANGUAGE sql
@@ -194,7 +196,7 @@ AS $$
         SELECT t.id, t.team_name, t.city, t.victory_points, t.total_score,
                rank() OVER (ORDER BY t.victory_points DESC, t.total_score DESC) AS rank
         FROM public.teams t
-        WHERE t.competition_status <> 'disqualified'
+        WHERE t.competition_status IN ('approved', 'active', 'finished')
     )
     SELECT jsonb_build_object(
         'rounds', COALESCE((
