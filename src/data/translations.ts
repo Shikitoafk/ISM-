@@ -71,6 +71,7 @@ export interface ContentStructure {
     regulations: string;
     team: string;
     rules: string;
+    results: string;
     registerBtn: string;
   };
   statsBar: {
@@ -383,6 +384,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       regulations: "Regulations",
       team: "Team",
       rules: "Rules",
+      results: "Results",
       registerBtn: "Registration",
     },
     statsBar: {
@@ -909,6 +911,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       regulations: "Регламент",
       team: "Команда",
       rules: "Правила",
+      results: "Результаты",
       registerBtn: "Регистрация",
     },
     statsBar: {
@@ -1435,6 +1438,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       regulations: "Ережелер",
       team: "Команда",
       rules: "Ережелер",
+      results: "Нәтижелер",
       registerBtn: "Тіркелу",
     },
     statsBar: {

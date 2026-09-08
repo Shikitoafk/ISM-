@@ -22,6 +22,7 @@ export const Footer: React.FC = () => {
     { label: nav.caseSection, href: "/#case" },
     { label: nav.schedule, href: "/#schedule" },
     { label: nav.awards, href: "/#awards" },
+    { label: nav.results, href: "/results" },
   ];
 
   const documentLinks = [

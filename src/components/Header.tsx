@@ -54,6 +54,7 @@ export const Header: React.FC = () => {
     { label: content.nav.format, href: "/#format" },
     { label: content.nav.caseSection, href: "/#case" },
     { label: content.nav.schedule, href: "/#schedule" },
+    { label: content.nav.results, href: "/results" },
     { label: content.nav.rules, href: "/rules" },
     { label: content.nav.team, href: "/team" },
   ];

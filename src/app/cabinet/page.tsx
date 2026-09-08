@@ -62,6 +62,15 @@ type Round = {
   starts_at: string | null;
 };
 
+type RoundScore = {
+  round_number: number;
+  room: string | null;
+  team_role: string | null;
+  /** null while the judges have not scored the round yet. */
+  score: number | null;
+  is_current: boolean;
+};
+
 type Challenge = {
   id: string;
   title: string;
@@ -73,6 +82,7 @@ type DashboardData = {
   team: Team;
   ranking: RankingRow[];
   round: Round | null;
+  rounds: RoundScore[];
   challenges: Challenge[];
 };
 
@@ -226,6 +236,7 @@ export default function CabinetPage() {
   }
 
   const { team, ranking, round, challenges } = data;
+  const roundScores = data.rounds ?? [];
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
@@ -295,6 +306,51 @@ export default function CabinetPage() {
               )}
             </section>
           </div>
+
+          <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 p-5">
+              <div>
+                <h2 className="font-serif text-xl font-bold">{t.cabinet.roundScores}</h2>
+                <p className="text-xs text-slate-500">{t.cabinet.roundScoresHint}</p>
+              </div>
+              <div className="text-right">
+                <div className="text-xs font-bold uppercase tracking-wider text-slate-500">{t.cabinet.totalScore}</div>
+                <div className="font-serif text-2xl font-bold text-brand-800">{team.total_score}</div>
+              </div>
+            </div>
+            {roundScores.length ? (
+              <div className="overflow-x-auto">
+                <table className="w-full min-w-[520px] text-left text-sm">
+                  <thead className="bg-slate-50 text-xs uppercase text-slate-600">
+                    <tr>
+                      <th className="w-24 px-4 py-3">{t.cabinet.round}</th>
+                      <th className="px-4 py-3">{t.cabinet.room}</th>
+                      <th className="px-4 py-3">{t.cabinet.role}</th>
+                      <th className="px-4 py-3 text-right">{t.cabinet.score}</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100">
+                    {roundScores.map((item) => (
+                      <tr key={item.round_number} className={item.is_current ? "bg-brand-50 font-bold" : ""}>
+                        <td className="px-4 py-3 font-bold">{item.round_number}</td>
+                        <td className="px-4 py-3 text-slate-600">{item.room || t.cabinet.pending}</td>
+                        <td className="px-4 py-3 text-slate-600">{item.team_role || t.cabinet.pending}</td>
+                        <td className="px-4 py-3 text-right font-mono font-bold text-slate-900">
+                          {item.score ?? <span className="font-sans text-xs font-semibold text-slate-400">{t.cabinet.notScored}</span>}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <div className="p-10 text-center">
+                <Trophy className="mx-auto h-10 w-10 text-slate-300" />
+                <h3 className="mt-3 font-bold">{t.cabinet.noRoundScores}</h3>
+                <p className="mt-1 text-sm text-slate-500">{t.cabinet.noRoundScoresHint}</p>
+              </div>
+            )}
+          </section>
 
           <div className="grid gap-6 lg:grid-cols-2">
             <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
