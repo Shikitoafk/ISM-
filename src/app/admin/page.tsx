@@ -1,10 +1,11 @@
 "use client";
 
-import { FormEvent, useCallback, useEffect, useMemo, useState } from "react";
+import { Fragment, FormEvent, useCallback, useEffect, useMemo, useState } from "react";
 import {
   AlertCircle,
   CalendarClock,
   Check,
+  ChevronDown,
   Loader2,
   LockKeyhole,
   LogOut,
@@ -22,13 +23,25 @@ import { supabase, isSupabaseConfigured } from "@/lib/supabase";
 import { useLanguage } from "@/context/LanguageContext";
 import { portalTranslations } from "@/data/portalTranslations";
 
+type TeamMember = {
+  full_name: string;
+  grade: string;
+  role_or_notes: string;
+  /** Absent on teams registered before the achievements field existed. */
+  achievements?: string;
+};
+
 type Team = {
   id: string;
   team_name: string;
   school: string;
   city: string;
+  grade: string;
   captain_name: string;
   captain_email: string;
+  captain_achievements: string | null;
+  leader_name: string;
+  members: TeamMember[];
   victory_points: number;
   total_score: number;
   yellow_cards: number;
@@ -44,6 +57,23 @@ type AdminUser = {
 };
 
 type Tab = "teams" | "rounds" | "admins";
+
+function AchievementList({ text, emptyLabel }: { text: string | null | undefined; emptyLabel: string }) {
+  const lines = (text ?? "").split("\n").map((line) => line.trim()).filter(Boolean);
+  if (!lines.length) {
+    return <p className="mt-2 text-xs italic text-slate-400">{emptyLabel}</p>;
+  }
+  return (
+    <ul className="mt-2 space-y-1">
+      {lines.map((line, index) => (
+        <li key={index} className="flex gap-2 text-xs leading-relaxed text-slate-600">
+          <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-700" />
+          {line}
+        </li>
+      ))}
+    </ul>
+  );
+}
 
 const inputClass = "w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-semibold outline-none focus:border-brand-700 focus:ring-2 focus:ring-brand-700/20";
 
@@ -63,6 +93,7 @@ export default function AdminPage() {
   const [notice, setNotice] = useState<string | null>(null);
   const [search, setSearch] = useState("");
   const [selectedTeamId, setSelectedTeamId] = useState("");
+  const [expandedTeamId, setExpandedTeamId] = useState<string | null>(null);
   const [roundNumber, setRoundNumber] = useState("1");
   const [room, setRoom] = useState("");
   const [role, setRole] = useState("");
@@ -90,7 +121,7 @@ export default function AdminPage() {
     setLoading(true);
     setError(null);
     const [teamsResult, adminsResult] = await Promise.all([
-      supabase.from("teams").select("id,team_name,school,city,captain_name,captain_email,victory_points,total_score,yellow_cards,arrived,competition_status").order("created_at"),
+      supabase.from("teams").select("id,team_name,school,city,grade,captain_name,captain_email,captain_achievements,leader_name,members,victory_points,total_score,yellow_cards,arrived,competition_status").order("created_at"),
       supabase.from("admin_users").select("user_id,email,display_name,created_at").order("created_at"),
     ]);
     if (teamsResult.error || adminsResult.error) {
@@ -225,7 +256,39 @@ export default function AdminPage() {
           {notice && <div className="mb-5 flex items-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm font-bold text-emerald-800"><Check className="h-5 w-5" />{notice}</div>}
           {error && <div className="mb-5 flex items-center gap-2 rounded-xl border border-red-200 bg-red-50 p-4 text-sm font-semibold text-red-800"><AlertCircle className="h-5 w-5" />{error}</div>}
 
-          {tab === "teams" && <section className="rounded-2xl border border-slate-200 bg-white shadow-sm"><div className="flex flex-col gap-3 border-b border-slate-200 p-5 sm:flex-row sm:items-center sm:justify-between"><div><h2 className="font-serif text-xl font-bold">{t.admin.registeredTeams}</h2><p className="text-xs text-slate-500">{t.admin.total}: {teams.length}</p></div><input value={search} onChange={(e) => setSearch(e.target.value)} placeholder={t.admin.search} className="rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-brand-700" /></div><div className="overflow-x-auto"><table className="w-full min-w-[980px] text-sm"><thead className="bg-slate-50 text-left text-xs uppercase text-slate-500"><tr><th className="px-4 py-3">{t.admin.team}</th><th className="px-3 py-3">VP</th><th className="px-3 py-3">{t.admin.score}</th><th className="px-3 py-3">{t.admin.cards}</th><th className="px-3 py-3">{t.admin.status}</th><th className="px-3 py-3">{t.admin.arrived}</th><th className="px-4 py-3"></th></tr></thead><tbody>{filteredTeams.map((team) => <tr key={team.id} className="border-t border-slate-100"><td className="px-4 py-3"><div className="font-bold">{team.team_name}</div><div className="text-xs text-slate-500">{team.school} · {team.city}</div></td><td className="px-3 py-3"><input type="number" step="0.5" value={team.victory_points} onChange={(e) => updateLocalTeam(team.id, "victory_points", e.target.value)} className="w-20 rounded border border-slate-300 px-2 py-1.5" /></td><td className="px-3 py-3"><span title={t.admin.totalAuto} className="inline-block w-24 rounded border border-slate-200 bg-slate-50 px-2 py-1.5 font-mono font-bold text-slate-700">{team.total_score}</span></td><td className="px-3 py-3"><input type="number" min="0" value={team.yellow_cards} onChange={(e) => updateLocalTeam(team.id, "yellow_cards", e.target.value)} className="w-16 rounded border border-slate-300 px-2 py-1.5" /></td><td className="px-3 py-3"><select value={team.competition_status} onChange={(e) => updateLocalTeam(team.id, "competition_status", e.target.value)} className="rounded border border-slate-300 px-2 py-1.5"><option value="registered">{t.admin.registered}</option><option value="approved">{t.admin.approved}</option><option value="active">{t.admin.active}</option><option value="finished">{t.admin.finished}</option><option value="disqualified">{t.admin.disqualified}</option></select></td><td className="px-3 py-3"><input type="checkbox" checked={team.arrived} onChange={(e) => updateLocalTeam(team.id, "arrived", e.target.checked)} className="h-4 w-4" /></td><td className="px-4 py-3"><button onClick={() => saveTeam(team)} className="rounded-lg bg-brand-800 p-2 text-white hover:bg-brand-900" title={t.common.save}><Save className="h-4 w-4" /></button></td></tr>)}</tbody></table>{!filteredTeams.length && <div className="p-10 text-center text-sm text-slate-500">{t.admin.notFound}</div>}</div></section>}
+          {tab === "teams" && <section className="rounded-2xl border border-slate-200 bg-white shadow-sm"><div className="flex flex-col gap-3 border-b border-slate-200 p-5 sm:flex-row sm:items-center sm:justify-between"><div><h2 className="font-serif text-xl font-bold">{t.admin.registeredTeams}</h2><p className="text-xs text-slate-500">{t.admin.total}: {teams.length}</p></div><input value={search} onChange={(e) => setSearch(e.target.value)} placeholder={t.admin.search} className="rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-brand-700" /></div><div className="overflow-x-auto"><table className="w-full min-w-[980px] text-sm"><thead className="bg-slate-50 text-left text-xs uppercase text-slate-500"><tr><th className="px-4 py-3">{t.admin.team}</th><th className="px-3 py-3">VP</th><th className="px-3 py-3">{t.admin.score}</th><th className="px-3 py-3">{t.admin.cards}</th><th className="px-3 py-3">{t.admin.status}</th><th className="px-3 py-3">{t.admin.arrived}</th><th className="px-4 py-3"></th></tr></thead><tbody>{filteredTeams.map((team) => <Fragment key={team.id}><tr className="border-t border-slate-100"><td className="px-4 py-3"><div className="font-bold">{team.team_name}</div><div className="text-xs text-slate-500">{team.school} · {team.city}</div><button type="button" onClick={() => setExpandedTeamId(expandedTeamId === team.id ? null : team.id)} aria-expanded={expandedTeamId === team.id} className="mt-1.5 inline-flex items-center gap-1 text-[11px] font-bold text-brand-800 hover:text-brand-900"><ChevronDown className={`h-3.5 w-3.5 transition-transform ${expandedTeamId === team.id ? "rotate-180" : ""}`} />{expandedTeamId === team.id ? t.admin.rosterHide : t.admin.rosterShow}</button></td><td className="px-3 py-3"><input type="number" step="0.5" value={team.victory_points} onChange={(e) => updateLocalTeam(team.id, "victory_points", e.target.value)} className="w-20 rounded border border-slate-300 px-2 py-1.5" /></td><td className="px-3 py-3"><span title={t.admin.totalAuto} className="inline-block w-24 rounded border border-slate-200 bg-slate-50 px-2 py-1.5 font-mono font-bold text-slate-700">{team.total_score}</span></td><td className="px-3 py-3"><input type="number" min="0" value={team.yellow_cards} onChange={(e) => updateLocalTeam(team.id, "yellow_cards", e.target.value)} className="w-16 rounded border border-slate-300 px-2 py-1.5" /></td><td className="px-3 py-3"><select value={team.competition_status} onChange={(e) => updateLocalTeam(team.id, "competition_status", e.target.value)} className="rounded border border-slate-300 px-2 py-1.5"><option value="registered">{t.admin.registered}</option><option value="approved">{t.admin.approved}</option><option value="active">{t.admin.active}</option><option value="finished">{t.admin.finished}</option><option value="disqualified">{t.admin.disqualified}</option></select></td><td className="px-3 py-3"><input type="checkbox" checked={team.arrived} onChange={(e) => updateLocalTeam(team.id, "arrived", e.target.checked)} className="h-4 w-4" /></td><td className="px-4 py-3"><button onClick={() => saveTeam(team)} className="rounded-lg bg-brand-800 p-2 text-white hover:bg-brand-900" title={t.common.save}><Save className="h-4 w-4" /></button></td></tr>
+                  {expandedTeamId === team.id && (
+                    <tr className="border-t border-slate-100 bg-slate-50">
+                      <td colSpan={7} className="px-4 py-5">
+                        <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+                          <div className="rounded-xl border border-brand-200 bg-white p-4">
+                            <div className="flex items-center justify-between gap-2">
+                              <span className="rounded-full bg-brand-50 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-brand-800">{t.admin.captain}</span>
+                              <span className="text-[11px] font-semibold text-slate-500">{t.admin.grade}: {team.grade}</span>
+                            </div>
+                            <div className="mt-2 font-bold text-slate-900">{team.captain_name}</div>
+                            <div className="text-xs text-slate-500">{team.captain_email}</div>
+                            <div className="mt-3 text-[11px] font-bold uppercase tracking-wider text-slate-500">{t.admin.achievements}</div>
+                            <AchievementList text={team.captain_achievements} emptyLabel={t.admin.noAchievements} />
+                          </div>
+
+                          {(team.members ?? []).map((member, index) => (
+                            <div key={index} className="rounded-xl border border-slate-200 bg-white p-4">
+                              <div className="flex items-center justify-between gap-2">
+                                <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-slate-600">{member.role_or_notes}</span>
+                                <span className="text-[11px] font-semibold text-slate-500">{t.admin.grade}: {member.grade}</span>
+                              </div>
+                              <div className="mt-2 font-bold text-slate-900">{member.full_name}</div>
+                              <div className="mt-3 text-[11px] font-bold uppercase tracking-wider text-slate-500">{t.admin.achievements}</div>
+                              <AchievementList text={member.achievements} emptyLabel={t.admin.noAchievements} />
+                            </div>
+                          ))}
+                        </div>
+                        <div className="mt-4 text-xs font-semibold text-slate-500">{t.admin.supervisor}: {team.leader_name}</div>
+                      </td>
+                    </tr>
+                  )}
+                  </Fragment>)}</tbody></table>{!filteredTeams.length && <div className="p-10 text-center text-sm text-slate-500">{t.admin.notFound}</div>}</div></section>}
 
           {tab === "rounds" && <form onSubmit={saveRound} className="mx-auto max-w-3xl rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"><h2 className="font-serif text-2xl font-bold">{t.admin.assignRound}</h2><p className="mt-1 text-sm text-slate-500">{t.admin.assignHint}</p><div className="mt-6 grid gap-4 sm:grid-cols-2"><label className="text-xs font-bold uppercase text-slate-600">{t.admin.team}<select required value={selectedTeamId} onChange={(e) => setSelectedTeamId(e.target.value)} className={`${inputClass} mt-1`}><option value="">{t.admin.selectTeam}</option>{teams.map((team) => <option key={team.id} value={team.id}>{team.team_name}</option>)}</select></label><label className="text-xs font-bold uppercase text-slate-600">{t.admin.roundNumber}<input required type="number" min="1" value={roundNumber} onChange={(e) => setRoundNumber(e.target.value)} className={`${inputClass} mt-1`} /></label><label className="text-xs font-bold uppercase text-slate-600">{t.admin.room}<input value={room} onChange={(e) => setRoom(e.target.value)} placeholder={t.admin.room} className={`${inputClass} mt-1`} /></label><label className="text-xs font-bold uppercase text-slate-600">{t.admin.role}<input value={role} onChange={(e) => setRole(e.target.value)} placeholder="Role 1" className={`${inputClass} mt-1`} /></label><label className="text-xs font-bold uppercase text-slate-600 sm:col-span-2">{t.admin.opponents}<input value={opponents} onChange={(e) => setOpponents(e.target.value)} placeholder="Team A, Team B, Team C" className={`${inputClass} mt-1`} /></label><label className="text-xs font-bold uppercase text-slate-600 sm:col-span-2">{t.admin.judges}<input value={judges} onChange={(e) => setJudges(e.target.value)} placeholder={t.admin.judges} className={`${inputClass} mt-1`} /></label><label className="text-xs font-bold uppercase text-slate-600">{t.admin.dateTime}<input type="datetime-local" value={startsAt} onChange={(e) => setStartsAt(e.target.value)} className={`${inputClass} mt-1`} /></label><label className="text-xs font-bold uppercase text-slate-600">{t.admin.roundScore}<input type="number" step="0.1" value={roundScore} onChange={(e) => setRoundScore(e.target.value)} className={inputClass + " mt-1"} /><span className="mt-1 block text-[11px] font-medium normal-case tracking-normal text-slate-500">{t.admin.roundScoreHint}</span></label></div><button className="mt-6 flex items-center gap-2 rounded-xl bg-brand-800 px-5 py-3 text-sm font-bold text-white hover:bg-brand-900"><Save className="h-4 w-4" />{t.admin.saveRound}</button></form>}
 
