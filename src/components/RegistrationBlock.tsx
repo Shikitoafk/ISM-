@@ -23,6 +23,55 @@ function achievementLines(text: string): string[] {
   return text.split("\n").map((line) => line.trim()).filter(Boolean);
 }
 
+function AchievementsField({
+  label,
+  hint,
+  placeholder,
+  overLimitLabel,
+  value,
+  onChange,
+  tone = "light",
+}: {
+  label: string;
+  hint?: string;
+  placeholder: string;
+  overLimitLabel: string;
+  value: string;
+  onChange: (next: string) => void;
+  tone?: "light" | "accent";
+}) {
+  const count = achievementLines(value).length;
+  const overLimit = count > MAX_ACHIEVEMENTS;
+
+  return (
+    <div>
+      <div className="flex items-center justify-between gap-2 mb-1">
+        <label className="block text-[11px] font-bold text-slate-700 uppercase">{label}</label>
+        <span className={`text-[11px] font-bold ${overLimit ? "text-red-600" : "text-slate-400"}`}>
+          {count}/{MAX_ACHIEVEMENTS}
+        </span>
+      </div>
+      <textarea
+        rows={3}
+        placeholder={placeholder}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        aria-invalid={overLimit}
+        className={`w-full px-3.5 py-2 rounded-lg border text-xs sm:text-sm font-semibold placeholder-slate-400 focus:outline-none focus:ring-2 ${
+          overLimit
+            ? "border-red-400 bg-red-50/40 focus:border-red-500 focus:ring-red-500/30"
+            : `border-slate-300 focus:border-brand-600 focus:ring-brand-600/30 ${tone === "accent" ? "bg-white" : "bg-slate-50/50"}`
+        }`}
+      />
+      {overLimit ? (
+        <p className="mt-1 text-[11px] font-bold text-red-600">{overLimitLabel}</p>
+      ) : (
+        hint && <p className="mt-1 text-[11px] font-medium text-slate-500">{hint}</p>
+      )}
+    </div>
+  );
+}
+
 function formatBytes(bytes: number): string {
   if (bytes < 1024) return `${bytes} B`;
   if (bytes < 1024 * 1024) return `${Math.round(bytes / 1024)} KB`;
@@ -141,6 +190,12 @@ export const RegistrationBlock: React.FC = () => {
     setConsentFiles([]);
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
+
+  const achievementsOverLimit = [
+    captainAchievements,
+    ...members.map((member) => member.achievements),
+    ...(hasFifthMember ? [fifthMember.achievements] : []),
+  ].some((text) => achievementLines(text).length > MAX_ACHIEVEMENTS);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -473,17 +528,14 @@ export const RegistrationBlock: React.FC = () => {
               </div>
 
               <div className="sm:col-span-2">
-                <label className="block text-xs font-bold text-slate-900 uppercase mb-1">
-                  {form.achievementsLabel}
-                </label>
-                <textarea
-                  rows={3}
+                <AchievementsField
+                  label={form.achievementsLabel}
+                  hint={form.achievementsHint}
                   placeholder={form.achievementsPlaceholder}
+                  overLimitLabel={form.achievementsTooMany}
                   value={captainAchievements}
-                  onChange={(e) => setCaptainAchievements(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-lg border border-slate-300 text-xs sm:text-sm bg-slate-50/50 font-semibold placeholder-slate-400 focus:outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-600/30"
+                  onChange={setCaptainAchievements}
                 />
-                <p className="mt-1 text-[11px] font-medium text-slate-500">{form.achievementsHint}</p>
               </div>
             </div>
           </div>
@@ -593,18 +645,13 @@ export const RegistrationBlock: React.FC = () => {
                     </select>
                   </div>
 
-                  <div>
-                    <label className="block text-[11px] font-bold text-slate-700 uppercase mb-1">
-                      {form.achievementsLabel}
-                    </label>
-                    <textarea
-                      rows={3}
-                      placeholder={form.achievementsPlaceholder}
-                      value={m.achievements}
-                      onChange={(e) => updateMember(idx, "achievements", e.target.value)}
-                      className="w-full px-3.5 py-2 rounded-lg border border-slate-300 text-xs sm:text-sm bg-slate-50/50 font-semibold placeholder-slate-400 focus:outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-600/30"
-                    />
-                  </div>
+                  <AchievementsField
+                    label={form.achievementsLabel}
+                    placeholder={form.achievementsPlaceholder}
+                    overLimitLabel={form.achievementsTooMany}
+                    value={m.achievements}
+                    onChange={(next) => updateMember(idx, "achievements", next)}
+                  />
                 </div>
               ))}
 
@@ -655,18 +702,14 @@ export const RegistrationBlock: React.FC = () => {
                   </button>
                   </div>
 
-                  <div>
-                    <label className="block text-[11px] font-bold text-brand-900 uppercase mb-1">
-                      {form.achievementsLabel}
-                    </label>
-                    <textarea
-                      rows={3}
-                      placeholder={form.achievementsPlaceholder}
-                      value={fifthMember.achievements}
-                      onChange={(e) => setFifthMember({ ...fifthMember, achievements: e.target.value })}
-                      className="w-full px-3.5 py-2 rounded-lg border border-slate-300 text-xs sm:text-sm bg-white font-semibold placeholder-slate-400 focus:outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-600/30"
-                    />
-                  </div>
+                  <AchievementsField
+                    label={form.achievementsLabel}
+                    placeholder={form.achievementsPlaceholder}
+                    overLimitLabel={form.achievementsTooMany}
+                    value={fifthMember.achievements}
+                    onChange={(next) => setFifthMember({ ...fifthMember, achievements: next })}
+                    tone="accent"
+                  />
                 </div>
               )}
             </div>
@@ -770,6 +813,7 @@ export const RegistrationBlock: React.FC = () => {
               <label className="flex items-start gap-3 cursor-pointer select-none">
                 <input
                   type="checkbox"
+                  required
                   checked={consent}
                   onChange={(e) => setConsent(e.target.checked)}
                   className="mt-0.5 w-4 h-4 text-brand-800 rounded border-slate-300 focus:ring-brand-800 shrink-0"
@@ -784,6 +828,7 @@ export const RegistrationBlock: React.FC = () => {
               <label className="flex items-start gap-3 cursor-pointer select-none">
                 <input
                   type="checkbox"
+                  required
                   checked={labSafetyConsent}
                   onChange={(e) => setLabSafetyConsent(e.target.checked)}
                   className="mt-0.5 w-4 h-4 text-brand-800 rounded border-slate-300 focus:ring-brand-800 shrink-0"
@@ -797,7 +842,7 @@ export const RegistrationBlock: React.FC = () => {
 
           <button
             type="submit"
-            disabled={loading}
+            disabled={loading || achievementsOverLimit}
             className="w-full py-4 rounded-xl bg-brand-800 hover:bg-brand-900 disabled:bg-slate-400 text-white font-bold text-sm transition-all shadow-md flex items-center justify-center gap-2"
           >
             {loading ? (

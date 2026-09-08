@@ -319,6 +319,7 @@ export interface ContentStructure {
     achievementsLabel: string;
     achievementsHint: string;
     achievementsPlaceholder: string;
+    achievementsTooMany: string;
     consentData: string;
     consentLabSafety: string;
     submitting: string;
@@ -851,6 +852,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       achievementsLabel: "Achievements (up to 3)",
       achievementsHint: "One per line: regional, national or international olympiads and science competitions. Optional.",
       achievementsPlaceholder: "Grade 10, 2025, National Mathematics Olympiad, bronze",
+      achievementsTooMany: "Remove the extra ones — three at most.",
       consentData: "I confirm agreement to personal data processing and guarantee compliance with ISM Regulations, including Article 8 Academic Integrity Rules (strict prohibition of generative AI).",
       consentLabSafety: "I confirm that all team members will strictly comply with Laboratory Safety Regulations (mandatory PPE, lab coats, safety goggles) and acknowledge personal responsibility for laboratory conduct.",
       submitting: "Submitting Registration...",
@@ -1382,6 +1384,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       achievementsLabel: "Достижения (до 3)",
       achievementsHint: "По одному в строке: областные, республиканские и международные олимпиады, научные конкурсы. Необязательно.",
       achievementsPlaceholder: "10 класс, 2025 год, республиканская олимпиада по математике, бронза",
+      achievementsTooMany: "Уберите лишние — максимум 3.",
       consentData: "Подтверждаю согласие на обработку персональных данных и гарантирую соблюдение Регламента ISM, включая Статью 8 об академической честности (строгий запрет генеративного ИИ).",
       consentLabSafety: "Подтверждаю, что все участники команды будут строго соблюдать правила лабораторной безопасности (СИЗ, халаты, защитные очки) и несут личную ответственность за поведение в лаборатории.",
       submitting: "Отправка регистрации...",
@@ -1913,6 +1916,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       achievementsLabel: "Жетістіктер (3-ке дейін)",
       achievementsHint: "Әр жолға біреуден: облыстық, республикалық және халықаралық олимпиадалар, ғылыми конкурстар. Міндетті емес.",
       achievementsPlaceholder: "10 сынып, 2025 жыл, республикалық математика олимпиадасы, қола",
+      achievementsTooMany: "Артығын алып тастаңыз — ең көбі 3.",
       consentData: "Жеке деректерді өңдеуге келісімімді растаймын және ISM Ережелерін, соның ішінде 8-бап академиялық адалдық ережесін (генеративті ИИ-ді қатаң тыйым салу) сақтайтынымды кепілдендіремін.",
       consentLabSafety: "Барлық топ мүшелері зертханалық қауіпсіздік ережелерін (ҚҚҚ, халат, қорғаныш көзілдірігі) қатаң сақтайтынын және зертханадағы мінез-құлық үшін жеке жауапкершілікті мойындайтынымды растаймын.",
       submitting: "Тіркелу жіберілуде...",
