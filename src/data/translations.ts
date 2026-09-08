@@ -316,6 +316,9 @@ export interface ContentStructure {
     fullNamePlaceholder: string;
     fifthMemberPlaceholder: string;
     removeFifthMemberTitle: string;
+    achievementsLabel: string;
+    achievementsHint: string;
+    achievementsPlaceholder: string;
     consentData: string;
     consentLabSafety: string;
     submitting: string;
@@ -339,6 +342,7 @@ export interface ContentStructure {
       filesRequired: string;
       fileTooLarge: string;
       fileTypeInvalid: string;
+      tooManyAchievements: string;
       uploadFailed: string;
       submitSuccess: string;
       submitError: string;
@@ -844,6 +848,9 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       fullNamePlaceholder: "Full Name",
       fifthMemberPlaceholder: "Full Name (Optional 5th Member)",
       removeFifthMemberTitle: "Remove optional 5th member",
+      achievementsLabel: "Achievements (up to 3)",
+      achievementsHint: "One per line: regional, national or international olympiads and science competitions. Optional.",
+      achievementsPlaceholder: "Grade 10, 2025, National Mathematics Olympiad, bronze",
       consentData: "I confirm agreement to personal data processing and guarantee compliance with ISM Regulations, including Article 8 Academic Integrity Rules (strict prohibition of generative AI).",
       consentLabSafety: "I confirm that all team members will strictly comply with Laboratory Safety Regulations (mandatory PPE, lab coats, safety goggles) and acknowledge personal responsibility for laboratory conduct.",
       submitting: "Submitting Registration...",
@@ -862,6 +869,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
         filesRequired: "Attach scans of the signed consent forms.",
         fileTooLarge: "File is larger than 10 MB: ",
         fileTypeInvalid: "Only PDF, JPG and PNG are accepted: ",
+        tooManyAchievements: "Up to 3 achievements per participant. Too many listed for: ",
         uploadFailed: "Could not upload the files. Please try again.",
         consentRequired: "Please confirm your agreement to personal data processing and Article 8 Academic Integrity Rules.",
         labSafetyRequired: "Please confirm compliance with Laboratory Safety Regulations (mandatory PPE & personal liability).",
@@ -1371,6 +1379,9 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       fullNamePlaceholder: "ФИО",
       fifthMemberPlaceholder: "ФИО (5-й участник, по желанию)",
       removeFifthMemberTitle: "Удалить 5-го участника",
+      achievementsLabel: "Достижения (до 3)",
+      achievementsHint: "По одному в строке: областные, республиканские и международные олимпиады, научные конкурсы. Необязательно.",
+      achievementsPlaceholder: "10 класс, 2025 год, республиканская олимпиада по математике, бронза",
       consentData: "Подтверждаю согласие на обработку персональных данных и гарантирую соблюдение Регламента ISM, включая Статью 8 об академической честности (строгий запрет генеративного ИИ).",
       consentLabSafety: "Подтверждаю, что все участники команды будут строго соблюдать правила лабораторной безопасности (СИЗ, халаты, защитные очки) и несут личную ответственность за поведение в лаборатории.",
       submitting: "Отправка регистрации...",
@@ -1389,6 +1400,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
         filesRequired: "Приложите сканы подписанных согласий.",
         fileTooLarge: "Файл больше 10 МБ: ",
         fileTypeInvalid: "Принимаются только PDF, JPG и PNG: ",
+        tooManyAchievements: "Не более 3 достижений на участника. Слишком много указано у: ",
         uploadFailed: "Не удалось загрузить файлы. Попробуйте ещё раз.",
         consentRequired: "Подтвердите согласие на обработку персональных данных и Статью 8 об академической честности.",
         labSafetyRequired: "Подтвердите соблюдение правил лабораторной безопасности (СИЗ и личная ответственность).",
@@ -1898,6 +1910,9 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
       fullNamePlaceholder: "Толық аты",
       fifthMemberPlaceholder: "Толық аты (5-ші қатысушы, қосымша)",
       removeFifthMemberTitle: "5-ші қатысушыны жою",
+      achievementsLabel: "Жетістіктер (3-ке дейін)",
+      achievementsHint: "Әр жолға біреуден: облыстық, республикалық және халықаралық олимпиадалар, ғылыми конкурстар. Міндетті емес.",
+      achievementsPlaceholder: "10 сынып, 2025 жыл, республикалық математика олимпиадасы, қола",
       consentData: "Жеке деректерді өңдеуге келісімімді растаймын және ISM Ережелерін, соның ішінде 8-бап академиялық адалдық ережесін (генеративті ИИ-ді қатаң тыйым салу) сақтайтынымды кепілдендіремін.",
       consentLabSafety: "Барлық топ мүшелері зертханалық қауіпсіздік ережелерін (ҚҚҚ, халат, қорғаныш көзілдірігі) қатаң сақтайтынын және зертханадағы мінез-құлық үшін жеке жауапкершілікті мойындайтынымды растаймын.",
       submitting: "Тіркелу жіберілуде...",
@@ -1916,6 +1931,7 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
         filesRequired: "Қол қойылған келісімдердің сканын тіркеңіз.",
         fileTooLarge: "Файл 10 МБ-тан үлкен: ",
         fileTypeInvalid: "Тек PDF, JPG және PNG қабылданады: ",
+        tooManyAchievements: "Бір қатысушыға 3 жетістіктен артық емес. Тым көп көрсетілген: ",
         uploadFailed: "Файлдарды жүктеу мүмкін болмады. Қайталап көріңіз.",
         consentRequired: "Жеке деректерді өңдеуге және 8-бап академиялық адалдық ережесіне келісіміңізді растаңыз.",
         labSafetyRequired: "Зертханалық қауіпсіздік ережелерін (ҚҚҚ және жеке жауапкершілік) растаңыз.",

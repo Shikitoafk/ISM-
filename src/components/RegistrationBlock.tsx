@@ -13,6 +13,16 @@ const MAX_FILE_BYTES = 10 * 1024 * 1024;
 const ACCEPTED_TYPES = ["application/pdf", "image/jpeg", "image/png"];
 const ACCEPT_ATTR = ".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png";
 
+/**
+ * Achievements are entered one per line. Blank lines are ignored, so a
+ * trailing newline never counts against the limit.
+ */
+const MAX_ACHIEVEMENTS = 3;
+
+function achievementLines(text: string): string[] {
+  return text.split("\n").map((line) => line.trim()).filter(Boolean);
+}
+
 function formatBytes(bytes: number): string {
   if (bytes < 1024) return `${bytes} B`;
   if (bytes < 1024 * 1024) return `${Math.round(bytes / 1024)} KB`;
@@ -23,6 +33,8 @@ interface Member {
   full_name: string;
   grade: string;
   role_or_notes: string;
+  /** Free text, one achievement per line, at most MAX_ACHIEVEMENTS of them. */
+  achievements: string;
 }
 
 function createDefaultMembers(
@@ -31,9 +43,9 @@ function createDefaultMembers(
 ): Member[] {
   const defaultGrade = grades[1] ?? grades[0] ?? "";
   return [
-    { full_name: "", grade: defaultGrade, role_or_notes: roles.required2 },
-    { full_name: "", grade: defaultGrade, role_or_notes: roles.required3 },
-    { full_name: "", grade: defaultGrade, role_or_notes: roles.required4 },
+    { full_name: "", grade: defaultGrade, role_or_notes: roles.required2, achievements: "" },
+    { full_name: "", grade: defaultGrade, role_or_notes: roles.required3, achievements: "" },
+    { full_name: "", grade: defaultGrade, role_or_notes: roles.required4, achievements: "" },
   ];
 }
 
@@ -58,6 +70,7 @@ export const RegistrationBlock: React.FC = () => {
   const [captainName, setCaptainName] = useState("");
   const [captainEmail, setCaptainEmail] = useState("");
   const [captainContact, setCaptainContact] = useState("");
+  const [captainAchievements, setCaptainAchievements] = useState("");
 
   const [leaderName, setLeaderName] = useState("");
   const [leaderEmail, setLeaderEmail] = useState("");
@@ -70,6 +83,7 @@ export const RegistrationBlock: React.FC = () => {
     full_name: "",
     grade: defaultGrade,
     role_or_notes: memberRoles.optional5,
+    achievements: "",
   });
 
   const [consentFiles, setConsentFiles] = useState<File[]>([]);
@@ -107,6 +121,7 @@ export const RegistrationBlock: React.FC = () => {
     setCaptainName("");
     setCaptainEmail("");
     setCaptainContact("");
+    setCaptainAchievements("");
     setLeaderName("");
     setLeaderEmail("");
     setLeaderContact("");
@@ -119,6 +134,7 @@ export const RegistrationBlock: React.FC = () => {
       full_name: "",
       grade: defaultGrade,
       role_or_notes: memberRoles.optional5,
+      achievements: "",
     });
     setConsent(false);
     setLabSafetyConsent(false);
@@ -166,6 +182,20 @@ export const RegistrationBlock: React.FC = () => {
       return;
     }
 
+    const overLimit = [
+      { name: captainName, achievements: captainAchievements },
+      ...members.map((m) => ({ name: m.full_name, achievements: m.achievements })),
+      ...(hasFifthMember ? [{ name: fifthMember.full_name, achievements: fifthMember.achievements }] : []),
+    ].find((person) => achievementLines(person.achievements).length > MAX_ACHIEVEMENTS);
+
+    if (overLimit) {
+      setStatusMessage({
+        type: "error",
+        text: `${errors.tooManyAchievements}${overLimit.name.trim() || "—"}`,
+      });
+      return;
+    }
+
     if (consentFiles.length === 0) {
       setStatusMessage({ type: "error", text: errors.filesRequired });
       return;
@@ -183,9 +213,14 @@ export const RegistrationBlock: React.FC = () => {
       return;
     }
 
-    const allMembersPayload = [...members];
+    const normaliseAchievements = (member: Member): Member => ({
+      ...member,
+      achievements: achievementLines(member.achievements).join("\n"),
+    });
+
+    const allMembersPayload = members.map(normaliseAchievements);
     if (hasFifthMember) {
-      allMembersPayload.push(fifthMember);
+      allMembersPayload.push(normaliseAchievements(fifthMember));
     }
 
     setLoading(true);
@@ -234,6 +269,7 @@ export const RegistrationBlock: React.FC = () => {
           school,
           city,
           grade,
+          captain_achievements: achievementLines(captainAchievements).join("\n"),
           members: allMembersPayload,
           consent_confirmed: consent,
           lab_safety_confirmed: labSafetyConsent,
@@ -435,6 +471,20 @@ export const RegistrationBlock: React.FC = () => {
                   ))}
                 </select>
               </div>
+
+              <div className="sm:col-span-2">
+                <label className="block text-xs font-bold text-slate-900 uppercase mb-1">
+                  {form.achievementsLabel}
+                </label>
+                <textarea
+                  rows={3}
+                  placeholder={form.achievementsPlaceholder}
+                  value={captainAchievements}
+                  onChange={(e) => setCaptainAchievements(e.target.value)}
+                  className="w-full px-3.5 py-2 rounded-lg border border-slate-300 text-xs sm:text-sm bg-slate-50/50 font-semibold placeholder-slate-400 focus:outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-600/30"
+                />
+                <p className="mt-1 text-[11px] font-medium text-slate-500">{form.achievementsHint}</p>
+              </div>
             </div>
           </div>
 
@@ -512,39 +562,55 @@ export const RegistrationBlock: React.FC = () => {
               {members.map((m, idx) => (
                 <div
                   key={idx}
-                  className="p-4 rounded-xl border border-slate-200 bg-white shadow-xs flex flex-col sm:flex-row items-center gap-3"
+                  className="p-4 rounded-xl border border-slate-200 bg-white shadow-xs space-y-3"
                 >
-                  <div className="flex items-center justify-between w-full sm:w-auto gap-2">
-                    <span className="text-xs font-bold text-slate-900 shrink-0 sm:w-28">
-                      {requiredMemberLabels[idx]}
-                    </span>
+                  <div className="flex flex-col sm:flex-row items-center gap-3">
+                    <div className="flex items-center justify-between w-full sm:w-auto gap-2">
+                      <span className="text-xs font-bold text-slate-900 shrink-0 sm:w-28">
+                        {requiredMemberLabels[idx]}
+                      </span>
+                    </div>
+
+                    <input
+                      type="text"
+                      required
+                      placeholder={form.fullNamePlaceholder}
+                      value={m.full_name}
+                      onChange={(e) => updateMember(idx, "full_name", e.target.value)}
+                      className="flex-grow w-full px-3.5 py-2 rounded-lg border border-slate-300 text-xs sm:text-sm bg-slate-50/50 font-semibold focus:outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-600/30"
+                    />
+
+                    <select
+                      value={m.grade}
+                      onChange={(e) => updateMember(idx, "grade", e.target.value)}
+                      className="w-full sm:w-36 px-3 py-2 rounded-lg border border-slate-300 text-xs sm:text-sm bg-slate-50/50 font-semibold focus:outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-600/30"
+                    >
+                      {grades.map((g) => (
+                        <option key={g} value={g}>
+                          {g}
+                        </option>
+                      ))}
+                    </select>
                   </div>
 
-                  <input
-                    type="text"
-                    required
-                    placeholder={form.fullNamePlaceholder}
-                    value={m.full_name}
-                    onChange={(e) => updateMember(idx, "full_name", e.target.value)}
-                    className="flex-grow w-full px-3.5 py-2 rounded-lg border border-slate-300 text-xs sm:text-sm bg-slate-50/50 font-semibold focus:outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-600/30"
-                  />
-
-                  <select
-                    value={m.grade}
-                    onChange={(e) => updateMember(idx, "grade", e.target.value)}
-                    className="w-full sm:w-36 px-3 py-2 rounded-lg border border-slate-300 text-xs sm:text-sm bg-slate-50/50 font-semibold focus:outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-600/30"
-                  >
-                    {grades.map((g) => (
-                      <option key={g} value={g}>
-                        {g}
-                      </option>
-                    ))}
-                  </select>
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-700 uppercase mb-1">
+                      {form.achievementsLabel}
+                    </label>
+                    <textarea
+                      rows={3}
+                      placeholder={form.achievementsPlaceholder}
+                      value={m.achievements}
+                      onChange={(e) => updateMember(idx, "achievements", e.target.value)}
+                      className="w-full px-3.5 py-2 rounded-lg border border-slate-300 text-xs sm:text-sm bg-slate-50/50 font-semibold placeholder-slate-400 focus:outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-600/30"
+                    />
+                  </div>
                 </div>
               ))}
 
               {hasFifthMember && (
-                <div className="p-4 rounded-xl border-2 border-brand-800 bg-brand-50/40 shadow-xs flex flex-col sm:flex-row items-center gap-3">
+                <div className="p-4 rounded-xl border-2 border-brand-800 bg-brand-50/40 shadow-xs space-y-3">
+                  <div className="flex flex-col sm:flex-row items-center gap-3">
                   <div className="flex items-center justify-between w-full sm:w-auto gap-2">
                     <span className="text-xs font-bold text-brand-900 shrink-0 sm:w-28">
                       {memberRoles.optional5}
@@ -579,6 +645,7 @@ export const RegistrationBlock: React.FC = () => {
                         full_name: "",
                         grade: defaultGrade,
                         role_or_notes: memberRoles.optional5,
+                        achievements: "",
                       });
                     }}
                     className="text-slate-500 hover:text-red-600 p-1.5 shrink-0"
@@ -586,6 +653,20 @@ export const RegistrationBlock: React.FC = () => {
                   >
                     <Trash2 className="w-4 h-4" strokeWidth={2} />
                   </button>
+                  </div>
+
+                  <div>
+                    <label className="block text-[11px] font-bold text-brand-900 uppercase mb-1">
+                      {form.achievementsLabel}
+                    </label>
+                    <textarea
+                      rows={3}
+                      placeholder={form.achievementsPlaceholder}
+                      value={fifthMember.achievements}
+                      onChange={(e) => setFifthMember({ ...fifthMember, achievements: e.target.value })}
+                      className="w-full px-3.5 py-2 rounded-lg border border-slate-300 text-xs sm:text-sm bg-white font-semibold placeholder-slate-400 focus:outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-600/30"
+                    />
+                  </div>
                 </div>
               )}
             </div>

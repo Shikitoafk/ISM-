@@ -25,6 +25,12 @@ CREATE TABLE IF NOT EXISTS public.teams (
     consent_files JSONB NOT NULL DEFAULT '[]'::jsonb
 );
 
+-- Olympiad and science-competition results the captain listed at registration,
+-- one per line. The other members carry theirs inside the members JSONB, but
+-- the captain is stored in columns of their own.
+ALTER TABLE public.teams
+    ADD COLUMN IF NOT EXISTS captain_achievements TEXT;
+
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 ALTER TABLE public.teams
