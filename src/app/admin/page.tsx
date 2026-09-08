@@ -58,6 +58,15 @@ type AdminUser = {
 
 type Tab = "teams" | "rounds" | "admins";
 
+/** One team's place in a room: which team, its role, and what it scored. */
+type RoomSlot = {
+  team_id: string;
+  team_role: string;
+  score: string;
+};
+
+const emptySlot = (): RoomSlot => ({ team_id: "", team_role: "", score: "" });
+
 function AchievementList({ text, emptyLabel }: { text: string | null | undefined; emptyLabel: string }) {
   const lines = (text ?? "").split("\n").map((line) => line.trim()).filter(Boolean);
   if (!lines.length) {
@@ -92,15 +101,13 @@ export default function AdminPage() {
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [search, setSearch] = useState("");
-  const [selectedTeamId, setSelectedTeamId] = useState("");
   const [expandedTeamId, setExpandedTeamId] = useState<string | null>(null);
   const [roundNumber, setRoundNumber] = useState("1");
   const [room, setRoom] = useState("");
-  const [role, setRole] = useState("");
   const [judges, setJudges] = useState("");
-  const [opponents, setOpponents] = useState("");
   const [startsAt, setStartsAt] = useState("");
-  const [roundScore, setRoundScore] = useState("");
+  // Three slots by default: a room is normally reporter, opponent and reviewer.
+  const [roomSlots, setRoomSlots] = useState<RoomSlot[]>(() => [emptySlot(), emptySlot(), emptySlot()]);
   const [adminEmail, setAdminEmail] = useState("");
   const [adminName, setAdminName] = useState("");
 
@@ -129,10 +136,9 @@ export default function AdminPage() {
     } else {
       setTeams((teamsResult.data || []) as Team[]);
       setAdmins((adminsResult.data || []) as AdminUser[]);
-      if (!selectedTeamId && teamsResult.data?.[0]) setSelectedTeamId(teamsResult.data[0].id);
     }
     setLoading(false);
-  }, [selectedTeamId, t.common.loadingError]);
+  }, [t.common.loadingError]);
 
   useEffect(() => {
     if (!isSupabaseConfigured()) {
@@ -185,26 +191,60 @@ export default function AdminPage() {
     window.setTimeout(() => setNotice(null), 3000);
   };
 
+  const updateSlot = (index: number, field: keyof RoomSlot, value: string) => {
+    setRoomSlots((current) => current.map((slot, i) => (i === index ? { ...slot, [field]: value } : slot)));
+  };
+
   const saveRound = async (event: FormEvent) => {
     event.preventDefault();
-    if (!selectedTeamId) return;
     setError(null);
-    const number = Number(roundNumber);
-    await supabase.from("round_assignments").update({ is_current: false }).eq("team_id", selectedTeamId);
-    const payload = {
-      team_id: selectedTeamId,
-      round_number: number,
+
+    const filled = roomSlots.filter((slot) => slot.team_id);
+    if (filled.length < 2) {
+      setError(t.admin.needTwoTeams);
+      return;
+    }
+
+    const teamIds = filled.map((slot) => slot.team_id);
+    if (new Set(teamIds).size !== teamIds.length) {
+      setError(t.admin.duplicateTeam);
+      return;
+    }
+
+    const nameById = new Map(teams.map((team) => [team.id, team.team_name]));
+    const judgeList = judges.split(",").map((item) => item.trim()).filter(Boolean);
+
+    // Clear the flag across the whole room first, so re-assigning a round
+    // never leaves two rounds marked current for the same team.
+    await supabase.from("round_assignments").update({ is_current: false }).in("team_id", teamIds);
+
+    const payload = filled.map((slot) => ({
+      team_id: slot.team_id,
+      round_number: Number(roundNumber),
       room: room.trim() || null,
-      team_role: role.trim() || null,
-      judges: judges.split(",").map((item) => item.trim()).filter(Boolean),
-      opponents: opponents.split(",").map((item) => item.trim()).filter(Boolean),
+      team_role: slot.team_role.trim() || null,
+      judges: judgeList,
+      // Each team's opponents are the others sharing its room.
+      opponents: teamIds
+        .filter((id) => id !== slot.team_id)
+        .map((id) => nameById.get(id) ?? "")
+        .filter(Boolean),
       starts_at: startsAt ? new Date(startsAt).toISOString() : null,
-      score: roundScore.trim() === "" ? null : Number(roundScore),
+      score: slot.score.trim() === "" ? null : Number(slot.score),
       is_current: true,
-    };
-    const { error: roundError } = await supabase.from("round_assignments").upsert(payload, { onConflict: "team_id,round_number" });
-    if (roundError) setError(roundError.message);
-    else showNotice(t.admin.roundSaved);
+    }));
+
+    const { error: roundError } = await supabase
+      .from("round_assignments")
+      .upsert(payload, { onConflict: "team_id,round_number" });
+
+    if (roundError) {
+      setError(roundError.message);
+      return;
+    }
+
+    showNotice(`${t.admin.roundSavedFor} ${filled.map((slot) => nameById.get(slot.team_id)).join(", ")}`);
+    void loadData();
   };
 
   const addAdmin = async (event: FormEvent) => {
@@ -290,7 +330,87 @@ export default function AdminPage() {
                   )}
                   </Fragment>)}</tbody></table>{!filteredTeams.length && <div className="p-10 text-center text-sm text-slate-500">{t.admin.notFound}</div>}</div></section>}
 
-          {tab === "rounds" && <form onSubmit={saveRound} className="mx-auto max-w-3xl rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"><h2 className="font-serif text-2xl font-bold">{t.admin.assignRound}</h2><p className="mt-1 text-sm text-slate-500">{t.admin.assignHint}</p><div className="mt-6 grid gap-4 sm:grid-cols-2"><label className="text-xs font-bold uppercase text-slate-600">{t.admin.team}<select required value={selectedTeamId} onChange={(e) => setSelectedTeamId(e.target.value)} className={`${inputClass} mt-1`}><option value="">{t.admin.selectTeam}</option>{teams.map((team) => <option key={team.id} value={team.id}>{team.team_name}</option>)}</select></label><label className="text-xs font-bold uppercase text-slate-600">{t.admin.roundNumber}<input required type="number" min="1" value={roundNumber} onChange={(e) => setRoundNumber(e.target.value)} className={`${inputClass} mt-1`} /></label><label className="text-xs font-bold uppercase text-slate-600">{t.admin.room}<input value={room} onChange={(e) => setRoom(e.target.value)} placeholder={t.admin.room} className={`${inputClass} mt-1`} /></label><label className="text-xs font-bold uppercase text-slate-600">{t.admin.role}<input value={role} onChange={(e) => setRole(e.target.value)} placeholder="Role 1" className={`${inputClass} mt-1`} /></label><label className="text-xs font-bold uppercase text-slate-600 sm:col-span-2">{t.admin.opponents}<input value={opponents} onChange={(e) => setOpponents(e.target.value)} placeholder="Team A, Team B, Team C" className={`${inputClass} mt-1`} /></label><label className="text-xs font-bold uppercase text-slate-600 sm:col-span-2">{t.admin.judges}<input value={judges} onChange={(e) => setJudges(e.target.value)} placeholder={t.admin.judges} className={`${inputClass} mt-1`} /></label><label className="text-xs font-bold uppercase text-slate-600">{t.admin.dateTime}<input type="datetime-local" value={startsAt} onChange={(e) => setStartsAt(e.target.value)} className={`${inputClass} mt-1`} /></label><label className="text-xs font-bold uppercase text-slate-600">{t.admin.roundScore}<input type="number" step="0.1" value={roundScore} onChange={(e) => setRoundScore(e.target.value)} className={inputClass + " mt-1"} /><span className="mt-1 block text-[11px] font-medium normal-case tracking-normal text-slate-500">{t.admin.roundScoreHint}</span></label></div><button className="mt-6 flex items-center gap-2 rounded-xl bg-brand-800 px-5 py-3 text-sm font-bold text-white hover:bg-brand-900"><Save className="h-4 w-4" />{t.admin.saveRound}</button></form>}
+          {tab === "rounds" && (
+            <form onSubmit={saveRound} className="mx-auto max-w-3xl rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+              <h2 className="font-serif text-2xl font-bold">{t.admin.assignRound}</h2>
+              <p className="mt-1 text-sm text-slate-500">{t.admin.assignHint}</p>
+
+              {/* Shared by everyone in the room. */}
+              <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                <label className="text-xs font-bold uppercase text-slate-600">
+                  {t.admin.roundNumber}
+                  <input required type="number" min="1" value={roundNumber} onChange={(e) => setRoundNumber(e.target.value)} className={inputClass + " mt-1"} />
+                </label>
+                <label className="text-xs font-bold uppercase text-slate-600">
+                  {t.admin.room}
+                  <input value={room} onChange={(e) => setRoom(e.target.value)} placeholder={t.admin.room} className={inputClass + " mt-1"} />
+                </label>
+                <label className="text-xs font-bold uppercase text-slate-600">
+                  {t.admin.dateTime}
+                  <input type="datetime-local" value={startsAt} onChange={(e) => setStartsAt(e.target.value)} className={inputClass + " mt-1"} />
+                </label>
+                <label className="text-xs font-bold uppercase text-slate-600">
+                  {t.admin.judges}
+                  <input value={judges} onChange={(e) => setJudges(e.target.value)} placeholder={t.admin.judges} className={inputClass + " mt-1"} />
+                </label>
+              </div>
+
+              {/* One row per team: its role and its own score. */}
+              <div className="mt-8">
+                <div className="flex items-center justify-between gap-3">
+                  <h3 className="font-serif text-lg font-bold">{t.admin.roomTeamsTitle}</h3>
+                  <button
+                    type="button"
+                    onClick={() => setRoomSlots((current) => [...current, emptySlot()])}
+                    className="inline-flex items-center gap-1.5 rounded-lg border border-brand-300 bg-brand-50 px-3 py-1.5 text-xs font-bold text-brand-800 hover:bg-brand-100"
+                  >
+                    <Plus className="h-3.5 w-3.5" />
+                    {t.admin.addTeamToRoom}
+                  </button>
+                </div>
+                <p className="mt-1 text-xs text-slate-500">{t.admin.opponents}</p>
+
+                <div className="mt-4 space-y-3">
+                  {roomSlots.map((slot, index) => (
+                    <div key={index} className="grid gap-2 rounded-xl border border-slate-200 bg-slate-50 p-3 sm:grid-cols-[1.4fr_1fr_0.7fr_auto] sm:items-end">
+                      <label className="text-[11px] font-bold uppercase text-slate-600">
+                        {t.admin.team}
+                        <select value={slot.team_id} onChange={(e) => updateSlot(index, "team_id", e.target.value)} className={inputClass + " mt-1"}>
+                          <option value="">{t.admin.selectTeam}</option>
+                          {teams.map((team) => (
+                            <option key={team.id} value={team.id}>{team.team_name}</option>
+                          ))}
+                        </select>
+                      </label>
+                      <label className="text-[11px] font-bold uppercase text-slate-600">
+                        {t.admin.role}
+                        <input value={slot.team_role} onChange={(e) => updateSlot(index, "team_role", e.target.value)} placeholder={t.admin.role} className={inputClass + " mt-1"} />
+                      </label>
+                      <label className="text-[11px] font-bold uppercase text-slate-600">
+                        {t.admin.roundScore}
+                        <input type="number" step="0.1" value={slot.score} onChange={(e) => updateSlot(index, "score", e.target.value)} className={inputClass + " mt-1"} />
+                      </label>
+                      <button
+                        type="button"
+                        onClick={() => setRoomSlots((current) => (current.length > 2 ? current.filter((_, i) => i !== index) : current.map((s, i) => (i === index ? emptySlot() : s))))}
+                        title={t.admin.removeTeamFromRoom}
+                        className="mb-1 justify-self-end rounded-lg p-2 text-slate-400 hover:bg-red-50 hover:text-red-700"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+
+                <p className="mt-3 text-[11px] font-medium text-slate-500">{t.admin.roundScoreHint}</p>
+              </div>
+
+              <button className="mt-6 flex items-center gap-2 rounded-xl bg-brand-800 px-5 py-3 text-sm font-bold text-white hover:bg-brand-900">
+                <Save className="h-4 w-4" />
+                {t.admin.saveRound}
+              </button>
+            </form>
+          )}
 
           {tab === "admins" && <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr]"><form onSubmit={addAdmin} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"><UserPlus className="h-9 w-9 rounded-xl bg-brand-50 p-2 text-brand-800" /><h2 className="mt-4 font-serif text-xl font-bold">{t.admin.addAdmin}</h2><p className="mt-1 text-xs leading-relaxed text-slate-500">{t.admin.userFirst}</p><div className="mt-5 space-y-3"><input type="email" required value={adminEmail} onChange={(e) => setAdminEmail(e.target.value)} placeholder="email@example.com" className={inputClass} /><input value={adminName} onChange={(e) => setAdminName(e.target.value)} placeholder={t.admin.nameOptional} className={inputClass} /><button className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-800 py-3 text-sm font-bold text-white"><Plus className="h-4 w-4" />{t.admin.grant}</button></div></form><section className="rounded-2xl border border-slate-200 bg-white shadow-sm"><div className="border-b border-slate-200 p-5"><h2 className="font-serif text-xl font-bold">{t.admin.adminTeam}</h2></div><div className="divide-y divide-slate-100">{admins.map((admin) => <div key={admin.user_id} className="flex items-center justify-between gap-4 p-4"><div><div className="font-bold">{admin.display_name || t.admin.administrator}</div><div className="text-xs text-slate-500">{admin.email}</div></div><button onClick={() => removeAdmin(admin.user_id)} className="rounded-lg p-2 text-slate-400 hover:bg-red-50 hover:text-red-700" title={t.admin.revoke}><Trash2 className="h-4 w-4" /></button></div>)}</div></section></div>}
         </div>
