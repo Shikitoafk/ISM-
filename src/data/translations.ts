@@ -1527,9 +1527,9 @@ export const TRANSLATIONS: Record<Language, ContentStructure> = {
         { name: "Нұрмұхаммед Марат", role: "Қауіпсіздік менеджері", organization: "ISM Атқарушы кеңесі", badge: "Security" },
         { name: "Ізтілеу Ерболатұлы", role: "SMM Менеджері", organization: "ISM Атқарушы кеңесі", badge: "SMM & Media" },
         { name: "Ілияс Бейсенбек", role: "HR Менеджері", organization: "ISM Атқарушы кеңесі", badge: "HR Manager" },
-        { name: "Саида Сағадиева", role: "Үйлестіруші", organization: "ISM Атқарушы кеңесі", badge: "Coordinator" },
-        { name: "Әлия Мәжіранова", role: "Үйлестіруші", organization: "ISM Атқарушы кеңесі", badge: "Coordinator" },
-        { name: "Дариға Мырзадәулетова", role: "Үйлестіруші", organization: "ISM Атқарушы кеңесі", badge: "Coordinator" },
+        { name: "Саида Сагадиева", role: "Үйлестіруші", organization: "ISM Атқарушы кеңесі", badge: "Coordinator" },
+        { name: "Алия Мажиранова", role: "Үйлестіруші", organization: "ISM Атқарушы кеңесі", badge: "Coordinator" },
+        { name: "Дарига Мирзадавлетова", role: "Үйлестіруші", organization: "ISM Атқарушы кеңесі", badge: "Coordinator" },
       ],
       juryMembers: [
         { name: "Иса Хафиз Алмасұлы", role: "Қазылар алқасының мүшесі", organization: "Академиялық қазылар", badge: "Биология", achievements: ["Республикалық олимпиада — алтын", "IJSO қатысушысы", "British Biology Olympiad — күміс", "KBO финалисі — алтын және күміс"] },
